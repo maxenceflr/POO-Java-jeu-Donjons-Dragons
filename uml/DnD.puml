@@ -1,0 +1,119 @@
+@startuml
+
+'https://plantuml.com/sequence-diagram
+scale 2
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
+hide empty members
+
+package personnage
+{
+
+    class Personnage
+    {
+        - m_nom : String
+    }
+
+    class Caractéristiques
+    {
+        - m_pv : Double
+        - m_force : Double
+        - m_dextérité : Double
+        - m_vitesse : Double
+        - m_initiative : Double
+        - <<create>> Caractéristiques (pv : Double, force : Double, dextérité : Double, vitesse : Double, initiative : Double)
+        - <<create>> Caractéristiques ()
+    }
+
+    package race
+    {
+        interface Race <<interface>>
+        {
+        }
+
+        class Humain implements Race
+        {
+            - <<create>> Humain ()
+        }
+
+        class Nain implements Race
+        {
+            - <<create>> Nain ()
+        }
+
+        class Elfe implements Race
+        {
+            - <<create>> Elfe ()
+        }
+
+        class Halfelin implements Race
+        {
+            - <<create>> Halfelin ()
+        }
+    }
+    package équipement
+    {
+        abstract class Arme <<abstract>>{
+         - m_dégât : Integer
+         - m_portée : Integer
+        }
+
+        abstract class ArmureLegere <<abstract>> extends Armure
+        {
+        }
+
+        abstract class ArmureLourde <<abstract>> extends Armure
+        {
+        }
+
+        abstract class ArmureEcailles extends ArmureLegere
+        {
+        }
+
+        abstract class Demiplate extends ArmureLegere
+        {
+        }
+
+        abstract class Armure <<abstract>>{
+         - m_classeArmure : Integer
+        }
+    }
+
+    package classe
+    {
+        interface Classe <<interface>>
+        {
+        }
+
+        class Guerrier implements Classe
+        {
+            - <<create>> Guerrier ()
+        }
+
+        class Clerc implements Classe
+        {
+            - <<create>> Clerc ()
+        }
+
+        class Magicien implements Classe
+        {
+            - <<create>> Magicien ()
+        }
+
+        class Roublard implements Classe
+        {
+            - <<create>> Roublard ()
+        }
+        }
+}
+
+Personnage "1" *--> " 1 \nm_caractéristiques" Caractéristiques : possède
+Personnage "1" o--> " 1 \nm_race" Race : possède
+Personnage "1" o--> " 1 \nm_classe" Classe : possède
+
+class MaitreDuJeu{
+}
+
+
+@enduml
