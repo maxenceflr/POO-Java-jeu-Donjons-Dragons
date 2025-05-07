@@ -7,23 +7,40 @@ skinparam classFontStyle Bold
 skinparam style strictuml
 hide empty members
 
+interface Entite <<interface>>
+{
+}
+
+package caracteristiques
+{
+    class Caractéristiques
+    {
+        - m_pv : Integer
+        - m_force : Integer
+        - m_dextérité : Integer
+        - m_vitesse : Integer
+        - m_initiative : Integer
+        - <<create>> Caractéristiques (pv : Integer, force : Integer, dextérité : Integer, vitesse : Integer, initiative : Integer)
+        - <<create>> Caractéristiques ()
+    }
+
+    class CaractéristiquesMonstre extends Caractéristiques
+    {
+        - m_classeArmure : Integer
+        - <<create>> CaractéristiquesMonstre ()
+    }
+
+}
+
+
 package personnage
 {
 
     class Personnage
     {
         - m_nom : String
-    }
-
-    class Caractéristiques
-    {
-        - m_pv : Double
-        - m_force : Double
-        - m_dextérité : Double
-        - m_vitesse : Double
-        - m_initiative : Double
-        - <<create>> Caractéristiques (pv : Double, force : Double, dextérité : Double, vitesse : Double, initiative : Double)
-        - <<create>> Caractéristiques ()
+        - <<create>> EpeeLongue (Nom : String, race : Race, classe : Classe, inventory : Inventaire, carac : Caractéristiques, equipPorte : EquipementPorte)
+        + lancerDe(String) : Int
     }
 
     package race
@@ -52,6 +69,7 @@ package personnage
             - <<create>> Halfelin ()
         }
     }
+
     package équipement
     {
         abstract class Arme <<abstract>>{
@@ -59,24 +77,100 @@ package personnage
          - m_portée : Integer
         }
 
+        abstract class ArmeCourante <<abstract>> extends Arme
+        {
+            - <<create>> ArmeCourante ()
+        }
+
+        class Baton extends ArmeCourante
+        {
+            - <<create>> Baton ()
+        }
+
+        class MasseDarme extends ArmeCourante
+        {
+            - <<create>> MasseDarme ()
+        }
+
+        abstract class ArmeGuerre <<abstract>> extends Arme
+        {
+            - <<create>> ArmeGuerre ()
+        }
+
+        class EpeeLongue extends ArmeGuerre
+        {
+            - <<create>> EpeeLongue ()
+        }
+
+        class Rapière extends ArmeGuerre
+        {
+            - <<create>> Rapiere ()
+        }
+
+        abstract class ArmeDistance <<abstract>> extends Arme
+        {
+            - <<create>> ArmeDistance ()
+        }
+
+        class ArbalèteLégère extends ArmeDistance
+        {
+            - <<create>> ArbalèteLégère ()
+        }
+
+        class Fronde extends ArmeDistance
+        {
+            - <<create>> Fronde ()
+        }
+
+        class ArcCourt extends ArmeDistance
+        {
+            - <<create>> ArcCourt ()
+        }
+
         abstract class ArmureLegere <<abstract>> extends Armure
         {
+            - <<create>> EpeeLongue ()
         }
 
         abstract class ArmureLourde <<abstract>> extends Armure
         {
+            - <<create>> ArmureLourde ()
         }
 
-        abstract class ArmureEcailles extends ArmureLegere
+        class ArmureEcailles extends ArmureLegere
         {
+            - <<create>> ArmureEcailles ()
         }
 
-        abstract class Demiplate extends ArmureLegere
+        class Demiplate extends ArmureLegere
         {
+            - <<create>> Demiplate ()
         }
 
-        abstract class Armure <<abstract>>{
+        abstract class Armure <<abstract>>
+        {
          - m_classeArmure : Integer
+         - <<create>> Armure ()
+        }
+
+        class CotteDeMailles extends ArmureLourde
+        {
+            - <<create>> CotteDeMailles ()
+        }
+
+        class Harnois extends ArmureLourde
+        {
+            - <<create>> Harnois ()
+        }
+
+        class Inventaire
+        {
+            - <<create>> Inventaire(listeArme : Arme[*], listeArmure : Armure[*])
+        }
+
+        class EquipementPorte
+        {
+            - <<create>> EquipementPorte (arme : Arme, armure : Armure)
         }
     }
 
@@ -105,15 +199,70 @@ package personnage
         {
             - <<create>> Roublard ()
         }
-        }
+    }
 }
 
 Personnage "1" *--> " 1 \nm_caractéristiques" Caractéristiques : possède
 Personnage "1" o--> " 1 \nm_race" Race : possède
 Personnage "1" o--> " 1 \nm_classe" Classe : possède
+Personnage "1" o--> " 1 \nm_inventaire" Inventaire : possède
+Personnage "1" o--> " 1 \nm_equipementPorte" EquipementPorte : possède
+Inventaire "1..*" o--> "1..* \nm_listearme" Arme : contient
+Inventaire "1..*" o--> " 1..* \nm_listearmure" Armure : contient
+EquipementPorte "1" o--> " 1 \nm_armure" Armure : possède
+EquipementPorte "1" o--> " 1 \nm_arme" Arme : possède
 
-class MaitreDuJeu{
+
+package monstre
+{
+    class Monstre
+    {
+        - m_numero : Optional<Integer>
+        - <<create>> Monstre (attaque : Attaque, espece : Espece)
+        - <<create>> Monstre (attaque : Attaque, espece : Espece, numero : Integer)
+    }
+
+    class Espece
+    {
+        - m_nomEspece : String
+        - <<create>> Espece (nomEspece : String)
+    }
+
+    class Attaque
+    {
+        - m_portée : Integer
+        - m_dégâts : Integer
+        - <<create>> Attaque (dégats : Integer, portée : Integer)
+    }
+
 }
 
+Monstre "1" o--> " 1 \nm_espece" Espece : est
+Monstre "1" o--> " 1 \nm_attaque" Attaque : détient
+Monstre "1" o--> " 1 \nm_caractéristiques" CaractéristiquesMonstre : détient
+
+package dés
+{
+    class De
+    {
+        - m_nbDes : Integer
+        - m_nbFace : Integer
+        + jeterDes (nbDes : Integer, nbFaceDes : Integer) : Integer
+    }
+
+}
+
+package donjon
+{
+    class Donjon
+    {
+        -m_carteDonjon :
+    }
+
+    class obstacle implements Entite
+    {
+
+    }
+}
 
 @enduml
