@@ -7,8 +7,14 @@ skinparam classFontStyle Bold
 skinparam style strictuml
 hide empty members
 
-interface Entite <<interface>>
+abstract class Entite <<abstract>>
 {
+    -m-nom : String
+    -m_representation : String
+    -m_pv : Integer [0..1]
+    -m_race : Race [0..1]
+    -m_classe : Classe [0..1]
+    -m_espece : Espece [0..1]
 }
 
 package caracteristiques
@@ -29,13 +35,10 @@ package caracteristiques
         - m_classeArmure : Integer
         - <<create>> CaractéristiquesMonstre ()
     }
-
 }
-
 
 package personnage
 {
-
     class Personnage
     {
         - m_nom : String
@@ -212,7 +215,6 @@ Inventaire "1..*" o--> " 1..* \nm_listearmure" Armure : contient
 EquipementPorte "1" o--> " 1 \nm_armure" Armure : possède
 EquipementPorte "1" o--> " 1 \nm_arme" Arme : possède
 
-
 package monstre
 {
     class Monstre
@@ -234,7 +236,6 @@ package monstre
         - m_dégâts : Integer
         - <<create>> Attaque (dégats : Integer, portée : Integer)
     }
-
 }
 
 Monstre "1" o--> " 1 \nm_espece" Espece : est
@@ -249,7 +250,6 @@ package dés
         - m_nbFace : Integer
         + jeterDes (nbDes : Integer, nbFaceDes : Integer) : Integer
     }
-
 }
 
 package donjon
@@ -259,10 +259,16 @@ package donjon
         -m_carteDonjon :
     }
 
-    class obstacle implements Entite
+    class obstacle
     {
-
     }
 }
+
+' AJOUT DES LIENS D'HÉRITAGE
+Monstre --|> Entite
+Personnage --|> Entite
+Armure --|> Entite
+Arme --|> Entite
+obstacle --|> Entite
 
 @enduml
