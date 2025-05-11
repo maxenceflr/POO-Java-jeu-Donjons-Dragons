@@ -1,0 +1,251 @@
+@startuml
+
+'https://plantuml.com/sequence-diagram
+scale 2
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+skinparam style strictuml
+hide empty members
+
+
+
+
+package entite
+{
+
+    abstract class Entite <<abstract>>
+    {
+        - m_nom : String
+        + <<create>> Entite(nom: String)
+        + attaquer(other: Entite)
+        + {abstract}toString(): String
+        + seDeplacer()
+        + getNom(): String
+        + getPv(): Integer
+        + getDexterite(): Integer
+        + getVitesse(): Integer
+        + getInit(): Integer
+        + getForce() : Integer
+    }
+
+    package personnage
+    {
+        class Personnage extends entite.Entite
+        {
+            + <<create>> Personnage (Nom: String, race: Race, classe: Classe, inventory: Item[*], stats: Caracteristiques, equipPorte: EquipementPorte)
+            + equiper (objet: Item)
+            + ramasser (objet: Item)
+        }
+
+        package race
+        {
+            abstract class Race <<abstract>>
+            {
+                + toString(): String
+                + <<create>> Race(stats: Caracteristiques)
+            }
+
+            class Humain implements Race
+            {
+                + toString(): String
+                +<<create>> Humain(stats: Caracteristiques)
+                +<<create>> Humain()
+            }
+
+            class Nain implements Race
+            {
+                + toString(): String
+                + <<create>> Nain(stats: Caracteristiques)
+                + <<create>> Nain()
+            }
+
+            class Elfe implements Race
+            {
+                + toString(): String
+                + <<create>> Elfe(stats: Caracteristiques)
+                + <<create>> Elfe()
+            }
+
+            class Halfelin implements Race
+            {
+                + toString(): String
+                + <<create>> Halfelin(stats: Caracteristiques)
+                + <<create>> Halfelin()
+            }
+        }
+
+        package classe
+        {
+            abstract class Classe <<abstract>>
+            {
+                - m_pv : Integer
+                + toString(): String
+                + <<create>> Classe(pv: Integer, equipement: Items[*])
+                + getPv(): Integer
+            }
+
+            class Guerrier implements Classe
+            {
+                + <<create>> Guerrier()
+                + toString(): String
+            }
+
+            class Clerc implements Classe
+            {
+                + <<create>> Clerc()
+                + toString(): String
+            }
+
+            class Magicien implements Classe
+            {
+                + <<create>> Magicien()
+                + toString(): String
+            }
+
+            class Roublard implements Classe
+            {
+                + <<create>> Roublard()
+                + toString(): String
+            }
+        }
+    }
+
+    package monstre
+    {
+        class Monstre extends entite.Entite
+        {
+            - m_numero : Optional<Integer>
+            - m_portee : Integer
+            - m_degats : Integer
+            - m_classeArmure : Integer
+            + <<create>> Monstre (portee : Integer, degats : Integer, espece : Espece)
+            + <<create>> Monstre (portee : Integer, degats : Integer, espece : Espece, numero : Integer)
+        }
+
+        class Espece
+        {
+            + m_nomEspece: String
+            + <<create>> Espece (nomEspece : String)
+            + getNomEspece(): String
+            + toString()
+        }
+    }
+}
+
+class Caracteristiques
+{
+    - m_pv : Integer
+    - m_force : Integer
+    - m_dexterite : Integer
+    - m_vitesse : Integer
+    - m_initiative : Integer
+    + <<create>> Caractéristiques (pv : Integer, force : Integer, dextérité : Integer, vitesse : Integer, initiative : Integer)
+    + toString(): String
+    + getPv(): Integer
+    + getDexterite(): Integer
+    + getVitesse(): Integer
+    + getInit(): Integer
+    + getForce() : Integer
+}
+
+
+package objet
+{
+    abstract class Item <<abstract>>
+    {
+        -m_nom : String
+        + <<create>> Item (nom : String, stats: Caracteristiques)
+        + getNom(): String
+        + toString(): String
+        + getPv(): Integer
+        + getDexterite(): Integer
+        + getVitesse(): Integer
+        + getInit(): Integer
+        + getForce() : Integer
+    }
+
+    class EquipementPorte
+    {
+        + <<create>> EquipementPorte (arme: Arme, armure: Armure)
+        + getArme(): Arme
+        + getArmure(): Armure
+        + toString(): String
+    }
+
+    abstract class Arme <<abstract>> implements Item
+    {
+        - m_degats : Integer
+        - m_portee : Integer
+        + <<create>> Arme (degats : Integer, portee : Integer, nom: String, stats: Caracteristiques)
+        + getDegats(): Integer
+        + getPortee(): Integer
+    }
+
+     abstract class Armure <<abstract>> implements Item
+     {
+        - m_classeArmure : Integer
+        + <<create>> Armure (armure : Integer, nom: String, stats: Caracteristiques)
+        + getClasseArmure(): Integer
+     }
+
+     class ArmureLourde  extends Armure
+     {
+        + <<create>> ArmureLourde(armure : Integer, nom: String, stats: Caracteristiques)
+     }
+
+     class ArmureLegere  extends Armure
+     {
+        + <<create>> ArmureLegere (armure : Integer, nom: String, stats: Caracteristiques
+     }
+
+     class ArmeCourante  extends Arme
+     {
+        + <<create>> ArmeCourante  (degats : Integer, portee : Integer, nom: String, stats: Caracteristiques)
+     }
+
+     class ArmeDeGuerre  extends Arme
+     {
+        + <<create>> ArmeDeGuerre  (degats : Integer, portee : Integer, nom: String, stats: Caracteristiques)
+     }
+
+     class ArmeDistance extends Arme
+     {
+        + <<create>> ArmeDistance (degats : Integer, portee : Integer, nom: String, stats: Caracteristiques)
+     }
+}
+
+
+package donjon
+{
+    class Donjon
+    {
+
+    }
+
+    class Obstacle
+    {
+    }
+}
+
+ class De
+ {
+    - m_nbDes : Integer
+    - m_nbFace : Integer
+    + jeterDes (nbDes : Integer, nbFaceDes : Integer) : Integer
+    + toString()
+ }
+
+Entite "1" *--> " 1 \nm_caractéristiques" Caracteristiques : detient
+Personnage "1..*" *--> "1..* \nm_inventaire" Item : contient
+Personnage "1" o--> " 1 \nm_race" Race : est
+Personnage "1" o--> " 1 \nm_classe" Classe : possède
+Personnage "1" *--> " 1..* \nm_equipement" EquipementPorte : possède
+Monstre "1" o--> " 1 \nm_espece" Espece : est
+Race "1" *--> " 1 \nm_caractéristiques" Caracteristiques : detient
+Classe "1..*" *--> " 1..* \nm_equipement" Item : detient
+Item "1" *--> " 1 \nm_caractéristiques" Caracteristiques : detient
+EquipementPorte "1" *--> " 1 \nm_arme" Arme : contient
+EquipementPorte "1" *--> " 1 \nm_armure" Armure : contient
+
+@enduml
+
