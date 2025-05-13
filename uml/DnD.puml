@@ -25,6 +25,7 @@ package entite
         + getForce() : Integer
     }
 
+
     package personnage
     {
         class Personnage extends entite.Entite
@@ -90,7 +91,6 @@ package entite
         {
             abstract class Classe <<abstract>>
             {
-                - m_pv : Integer
                 + toString(): String
                 + <<create>> Classe(pv: Integer, equipement: Items[*])
                 + getPv(): Integer
@@ -334,7 +334,9 @@ Monstre "1" *--> " 1 \nm_attaque" AttaqueMonstre : possède
 Monstre "1" *--> " 1 \nm_classeArmure" stats.ClasseArmure : possède
 
 Race "1" *--> " 1 \nm_caractéristiques" CaracteristiquesBase : detient
+
 Classe "1..*" *--> " 1..* \nm_equipement" Inventaire : detient
+Classe "1" o--> " 1 \nm_pv" Pv : detient
 
 EquipementPorte "1" *--> " 1 \nm_arme" Arme : contient
 EquipementPorte "1" *--> " 1 \nm_armure" Armure : contient
