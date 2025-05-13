@@ -1,7 +1,6 @@
 @startuml
 
 'https://plantuml.com/sequence-diagram
-scale 2
 skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
 skinparam style strictuml
@@ -15,12 +14,10 @@ package entite
 
     abstract class Entite <<abstract>>
     {
-        - m_nom : String
         + <<create>> Entite(nom: String)
         + attaquer(other: Entite)
         + {abstract}toString(): String
         + seDeplacer()
-        + getNom(): String
         + getPv(): Integer
         + getDexterite(): Integer
         + getVitesse(): Integer
@@ -32,9 +29,19 @@ package entite
     {
         class Personnage extends entite.Entite
         {
-            + <<create>> Personnage (Nom: String, race: Race, classe: Classe, inventory: Item[*], stats: CaracteristiquesBase, equipPorte: EquipementPorte)
+            - m_nom: String
+            + <<create>> Personnage (Nom: String, race: Race, classe: Classe, inventory: Inventaire, stats: CaracteristiquesBase, equipPorte: EquipementPorte)
             + equiper (objet: Item)
             + ramasser (objet: Item)
+            + getNom(): String
+        }
+
+        class EquipementPorte
+        {
+            + <<create>> EquipementPorte (arme: Arme, armure: Armure)
+            + getArme(): Arme
+            + getArmure(): Armure
+            + toString(): String
         }
 
         class Inventaire
@@ -120,11 +127,18 @@ package entite
         class Monstre extends entite.Entite
         {
             - m_numero : Optional<Integer>
-            - m_portee : Integer
-            - m_degats : Integer
             - m_classeArmure : Integer
             + <<create>> Monstre (portee : Integer, degats : Integer, espece : Espece)
             + <<create>> Monstre (portee : Integer, degats : Integer, espece : Espece, numero : Integer)
+            + getClasseArmure() : Integer
+        }
+
+        class AttaqueMonstre
+        {
+            - m_portee : Integer
+            - m_degats : Integer
+            + getPorte(): Integer
+            + getDegats(): Integer
         }
 
         class Espece
@@ -150,24 +164,46 @@ package stats
         + getForce() : Integer
     }
 
+    class ClasseArmure
+    {
+        - m_classeArmure : Integer
+        + toString(): String
+        + getClasseArmure(): Integer
+    }
+
     class Pv
     {
+        - m_pv : Integer
+        + toString(): String
+        + getPv(): Integer
     }
 
     class Force
     {
+        - m_force : Integer
+        + toString(): String
+        + getForce(): Integer
     }
 
     class Dexterite
     {
+        - m_dexterite : Integer
+        + toString(): String
+        + getDexterite: Integer
     }
 
     class Vitesse
     {
+        - m_vitesse : Integer
+        + toString(): String
+        + getVitesse(): Integer
     }
 
     class Initiative
     {
+        - m_initiative : Integer
+        + toString(): String
+        + getInitiative(): Integer
     }
 }
 
@@ -186,13 +222,6 @@ package objet
         + getForce() : Integer
     }
 
-    class EquipementPorte
-    {
-        + <<create>> EquipementPorte (arme: Arme, armure: Armure)
-        + getArme(): Arme
-        + getArmure(): Armure
-        + toString(): String
-    }
 
     abstract class Arme <<abstract>> implements Item
     {
@@ -205,7 +234,6 @@ package objet
 
      abstract class Armure <<abstract>> implements Item
      {
-        - m_classeArmure : Integer
         + <<create>> Armure (armure : Integer, nom: String, stats: CaracteristiquesBase)
         + getClasseArmure(): Integer
      }
@@ -300,7 +328,7 @@ CaracteristiquesBase "1" o--> " 1 \nm_initiative" Initiative : possède
 
 Entite "1" *--> " 1 \nm_caractéristiques" CaracteristiquesBase : detient
 
-Personnage "1" o--> " 1 \nm_inventaire" Inventaire : possède
+Personnage "1" *--> " 1 \nm_inventaire" Inventaire : possède
 Personnage "1" o--> " 1 \nm_race" Race : est
 Personnage "1" o--> " 1 \nm_classe" Classe : possède
 Personnage "1" *--> " 1..* \nm_equipement" EquipementPorte : possède
@@ -308,11 +336,20 @@ Personnage "1" *--> " 1..* \nm_equipement" EquipementPorte : possède
 Inventaire "1..*" o--> " 1..* \nm_listeitems" objet.Item : possède
 
 Monstre "1" o--> " 1 \nm_espece" Espece : est
+Monstre "1" *--> " 1 \nm_attaque" AttaqueMonstre : possède
+Monstre "1" *--> " 1 \nm_classeArmure" stats.ClasseArmure : possède
+
 Race "1" *--> " 1 \nm_caractéristiques" CaracteristiquesBase : detient
-Classe "1..*" *--> " 1..* \nm_equipement" Item : detient
+Classe "1..*" *--> " 1..* \nm_equipement" Inventaire : detient
+
 Item "1" *--> " 1 \nm_caractéristiques" CaracteristiquesBase : detient
 EquipementPorte "1" *--> " 1 \nm_arme" Arme : contient
 EquipementPorte "1" *--> " 1 \nm_armure" Armure : contient
+
+Armure "1" *--> " 1 \nm_armure" ClasseArmure : possède
+
+ArmureDeGuerre "1" *--> " 1 \nm_armure" ClasseArmure : possède
+ArmureDeGuerre "1" *--> " 1 \nm_armure" ClasseArmure : possède
 
 @enduml
 
