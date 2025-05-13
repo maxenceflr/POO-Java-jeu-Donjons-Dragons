@@ -214,12 +214,6 @@ package objet
         -m_nom : String
         + <<create>> Item (nom : String, stats: CaracteristiquesBase)
         + getNom(): String
-        + toString(): String
-        + getPv(): Integer
-        + getDexterite(): Integer
-        + getVitesse(): Integer
-        + getInit(): Integer
-        + getForce() : Integer
     }
 
 
@@ -342,14 +336,15 @@ Monstre "1" *--> " 1 \nm_classeArmure" stats.ClasseArmure : possède
 Race "1" *--> " 1 \nm_caractéristiques" CaracteristiquesBase : detient
 Classe "1..*" *--> " 1..* \nm_equipement" Inventaire : detient
 
-Item "1" *--> " 1 \nm_caractéristiques" CaracteristiquesBase : detient
 EquipementPorte "1" *--> " 1 \nm_arme" Arme : contient
 EquipementPorte "1" *--> " 1 \nm_armure" Armure : contient
 
 Armure "1" *--> " 1 \nm_armure" ClasseArmure : possède
 
-ArmureDeGuerre "1" *--> " 1 \nm_armure" ClasseArmure : possède
-ArmureDeGuerre "1" *--> " 1 \nm_armure" ClasseArmure : possède
+ArmeDeGuerre "1" *--> " 1 \nm_vitesse" Vitesse : possède
+ArmeDeGuerre "1" *--> " 1 \nm_force" Force : possède
+
+ArmureLourde "1" *--> " 1 \nm_vitesse" Vitesse : possède
 
 @enduml
 
