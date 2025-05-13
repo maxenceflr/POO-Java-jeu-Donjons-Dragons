@@ -32,9 +32,14 @@ package entite
     {
         class Personnage extends entite.Entite
         {
-            + <<create>> Personnage (Nom: String, race: Race, classe: Classe, inventory: Item[*], stats: Caracteristiques, equipPorte: EquipementPorte)
+            + <<create>> Personnage (Nom: String, race: Race, classe: Classe, inventory: Item[*], stats: CaracteristiquesBase, equipPorte: EquipementPorte)
             + equiper (objet: Item)
             + ramasser (objet: Item)
+        }
+
+        class Inventaire
+        {
+            +toString(): String
         }
 
         package race
@@ -132,29 +137,46 @@ package entite
     }
 }
 
-class Caracteristiques
+package stats
 {
-    - m_pv : Integer
-    - m_force : Integer
-    - m_dexterite : Integer
-    - m_vitesse : Integer
-    - m_initiative : Integer
-    + <<create>> Caractéristiques (pv : Integer, force : Integer, dextérité : Integer, vitesse : Integer, initiative : Integer)
-    + toString(): String
-    + getPv(): Integer
-    + getDexterite(): Integer
-    + getVitesse(): Integer
-    + getInit(): Integer
-    + getForce() : Integer
-}
+    class CaracteristiquesBase
+    {
+        + <<create>> Caractéristiques (pv : Integer, force : Integer, dextérité : Integer, vitesse : Integer, initiative : Integer)
+        + toString(): String
+        + getPv(): Integer
+        + getDexterite(): Integer
+        + getVitesse(): Integer
+        + getInit(): Integer
+        + getForce() : Integer
+    }
 
+    class Pv
+    {
+    }
+
+    class Force
+    {
+    }
+
+    class Dexterite
+    {
+    }
+
+    class Vitesse
+    {
+    }
+
+    class Initiative
+    {
+    }
+}
 
 package objet
 {
     abstract class Item <<abstract>>
     {
         -m_nom : String
-        + <<create>> Item (nom : String, stats: Caracteristiques)
+        + <<create>> Item (nom : String, stats: CaracteristiquesBase)
         + getNom(): String
         + toString(): String
         + getPv(): Integer
@@ -176,7 +198,7 @@ package objet
     {
         - m_degats : Integer
         - m_portee : Integer
-        + <<create>> Arme (degats : Integer, portee : Integer, nom: String, stats: Caracteristiques)
+        + <<create>> Arme (degats : Integer, portee : Integer, nom: String, stats: CaracteristiquesBase)
         + getDegats(): Integer
         + getPortee(): Integer
     }
@@ -184,33 +206,33 @@ package objet
      abstract class Armure <<abstract>> implements Item
      {
         - m_classeArmure : Integer
-        + <<create>> Armure (armure : Integer, nom: String, stats: Caracteristiques)
+        + <<create>> Armure (armure : Integer, nom: String, stats: CaracteristiquesBase)
         + getClasseArmure(): Integer
      }
 
      class ArmureLourde  extends Armure
      {
-        + <<create>> ArmureLourde(armure : Integer, nom: String, stats: Caracteristiques)
+        + <<create>> ArmureLourde(armure : Integer, nom: String, stats: CaracteristiquesBase)
      }
 
      class ArmureLegere  extends Armure
      {
-        + <<create>> ArmureLegere (armure : Integer, nom: String, stats: Caracteristiques
+        + <<create>> ArmureLegere (armure : Integer, nom: String, stats: CaracteristiquesBase
      }
 
      class ArmeCourante  extends Arme
      {
-        + <<create>> ArmeCourante  (degats : Integer, portee : Integer, nom: String, stats: Caracteristiques)
+        + <<create>> ArmeCourante  (degats : Integer, portee : Integer, nom: String, stats: CaracteristiquesBase)
      }
 
      class ArmeDeGuerre  extends Arme
      {
-        + <<create>> ArmeDeGuerre  (degats : Integer, portee : Integer, nom: String, stats: Caracteristiques)
+        + <<create>> ArmeDeGuerre  (degats : Integer, portee : Integer, nom: String, stats: CaracteristiquesBase)
      }
 
      class ArmeDistance extends Arme
      {
-        + <<create>> ArmeDistance (degats : Integer, portee : Integer, nom: String, stats: Caracteristiques)
+        + <<create>> ArmeDistance (degats : Integer, portee : Integer, nom: String, stats: CaracteristiquesBase)
      }
 }
 
@@ -222,15 +244,73 @@ package objet
     + toString()
  }
 
-Entite "1" *--> " 1 \nm_caractéristiques" Caracteristiques : detient
-Personnage "1..*" *--> "1..* \nm_inventaire" Item : contient
+ package donjon
+ {
+
+    class Donjon
+    {
+        - m_longueur : Integer
+        - m_largeur : Integer
+    }
+
+    class Case
+    {
+        - m_x : Integer
+        - m_y : Integer
+
+    }
+
+    class PositionObstacle
+    {
+       - dictionnaire : Map <Case, Obstacle>
+       + toString(): String
+    }
+
+    class PositionEquipement
+    {
+       - dictionnaire : Map <Case, Item>
+       + toString(): String
+    }
+
+    class PositionEntite
+    {
+        - dictionnaire : Map <Case, Entite>
+       + toString(): String
+    }
+
+    class Obstacle
+    {
+       + toString(): String
+    }
+ }
+
+Donjon "1..*" *--> " 1..* \nm_listeItems" PositionEquipement : detient
+Donjon "1..*" *--> " 1..* \nm_listeEntite" PositionEntite : detient
+Donjon "1..*" *--> " 1..* \nm_listeObstacle" PositionObstacle : detient
+
+PositionObstacle "1..*" *--> " 1..* \n" Obstacle : detient
+PositionEquipement "1..*" *--> " 1..* \n" Item : detient
+PositionEntite "1..*" *--> " 1..* \n" Entite : detient
+
+CaracteristiquesBase "1" o--> " 1 \nm_pv" Pv : possède
+CaracteristiquesBase "1" o--> " 1 \nm_force" Force : possède
+CaracteristiquesBase "1" o--> " 1 \nm_vitesse" Vitesse : possède
+CaracteristiquesBase "1" o--> " 1 \nm_dexterite" Dexterite : possède
+CaracteristiquesBase "1" o--> " 1 \nm_initiative" Initiative : possède
+
+Entite "1" *--> " 1 \nm_caractéristiques" CaracteristiquesBase : detient
+
+Personnage "1" o--> " 1 \nm_inventaire" Inventaire : possède
 Personnage "1" o--> " 1 \nm_race" Race : est
 Personnage "1" o--> " 1 \nm_classe" Classe : possède
 Personnage "1" *--> " 1..* \nm_equipement" EquipementPorte : possède
+
+Inventaire "1..*" o--> " 1..* \nm_listeitems" objet.Item : possède
+
 Monstre "1" o--> " 1 \nm_espece" Espece : est
-Race "1" *--> " 1 \nm_caractéristiques" Caracteristiques : detient
+Race "1" *--> " 1 \nm_caractéristiques" CaracteristiquesBase : detient
 Classe "1..*" *--> " 1..* \nm_equipement" Item : detient
-Item "1" *--> " 1 \nm_caractéristiques" Caracteristiques : detient
+Item "1" *--> " 1 \nm_caractéristiques" CaracteristiquesBase : detient
 EquipementPorte "1" *--> " 1 \nm_arme" Arme : contient
 EquipementPorte "1" *--> " 1 \nm_armure" Armure : contient
 
