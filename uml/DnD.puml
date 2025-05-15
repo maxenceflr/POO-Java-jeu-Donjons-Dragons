@@ -346,31 +346,43 @@ package objet
     {
         - m_longueur : Integer
         - m_largeur : Integer
+        + <<create>>Donjon()
+        + afficher() : String
+        + retourneCasePrise : List<Case>
+        + retournerLargeur() : Integer
+        + retournerLongeur() : Integer
     }
 
     class Case
     {
         - m_x : Integer
         - m_y : Integer
+        + toString()
 
     }
 
-    class PositionObstacle
+    class PositionsDesObstacles
     {
        - dictionnaire : Map <Case, Obstacle>
+       + <<create>>PositionsDesObstacles
+       + ajouterObstacle()
        + toString(): String
     }
 
-    class PositionEquipement
+    class PositionsDesEquipements
     {
        - dictionnaire : Map <Case, Equipement>
+       + <<create>>PositionsDesEquipements
+       + ajouterEquipement(Case, Equipement)
        + toString(): String
     }
 
-    class PositionJouable
+    class  PositionsDesJouables
     {
         - dictionnaire : Map <Case, Jouable>
-       + toString(): String
+        + <<create>> PositionsDesJouables
+        + ajouterJouable(Case, Jouable)
+        + toString(): String
     }
 
     class Obstacle
@@ -378,14 +390,81 @@ package objet
        + toString(): String
     }
  }
+ Donjon "1" *--> " 1 \nm_listeItems" PositionsDesEquipements : detient
+ Donjon "1" *--> " 1 \nm_listeJouable"  PositionsDesJouables : detient
+ Donjon "1" *--> " 1 \nm_listeObstacle" PositionsDesObstacles : detient
 
-Donjon "1..*" *--> " 1..* \nm_listeItems" PositionEquipement : detient
-Donjon "1..*" *--> " 1..* \nm_listeJouable" PositionJouable : detient
-Donjon "1..*" *--> " 1..* \nm_listeObstacle" PositionObstacle : detient
+ PositionsDesObstacles "1..*" *--> " 1..* \n" Obstacle : detient
+ PositionsDesEquipements "1..*" *--> " 1..* \n" Equipement : detient
+  PositionsDesJouables "1..*" *--> " 1..* \n" Jouable : detient
+package mj
+{
+    class InitialiserPersonnage
+    {
+        -m_nbJoueur : Integer
+        + <<create>> InitialiserJoueurs()
+        + instancierToutPerssonages()
+        + instancierPerssonage()
+        + presentationJoueurs)
 
-PositionObstacle "1..*" *--> " 1..* \n" Obstacle : detient
-PositionEquipement "1..*" *--> " 1..* \n" Equipement : detient
-PositionJouable "1..*" *--> " 1..* \n" Jouable : detient
+
+
+    }
+    class InitialiserDonjon
+    {
+        - m_donjon : Donjon
+        - m_listeJouableDuDonjon : List<Jouable>
+        + <<create>> InitialiserDonjon(List<Personnage>)
+        + ajouterObstacle()
+        + creerToutLesMonstres()
+        + creerUnMonstre()
+        + ajouterMonstre()
+        + placerJouable
+        + determinerOrdreDesJouables()
+        + changerOrdreDeUnJouable()
+        + retournerListeJouable()
+
+
+        + instancierDonjonPrefait()
+    }
+    class MaitreDuJeu
+    {
+        - m_listeJouableDuDonjonEncours : List<Jouable>
+        - m_nbDonjonFini : Integer
+        - donjonEnCour : ExplorationDuDonjon
+        + <<create>> MaitreDuJeu()
+        + creerUnDonjon()
+        + commencerDonjon()
+        + creerPersonnage()
+        + verifierMonstresTousMorts() : Boolean
+        + verifierAucunPerssonageMort() : Boolean
+        + presentationJoueurs()
+        + presentationSituationDuDonjon()
+    }
+    class ExplorationDuDonjon
+    {
+        - m_listeJouableDuDansLOrdre : List<Jouable>
+        - m_donjonExplore : Donjon
+        + commencer()
+        + Tourde(jouable)
+        + choixdeLAction(jouable)
+        + Attaquer(jouable)
+        + SeDeplacer(jouable)
+        + Ramasser(jouble)
+        +
+    }
+}
+
+ class main
+     {
+        + {static} main (arg:Sring[])
+     }
+
+
+MaitreDuJeu"1" *--> " 1 \n" ExplorationDuDonjon : detient
+ExplorationDuDonjon"1" *--> " 1 \n" Donjon : detient
+MaitreDuJeu .>InitialiserDonjon : <<use>>
+MaitreDuJeu .>InitialiserJoueurs : <<use>>
 
 @enduml
 
