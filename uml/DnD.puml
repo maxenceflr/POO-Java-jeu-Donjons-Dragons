@@ -348,22 +348,23 @@ package objet
         - m_largeur : Integer
         + <<create>>Donjon()
         + afficher() : String
-        + retourneCasePrise : List<Case>
+        + verifCasePrise() : Boolean
         + retournerLargeur() : Integer
         + retournerLongeur() : Integer
     }
 
-    class Case
+    class Position
     {
         - m_x : Integer
         - m_y : Integer
+        + <<create>>ExplorationDuDonjon
         + toString()
 
     }
 
     class PositionsDesObstacles
     {
-       - dictionnaire : Map <Case, Obstacle>
+       - dictionnaire : Obstacle[*]
        + <<create>>PositionsDesObstacles
        + ajouterObstacle()
        + toString(): String
@@ -371,17 +372,17 @@ package objet
 
     class PositionsDesEquipements
     {
-       - dictionnaire : Map <Case, Equipement>
+       - dictionnaire : Equipement[*]
        + <<create>>PositionsDesEquipements
-       + ajouterEquipement(Case, Equipement)
+       + ajouterEquipement(Position, Equipement)
        + toString(): String
     }
 
     class  PositionsDesJouables
     {
-        - dictionnaire : Map <Case, Jouable>
+        - dictionnaire : Jouable[*]
         + <<create>> PositionsDesJouables
-        + ajouterJouable(Case, Jouable)
+        + ajouterJouable(Position, Jouable)
         + toString(): String
     }
 
@@ -390,9 +391,9 @@ package objet
        + toString(): String
     }
  }
- Donjon "1" *--> " 1 \nm_listeItems" PositionsDesEquipements : detient
- Donjon "1" *--> " 1 \nm_listeJouable"  PositionsDesJouables : detient
- Donjon "1" *--> " 1 \nm_listeObstacle" PositionsDesObstacles : detient
+ Donjon "1" *--> " 1 \nm_dicoItems" PositionsDesEquipements : detient
+ Donjon "1" *--> " 1 \nm_dicoJouable"  PositionsDesJouables : detient
+ Donjon "1" *--> " 1 \nm_dicoObstacle" PositionsDesObstacles : detient
 
  PositionsDesObstacles "1..*" *--> " 1..* \n" Obstacle : detient
  PositionsDesEquipements "1..*" *--> " 1..* \n" Equipement : detient
@@ -405,7 +406,7 @@ package mj
         + <<create>> InitialiserJoueurs()
         + instancierToutPerssonages()
         + instancierPerssonage()
-        + presentationJoueurs)
+        + presentationJoueurs()
 
 
 
@@ -413,8 +414,7 @@ package mj
     class InitialiserDonjon
     {
         - m_donjon : Donjon
-        - m_listeJouableDuDonjon : List<Jouable>
-        + <<create>> InitialiserDonjon(List<Personnage>)
+        + <<create>> InitialiserDonjon(Personnage[*])
         + ajouterObstacle()
         + creerToutLesMonstres()
         + creerUnMonstre()
@@ -427,9 +427,10 @@ package mj
 
         + instancierDonjonPrefait()
     }
+    
     class MaitreDuJeu
     {
-        - m_listeJouableDuDonjonEncours : List<Jouable>
+        - m_listeJouableDuDonjonEncours : Jouable[*]
         - m_nbDonjonFini : Integer
         - donjonEnCour : ExplorationDuDonjon
         + <<create>> MaitreDuJeu()
@@ -451,7 +452,6 @@ package mj
         + Attaquer(jouable)
         + SeDeplacer(jouable)
         + Ramasser(jouble)
-        +
     }
 }
 
@@ -461,10 +461,13 @@ package mj
      }
 
 
-MaitreDuJeu"1" *--> " 1 \n" ExplorationDuDonjon : detient
+MaitreDuJeu .> ExplorationDuDonjon : <<use>>
 ExplorationDuDonjon"1" *--> " 1 \n" Donjon : detient
 MaitreDuJeu .>InitialiserDonjon : <<use>>
-MaitreDuJeu .>InitialiserJoueurs : <<use>>
+MaitreDuJeu .>InitialiserPersonnage : <<use>>
+
+InitialiserDonjon "1..*" *--> " 1..* \n" Jouable: -m_listeJouable
+ExplorationDuDonjon"1..*" *--> " 1..* \n" Jouable: -m_listeJouableDonjonEncours
 
 @enduml
 
