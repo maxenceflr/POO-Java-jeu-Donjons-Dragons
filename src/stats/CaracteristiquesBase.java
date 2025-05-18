@@ -69,7 +69,7 @@ public class CaracteristiquesBase
         return m_currentPv;
     }
 
-    public void setM_currentPv(int pv)
+    public void setCurrentPv(int pv)
     {
         m_currentPv = pv;
     }

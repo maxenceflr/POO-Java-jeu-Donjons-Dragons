@@ -427,7 +427,7 @@ package mj
 
         + instancierDonjonPrefait()
     }
-    
+
     class MaitreDuJeu
     {
         - m_listeJouableDuDonjonEncours : Jouable[*]
