@@ -1,5 +1,4 @@
 package jouable.personnage.classe;
-import objet.armure.Equipement;
 
 import java.util.List;
 import java.util.ArrayList;

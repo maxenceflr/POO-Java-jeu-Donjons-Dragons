@@ -1,5 +1,5 @@
 package donjon;
-import jouable.Equipement;
+import objet.Equipement;
 
 import java.util.HashMap;
 

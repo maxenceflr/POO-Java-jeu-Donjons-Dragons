@@ -1,4 +1,4 @@
-package objet.armure;
+package objet;
 
 public abstract class Equipement
 {
