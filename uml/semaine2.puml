@@ -4,6 +4,7 @@
 skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
 skinparam style strictuml
+skinparam linetype ortho
 hide empty members
 
 package jouable
@@ -27,7 +28,7 @@ package jouable
         class Personnage extends jouable.Jouable
         {
             - m_nom: String
-
+            - m_listeSorts: Sorts[*]
             + <<create>> Personnage (nom: String, race: Race, classe: Classe, stats: CaracteristiquesBase)
             + equiper(objet: Item)
             + ramasser()
@@ -44,49 +45,77 @@ package jouable
             interface Race <<interface>>
             {
                 + toString(): String
-                + <<create>> Race()
             }
 
             class Humain implements Race
             {
-                + toString(): String
                 + <<create>> Humain(stats: Caracteristiques)
                 + <<create>> Humain()
                 + getPv(): Integer
+                + getCurrentPv(): Integer
                 + getDexterite(): Integer
                 + getVitesse(): Integer
                 + getInit(): Integer
                 + getForce(): Integer
+                + toString(): String
             }
 
             class Nain implements Race
             {
                 - m_force: Integer
-                + toString(): String
                 + <<create>> Nain(stats: Caracteristiques)
                 + <<create>> Nain()
                 + getForce(): Integer
+                + toString(): String
             }
 
             class Elfe implements Race
             {
                 - m_dexterite: Integer
-                + toString(): String
                 + <<create>> Elfe(stats: Caracteristiques)
                 + <<create>> Elfe()
                 + getDexterite(): Integer
+                + toString(): String
             }
 
             class Halfelin implements Race
             {
                 - m_dexterite: Integer
                 - m_vitesse: Integer
-                + toString(): String
                 + <<create>> Halfelin(stats: Caracteristiques)
                 + <<create>> Halfelin()
                 + getDexterite(): Integer
                 + getVitesse(): Integer
+                + toString(): String
             }
+        }
+
+        package sorts
+        {
+            interface Sorts <<interface>>
+            {
+                + toString()
+                + utiliser(lanceur: Personnage, Cibles: Jouable[*])
+            }
+
+            class Guerison implements Sorts
+            {
+                + toString()
+                + utiliser(lanceur: Personnage, Object... cibles)
+            }
+
+            class BoogieWoogie implements Sorts
+            {
+                + toString()
+                + utiliser(lanceur: Personnage, Object... cibles)
+            }
+
+            class ArmeMagique implements Sorts
+            {
+                + toString()
+                + utiliser(lanceur: Personnage, Object... cibles)
+            }
+
         }
 
 
@@ -98,6 +127,7 @@ package jouable
                 + toString(): String
                 + <<create>> Classe(pv: Integer)
                 + getPv(): Integer
+                + getSorts(): Sorts[*]
             }
 
             class Guerrier extends Classe
@@ -133,9 +163,8 @@ package jouable
             - m_numero: Integer
             - m_portee: Integer
             - m_degats: Integer
-            - m_espece: String
-            + <<create>> Monstre(portee: Integer, degats: Integer, espece: Espece)
-            + <<create>> Monstre(portee: Integer, degats: Integer, espece: Espece, numero: Integer)
+            + <<create>> Monstre(portee: Integer, degats: Integer, espece: String)
+            + <<create>> Monstre(portee: Integer, degats: Integer, espece: String, numero: Integer)
             + getClasseArmure(): Integer
             + getRepresentation(): String
             + toString(): String
@@ -176,7 +205,8 @@ package stats
         + getClasseArmure(): Integer
     }
 
-    Jouable "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
+    Personnage "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
+    Monstre "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesMonstre : détient
     Humain "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
 }
 
@@ -297,6 +327,12 @@ package objet
             + toString(): String
         }
 
+        class EpeeDeuxMains extends ArmeDeGuerre
+        {
+            + <<create>> EpeeDeuxMains()
+            + toString(): String
+        }
+
         class ArbaleteLegere extends ArmeDistance
         {
             + <<create>> ArbaleteLegere()
@@ -330,8 +366,8 @@ package donjon
     {
         - m_longueur: Integer
         - m_largeur: Integer
-        + <<create>> Donjon()
-        + verifCasePrise(): Boolean
+        + <<create>> Donjon(longueur: Integer, largeur: Integer)
+        + verifCasePrise(Position): Boolean
         + getLargeur(): Integer
         + getLongueur(): Integer
         + afficher(): String
@@ -422,12 +458,15 @@ package partie {
     ExplorationDonjon "1..*" o--> "1..* " Jouable : m_listeJouable
 }
 
-objet.arme.Arme "1" *--> "1 \nm_deDegats" partie.De : utilise
-
 class main
 {
     + {static} main(args: String[])
 }
+
+objet.arme.Arme "1" *--> "1 \nm_deDegats" partie.De : utilise
+InitialiseurPartie .> Donjon : <<instantiate>>
+
+Classe "0..*" o--> "0..* \nm_listeSorts" jouable.personnage.sorts.Sorts : a des
 
 main .> MaitreDuJeu : <<instantiate>>
 main .> Donjon : <<instantiate>>
@@ -436,3 +475,5 @@ main .> De : <<instantiate>>
 MaitreDuJeu "1" o--> "1 \nm_donjon" Donjon : gère
 
 @enduml
+
+
