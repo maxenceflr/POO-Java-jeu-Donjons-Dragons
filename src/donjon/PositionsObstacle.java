@@ -1,8 +1,6 @@
 package donjon;
 
-import jouable.Equipement;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class PositionsObstacle
 {

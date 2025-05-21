@@ -1,6 +1,4 @@
-package objet.arme;
-
-import objet.armure.ArmureLegere;
+package objet.armure;
 
 public class DemiPlate extends ArmureLegere
 {

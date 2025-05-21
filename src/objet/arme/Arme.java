@@ -1,7 +1,5 @@
 package objet.arme;
 
-import objet.armure.Equipement;
-
 public abstract class Arme extends Equipement
 {
     protected int m_degats;
