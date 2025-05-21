@@ -1,4 +1,4 @@
-package objet.arme;
+package objet.armure;
 
 import objet.armure.ArmureLegere;
 

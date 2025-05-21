@@ -1,8 +1,9 @@
 package jouable.personnage.race;
 
 import stats.CaracteristiquesBase;
+import stats.CaracteristiquesBase;
 
-public class Elfe implements race {
+public class Elfe implements Race {
     private CaracteristiquesBase m_caracteristiques;
 
     public Elfe(CaracteristiquesBase caracteristique) {
@@ -14,10 +15,13 @@ public class Elfe implements race {
         this.m_caracteristiques = new CaracteristiquesBase(0, 6, 0, 0, 0); // force, dex, init, vit, pvmax
         this.m_caracteristiques.setCurrentPv(m_caracteristiques.getPvMax());
     }
+    public String getRace(){
+        return "Elfe";
+    }
 
     @Override
     public String toString() {
-        return "Elfe {" +
+        return this.getRace()+ " " +
                 "Force=" + m_caracteristiques.getForce() +
                 ", Dextérité=" + m_caracteristiques.getDexterite() +
                 ", Initiative=" + m_caracteristiques.getInitiative() +
