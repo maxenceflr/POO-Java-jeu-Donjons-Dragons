@@ -1,6 +1,6 @@
 package objet.arme;
 
-import objet.armure.Equipement;
+import objet.Equipement;
 
 public abstract class Arme extends Equipement
 {

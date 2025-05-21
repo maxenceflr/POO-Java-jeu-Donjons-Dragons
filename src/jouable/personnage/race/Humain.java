@@ -1,7 +1,8 @@
 package jouable.personnage.race;
 import stats.*;
+import stats.CaracteristiquesBase;
 
-public class Humain implements race{
+public class Humain implements Race {
     private CaracteristiquesBase m_caracteristiques;
     public Humain(CaracteristiquesBase caracteristique)
     {
@@ -17,10 +18,13 @@ public class Humain implements race{
     {
         this.m_caracteristiques= new CaracteristiquesBase(2,2,2,2,2);
     }
+    public String getRace(){
+        return "Humain";
+    }
     @Override
     public String toString()
     {
-        return "Humain {" +
+        return this.getRace()+ " {" +
                 "Force=" + m_caracteristiques.getForce() +
                 ", Dextérité=" + m_caracteristiques.getDexterite() +
                 ", Initiative=" + m_caracteristiques.getInitiative() +

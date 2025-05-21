@@ -1,5 +1,7 @@
 package objet.armure;
 
+import objet.Equipement;
+
 public class Armure extends Equipement
 {
     private int m_classeArmure;

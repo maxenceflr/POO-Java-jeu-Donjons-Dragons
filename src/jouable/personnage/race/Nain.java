@@ -1,8 +1,9 @@
 package jouable.personnage.race;
 
 import stats.CaracteristiquesBase;
+import stats.CaracteristiquesBase;
 
-public class Nain implements race {
+public class Nain implements Race {
     private CaracteristiquesBase m_caracteristiques;
 
     public Nain(CaracteristiquesBase caracteristique) {
@@ -14,10 +15,17 @@ public class Nain implements race {
         this.m_caracteristiques = new CaracteristiquesBase(6, 0, 0, 0, 0); // force, dex, init, vit, pvmax
         this.m_caracteristiques.setCurrentPv(m_caracteristiques.getPvMax());
     }
+    public String getRace(){
+        return "Nain";
+    }
+    public CaracteristiquesBase ajouterCaracteristique(CaracteristiquesBase)
+    {
+
+    }
 
     @Override
     public String toString() {
-        return "Nain {" +
+        return this.getRace()+ " {" +
                 "Force=" + m_caracteristiques.getForce() +
                 ", Dextérité=" + m_caracteristiques.getDexterite() +
                 ", Initiative=" + m_caracteristiques.getInitiative() +

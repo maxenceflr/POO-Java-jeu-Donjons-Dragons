@@ -1,12 +1,12 @@
 package jouable.personnage.classe;
-import objet.armure.Equipement;
+import objet.Equipement;
 
 import java.util.List;
 import java.util.ArrayList;
 
 public abstract class  Classe {
     private Integer m_pv;
-    private List<Equipement>  m_listEquipement;
+    protected List<Equipement>  m_listEquipement;
 
     public Classe(Integer pv) {
         m_pv = pv;
@@ -16,8 +16,6 @@ public abstract class  Classe {
     public Integer getPv() {
         return m_pv;
     }
-    public void addEquipement(Equipement : equipement)
-    {
-        m_listEquipement.add(equipement);
-    }
+    public abstract String getClasse();
+
 }
