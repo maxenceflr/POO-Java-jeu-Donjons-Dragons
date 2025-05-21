@@ -1,5 +1,6 @@
 package objet.arme;
 
+
 import objet.Equipement;
 
 public abstract class Arme extends Equipement
