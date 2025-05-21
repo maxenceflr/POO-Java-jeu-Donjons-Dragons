@@ -1,6 +1,4 @@
-package objet.arme;
-
-import objet.armure.ArmureLourde;
+package objet.armure;
 
 public class CoteMailles extends ArmureLourde
 {

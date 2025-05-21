@@ -4,6 +4,7 @@
 skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
 skinparam style strictuml
+skinparam linetype ortho
 hide empty members
 
 package jouable
@@ -11,7 +12,6 @@ package jouable
 
     abstract class Jouable <<abstract>>
     {
-        - m_nom : String
         + <<create>> Jouable()
         + {abstract} attaquer(other: Jouable)
         + {abstract} toString(): String
@@ -28,7 +28,7 @@ package jouable
         class Personnage extends jouable.Jouable
         {
             - m_nom: String
-
+            - m_listeSorts: Sorts[*]
             + <<create>> Personnage (nom: String, race: Race, classe: Classe, stats: CaracteristiquesBase)
             + equiper(objet: Item)
             + ramasser()
@@ -90,6 +90,34 @@ package jouable
             }
         }
 
+        package sorts
+        {
+            interface Sorts <<interface>>
+            {
+                + toString()
+                + utiliser(lanceur: Personnage, Cibles: Jouable[*])
+            }
+
+            class Guerison implements Sorts
+            {
+                + toString()
+                + utiliser(lanceur: Personnage, Object... cibles)
+            }
+
+            class BoogieWoogie implements Sorts
+            {
+                + toString()
+                + utiliser(lanceur: Personnage, Object... cibles)
+            }
+
+            class ArmeMagique implements Sorts
+            {
+                + toString()
+                + utiliser(lanceur: Personnage, Object... cibles)
+            }
+
+        }
+
 
         package classe
         {
@@ -99,6 +127,7 @@ package jouable
                 + toString(): String
                 + <<create>> Classe(pv: Integer)
                 + getPv(): Integer
+                + getSorts(): Sorts[*]
             }
 
             class Guerrier extends Classe
@@ -298,6 +327,12 @@ package objet
             + toString(): String
         }
 
+        class EpeeDeuxMains extends ArmeDeGuerre
+        {
+            + <<create>> EpeeDeuxMains()
+            + toString(): String
+        }
+
         class ArbaleteLegere extends ArmeDistance
         {
             + <<create>> ArbaleteLegere()
@@ -331,8 +366,8 @@ package donjon
     {
         - m_longueur: Integer
         - m_largeur: Integer
-        + <<create>> Donjon()
-        + verifCasePrise(): Boolean
+        + <<create>> Donjon(longueur: Integer, largeur: Integer)
+        + verifCasePrise(Position): Boolean
         + getLargeur(): Integer
         + getLongueur(): Integer
         + afficher(): String
@@ -423,16 +458,19 @@ package partie {
     ExplorationDonjon "1..*" o--> "1..* " Jouable : m_listeJouable
 }
 
-objet.arme.Arme "1" *--> "1 \nm_deDegats" partie.De : utilise
-InitialiseurPartie .> Donjon : <<instantiate>>
-
 class main
 {
     + {static} main(args: String[])
 }
 
+objet.arme.Arme "1" *--> "1 \nm_deDegats" partie.De : utilise
+InitialiseurPartie .> Donjon : <<instantiate>>
+
+Classe "0..*" o--> "0..* \nm_listeSorts" jouable.personnage.sorts.Sorts : a des
+
 main .> MaitreDuJeu : <<instantiate>>
 main .> Donjon : <<instantiate>>
+main .> De : <<instantiate>>
 
 MaitreDuJeu "1" o--> "1 \nm_donjon" Donjon : gère
 
