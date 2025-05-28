@@ -1,11 +1,14 @@
 package affichage;
 import java.util.Scanner;
+
+import jouable.personnage.AffichagePersonnageInterface;
 import jouable.personnage.classe.*;
 import jouable.personnage.race.*;
 import stats.CaracteristiquesBase;
-public class AffichageCreerPersonnage {
+public class AffichagePersonnage implements AffichagePersonnageInterface {
 
-    public static Classe choisirClasse() {
+
+    public Integer choisirClasse(CaracteristiquesBase car) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Choisissez une classe :");
@@ -24,21 +27,14 @@ public class AffichageCreerPersonnage {
                 continue;
             }
 
-            switch (choix) {
-                case 1:
-                    return new Clerc();
-                case 2:
-                    return new Guerrier();
-                case 3:
-                    return new Magicien();
-                case 4:
-                    return new Roublard();
-                default:
-                    System.out.println("Choix invalide. Veuillez recommencer.\n");
+            if (choix >= 1 && choix <= 4) {
+                return choix;
+            } else {
+                System.out.println("Choix invalide. Veuillez recommencer.\n");
             }
         }
     }
-    public static Race choisirRace(CaracteristiquesBase car) {
+    public Integer choisirRace(CaracteristiquesBase car) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Choisissez une race :");
@@ -46,25 +42,27 @@ public class AffichageCreerPersonnage {
             System.out.println("2 - Nain");
             System.out.println("3 - Elfe");
             System.out.println("4 - Halfelin");
+            System.out.print("Votre choix : ");
 
-            int choix = scanner.nextInt();
+            int choix;
 
-            switch (choix) {
-                case 1:
-                    return new Humain(car);
-                case 2:
-                    return new Nain(car);
-                case 3:
-                    return new Elfe(car);
-                case 4:
-                    return new Halfelin(car);
-                default:
-                    System.out.println("Choix invalide. Race par défaut : Humain");
-                    return new Humain();
+            try {
+                choix = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Entrée invalide. Veuillez entrer un nombre.");
+                continue;
+            }
+
+            if (choix >= 1 && choix <= 4) {
+                return choix;
+            } else {
+                System.out.println("Choix invalide. Veuillez recommencer.\n");
             }
         }
     }
-    public static String choisirNom()
+
+
+    public String choisirNom()
     {
         Scanner scanner = new Scanner(System.in);
 
@@ -80,15 +78,19 @@ public class AffichageCreerPersonnage {
         }
 
     }
-    public static String afficherCaracteristiaque(Integer CurrentPv, Integer PvMax, Integer Dexteriter, Integer Force, Integer Vitesse, Integer Initiative) {
-        return "Les caracteristiques du joueur sont :\n" +
-                "- CurrentPv : " + CurrentPv + "\n" +
-                "- PvMax : " + PvMax + "\n" +
-                "- Dexteriter : " + Dexteriter + "\n" +
-                "- Force : " + Force + "\n" +
-                "- Vitesse : " + Vitesse + "\n" +
-                "- Initiative : " + Initiative + "\n" ;
+
+
+
+    public void afficherCaracteristique(Integer currentPv, Integer pvMax, Integer dexterite, Integer force, Integer vitesse, Integer initiative) {
+        System.out.println("Les caractéristiques du joueur sont :");
+        System.out.println("- Current Pv : " + currentPv);
+        System.out.println("- Pv Max : " + pvMax);
+        System.out.println("- Dextérité : " + dexterite);
+        System.out.println("- Force : " + force);
+        System.out.println("- Vitesse : " + vitesse);
+        System.out.println("- Initiative : " + initiative);
     }
+
 
 
 }
