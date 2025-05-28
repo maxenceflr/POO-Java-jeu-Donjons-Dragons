@@ -46,4 +46,6 @@ public abstract class Arme extends Equipement
         return  "Dégâts : " + Integer.toString(m_degats) +
                 ", Portée : " + Integer.toString(m_portee);
     }
+
+
 }
