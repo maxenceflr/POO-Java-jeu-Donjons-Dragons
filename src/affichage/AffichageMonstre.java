@@ -3,6 +3,7 @@ package affichage;
 import jouable.personnage.AffichagePersonnageInterface;
 
 import java.util.Scanner;
+import partie.*;
 
 public class AffichageMonstre{
     public static String choisirEspece() {
@@ -35,7 +36,7 @@ public class AffichageMonstre{
             }
         }
     }
-    public static int choisirDegatAttaque() {
+    public static De choisirDegatAttaque() {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -45,7 +46,8 @@ public class AffichageMonstre{
             try {
                 int degats = Integer.parseInt(saisie);
                 if (degats > 0) {
-                    return degats;
+                    De de =new De(1,degats);
+                    return de;
                 } else {
                     System.out.println("Les dégâts doivent être un entier strictement positif.");
                 }
