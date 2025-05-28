@@ -28,7 +28,6 @@ public class Personnage extends Jouable {
         m_arme=null;
         m_armure=null;
         CaracteristiquesBase caracteristique=new CaracteristiquesBase();
-        m_caracteristique= race.ajouterCaracteristique(caracteristique);
 
     }
 
