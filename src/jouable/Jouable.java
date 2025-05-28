@@ -14,8 +14,6 @@ public abstract class Jouable
 
     public abstract void attaquer(Jouable other);
 
-    public abstract String toString();
-
     public abstract String getSymbole();
 
 

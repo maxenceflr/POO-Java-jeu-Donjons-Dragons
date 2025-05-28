@@ -1,5 +1,6 @@
-package jouable.personnage.monstre;
+package jouable.personnage;
 
+import donjon.Donjon;
 import jouable.Jouable;
 import partie.De;
 
@@ -18,5 +19,22 @@ public class Monstre extends Jouable {
         m_symbole = symbole;
     }
 
-    
+    public void attaquer(Jouable other)
+    {
+        if (Donjon.getDistance(this, other) < this.m_portee)
+        {
+            int somme_attaque = m_degats.jeter();
+
+            if (this.getForce() == 0)
+            {
+
+            }
+        }
+    }
+
+    public String getSymbole()
+    {
+        return m_symbole;
+    }
+
 }
