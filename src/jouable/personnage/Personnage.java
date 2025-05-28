@@ -8,6 +8,7 @@ import jouable.personnage.race.*;
 import objet.Equipement;
 import objet.arme.*;
 import objet.armure.*;
+import partie.De;
 import stats.CaracteristiquesBase;
 
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ public class Personnage extends Jouable {
         m_caracteristiques = carac;
         m_position = new Position(-1, -1);
     }
+
+
 
     public void equiperArme(Arme arme)
     {
@@ -69,10 +72,44 @@ public class Personnage extends Jouable {
         }
     }
 
+    public void attaquer(Jouable other)
+    {
+        De deAttaque = new De(1, 20);
+
+        if (this.m_arme.isPresent())
+        {
+            if (Donjon.getDistance(this, other) < m_arme.get().getPortee())
+            {
+                int somme_attaque = deAttaque.jeter();
+
+                if(m_arme.get() instanceof ArmeCourante || m_arme.get() instanceof ArmeDeGuerre)
+                {
+                    somme_attaque += this.m_caracteristiques.getForce();
+                }
+                else
+                {
+                    somme_attaque += this.m_caracteristiques.getDexterite();
+                }
+
+                if (somme_attaque > other.getArmure())
+                {
+                    other.setCurrentPv(other.getCurrentPv() - this.m_arme.get().getDeDegat().jeter());
+                }
+            }
+        }
+    }
+
+    public String getSymbole()
+    {
+      return this.m_nom.substring(0, 3);
+    };
+
     public void ramasser(Equipement objet, Donjon donjon) {
-        if (donjon.getPositionsEquipement().containsEquipement())
-        m_inventaire.add(objet);
-        donjon.getPositionsObstacle().retirerObstacle(donjon.getPositionsJouables().);
+        if (donjon.getPositionsEquipement().containsEquipement(this.getPosition()))
+        {
+            m_inventaire.add(objet);
+            donjon.getPositionsEquipement().retirerEquipement(this.getPosition());
+        }
     }
 
     public String getNom() {
@@ -80,6 +117,6 @@ public class Personnage extends Jouable {
     }
     @Override
     public String toString() {
-        return "Le perssonage "+this.getNom()+"\nDe la race des :"+m_race.getRace()+"\nDe la classe des: "+m_classe.getClasse();
+        return "Personnage : "+ this.getNom()+ "\nRace : " + m_race.getRace()+"\nClasse : " + m_classe.getClasse();
     }
 }

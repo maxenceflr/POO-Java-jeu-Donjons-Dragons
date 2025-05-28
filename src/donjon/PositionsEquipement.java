@@ -31,6 +31,11 @@ public class PositionsEquipement
         }
     }
 
+    public void retirerEquipement(Position position)
+    {
+        m_positionsEquipement.remove(position);
+    }
+
     public HashMap<Position, Equipement> getPositions()
     {
         return m_positionsEquipement;

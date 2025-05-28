@@ -1,27 +1,28 @@
 package donjon;
+import jouable.Jouable;
 import objet.Equipement;
 
 import java.util.HashMap;
 
 public class PositionsJouables
 {
-    private HashMap<Position, Equipement> m_positionsJouable;
+    private HashMap<Position, Jouable> m_positionsJouable;
 
     public PositionsJouables()
     {
-        m_positionsJouable= new HashMap<Position, Equipement>();
+        m_positionsJouable= new HashMap<Position, Jouable>();
     }
 
-    public void ajouterJouable(Equipement equipement, Position position)
+    public void ajouterJouable(Jouable jouable, Position position)
     {
-        m_positionsJouable.put(position, equipement);
+        m_positionsJouable.put(position, jouable);
     }
 
-    public boolean deplacerJouable(Equipement equipement, Position position)
+    public boolean deplacerJouable(Jouable jouable, Position position)
     {
         if (!m_positionsJouable.containsKey(position))
         {
-            this.ajouterJouable(equipement, position);
+            this.ajouterJouable(jouable, position);
             return true;
         }
         else
@@ -35,7 +36,7 @@ public class PositionsJouables
         return m_positionsJouable.containsKey(position);
     }
 
-    public HashMap<Position, Equipement> getPositions()
+    public HashMap<Position, Jouable> getPositions()
     {
         return m_positionsJouable;
     }

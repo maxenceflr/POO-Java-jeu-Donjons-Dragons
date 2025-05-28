@@ -8,8 +8,9 @@ public class CaracteristiquesBase
     protected int m_dexterite;
     protected int m_currentPv;
     protected int m_pvMax;
+    protected int m_armure;
 
-    public CaracteristiquesBase(int force, int vitesse, int init, int dex, int pv)
+    public CaracteristiquesBase(int force, int vitesse, int init, int dex, int pv, int armure)
     {
         m_force = force;
         m_vitesse = vitesse;
@@ -17,6 +18,7 @@ public class CaracteristiquesBase
         m_dexterite = dex;
         m_currentPv = pv;
         m_pvMax = pv;
+        m_armure = armure;
     }
 
     public int getForce()
@@ -79,6 +81,16 @@ public class CaracteristiquesBase
         m_pvMax = pv;
     }
 
+    public int getArmure()
+    {
+        return m_armure;
+    }
+
+    public void setArmure(int armure)
+    {
+        m_armure = armure;
+    }
+
     @Override
     public String toString()
     {
@@ -86,6 +98,7 @@ public class CaracteristiquesBase
                 "\nForce : " + Integer.toString(m_force) +
                 "\nVitesse : " + Integer.toString(m_vitesse) +
                 "\nDextérité : " + Integer.toString(m_dexterite) +
-                "\nInitiative : " + Integer.toString(m_initiative);
+                "\nInitiative : " + Integer.toString(m_initiative) +
+                "\nArmure : " + Integer.toString(m_armure);
     }
 }

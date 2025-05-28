@@ -2,11 +2,15 @@ package objet.arme;
 
 
 import objet.Equipement;
+import partie.De;
+
+import java.util.function.DoubleConsumer;
 
 public abstract class Arme extends Equipement
 {
     protected int m_degats;
     protected int m_portee;
+    protected De m_deDegat;
 
     public Arme(int degats, int portee)
     {
@@ -18,6 +22,11 @@ public abstract class Arme extends Equipement
     {
         m_degats = 0;
         m_portee = 0;
+    }
+
+    public De getDeDegat()
+    {
+        return m_deDegat;
     }
 
     public int getDegats()
@@ -46,6 +55,5 @@ public abstract class Arme extends Equipement
         return  "Dégâts : " + Integer.toString(m_degats) +
                 ", Portée : " + Integer.toString(m_portee);
     }
-
 
 }
