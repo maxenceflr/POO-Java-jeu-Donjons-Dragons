@@ -9,7 +9,7 @@ public class CaracteristiquesBase
     protected int m_currentPv;
     protected int m_pvMax;
 
-    public CaracteristiquesBase(Integer force, Integer vitesse, Integer init, Integer dex, Integer pv)
+    public CaracteristiquesBase(int force, int vitesse, int init, int dex, int pv)
     {
         m_force = force;
         m_vitesse = vitesse;
