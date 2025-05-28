@@ -209,7 +209,16 @@ package stats
     Monstre "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesMonstre : détient
     Humain "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
 }
-
+package affichage
+{
+    class affichageCreerMonstre implements Personnage
+    {
+        + choisirClasse :String
+        + choisirRace :String
+        + choisirNom :String
+        + choisirClasse :String
+    }
+}
 package objet
 {
     abstract class Equipement <<abstract>>
