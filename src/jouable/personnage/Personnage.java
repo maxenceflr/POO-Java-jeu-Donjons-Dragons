@@ -16,24 +16,24 @@ import java.util.Optional;
 
 public class Personnage extends Jouable {
 
-    private final String m_nom;
+    private  String m_nom;
     private List<Equipement> m_inventaire;
     private Optional<Arme> m_arme;
     private Optional<Armure> m_armure;
     private Race m_race;
     private Classe m_classe;
+    private CaracteristiquesBase m_caracteristique;
 
-    public Personnage(String nom, Race race, Classe classe, CaracteristiquesBase carac) {
-        m_nom = nom;
+    public Personnage(String nom,Race race, Classe classe, CaracteristiquesBase carac) {
+        m_nom=nom;
         m_race= race;
-        m_classe = classe;
-        m_inventaire= new ArrayList<>();
+        m_classe=classe;
+        m_inventaire = new ArrayList<>();
         m_arme = Optional.empty();
         m_armure= Optional.empty();
         m_caracteristiques = carac;
         m_position = new Position(-1, -1);
     }
-
 
     public void equiperArme(Arme arme)
     {
@@ -69,13 +69,11 @@ public class Personnage extends Jouable {
         }
     }
 
-
     public void ramasser(Equipement objet, Donjon donjon) {
-        if ()
+        if (donjon.getPositionsEquipement().containsEquipement())
         m_inventaire.add(objet);
         donjon.getPositionsObstacle().retirerObstacle(donjon.getPositionsJouables().);
     }
-
 
     public String getNom() {
         return m_nom;
