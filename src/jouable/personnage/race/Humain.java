@@ -18,9 +18,11 @@ public class Humain implements Race {
     {
         this.m_caracteristiques= new CaracteristiquesBase(2,2,2,2,2);
     }
+
     public String getRace(){
         return "Humain";
     }
+
     @Override
     public String toString()
     {

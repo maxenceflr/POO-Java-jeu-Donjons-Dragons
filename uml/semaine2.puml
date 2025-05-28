@@ -16,7 +16,8 @@ package jouable
         + {abstract} attaquer(other: Jouable)
         + {abstract} toString(): String
         + {abstract} getRepresentation(): String
-        + getPv(): Integer
+        + getCurrentPv(): Integer
+        + getPvMax(): Integer
         + getDexterite(): Integer
         + getVitesse(): Integer
         + getInit(): Integer
@@ -30,7 +31,8 @@ package jouable
             - m_nom: String
             - m_listeSorts: Sorts[*]
             + <<create>> Personnage (nom: String, race: Race, classe: Classe, stats: CaracteristiquesBase)
-            + equiper(objet: Item)
+            + equiperArme(Armure: armure)
+            + equiperArmure(Arme: arme)
             + ramasser()
             + getNom(): String
             + toString(): String
@@ -163,6 +165,7 @@ package jouable
             - m_numero: Integer
             - m_portee: Integer
             - m_degats: Integer
+            - m_classeArmure: Integer
             + <<create>> Monstre(portee: Integer, degats: Integer, espece: String)
             + <<create>> Monstre(portee: Integer, degats: Integer, espece: String, numero: Integer)
             + getClasseArmure(): Integer
@@ -192,21 +195,7 @@ package stats
         + getForce(): Integer
     }
 
-    class CaracteristiquesMonstre extends CaracteristiquesBase
-    {
-        - m_classeArmure: Integer
-        + <<create>> CaracteristiquesMonstre(pv: Integer, force: Integer, dexterite: Integer, vitesse: Integer, initiative: Integer, classeArmure: Integer)
-        + toString(): String
-        + getPv(): Integer
-        + getDexterite(): Integer
-        + getVitesse(): Integer
-        + getInit(): Integer
-        + getForce(): Integer
-        + getClasseArmure(): Integer
-    }
-
-    Personnage "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
-    Monstre "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesMonstre : détient
+    Jouable "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
     Humain "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
 }
 package affichage
