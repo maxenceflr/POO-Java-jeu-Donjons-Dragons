@@ -1,4 +1,4 @@
-package jouable.personnage.monstre;
+package jouable.personnage;
 
 import jouable.Jouable;
 

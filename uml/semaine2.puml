@@ -38,6 +38,14 @@ package jouable
             + toString(): String
             + getRepresentation(): String
         }
+        interface AffichagePersonnageInterface <<interface>>
+        {
+            + choisirClasse() : String
+            + choisirRace() : String
+            + choisirNom() : String
+            + afficherCaracteristiaque(CurrentPv: Integer, PvMax: Integer, Dexteriter: Integer, Force: Integer, Vitesse: Integer, Initiative: Integer) : String
+        }
+
 
         Personnage "1" *--> "1 \nm_race" race.Race : est
         Personnage "1" *--> "1 \nm_classe" classe.Classe : possède
@@ -166,11 +174,20 @@ package jouable
             - m_portee: Integer
             - m_degats: Integer
             - m_classeArmure: Integer
+            - m_race: String
             + <<create>> Monstre(portee: Integer, degats: Integer, espece: String)
             + <<create>> Monstre(portee: Integer, degats: Integer, espece: String, numero: Integer)
             + getClasseArmure(): Integer
             + getRepresentation(): String
             + toString(): String
+        }
+        interface AffichageMonstreInterface <<interface>>
+        {
+            + choisirEspece() : String
+            + choisirRepresentation() : String
+            + choisirDegatAttaque() : String
+            + choisirPorterAttaquechoisirPorterAttaque() : String
+            + afficherCaracteristiaque(CurrentPv: Integer, PvMax: Integer, Dexteriter: Integer, Force: Integer, Vitesse: Integer, Initiative: Integer, Integer ClassArmure) : String
         }
 
     }
@@ -200,12 +217,20 @@ package stats
 }
 package affichage
 {
-    class affichageCreerMonstre implements Personnage
+    class affichagePersonnage implements AffichagePersonnage
     {
-        + choisirClasse :String
-        + choisirRace :String
-        + choisirNom :String
-        + choisirClasse :String
+        + choisirClasse() :String
+        + choisirRace() :String
+        + choisirNom() :String
+        + afficherCaracteristiaque(CurrentPv: Integer, PvMax: Integer, Dexteriter: Integer, Force: Integer, Vitesse: Integer, Initiative: Integer) :String
+    }
+    class AffichageMonstre implements AffichageMonstreInterface
+    {
+        + choisirEspece() : String
+        + choisirRepresentation() : String
+        + choisirDegatAttaque() : String
+        + choisirPorterAttaquechoisirPorterAttaque() : String
+        + afficherCaracteristiaque(CurrentPv: Integer, PvMax: Integer, Dexteriter: Integer, Force: Integer, Vitesse: Integer, Initiative: Integer, Integer ClassArmure) : String
     }
 }
 package objet
