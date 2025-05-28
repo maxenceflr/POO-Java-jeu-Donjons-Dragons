@@ -1,5 +1,7 @@
 package donjon;
 
+import jouable.Jouable;
+
 public class Donjon
 {
     private final int m_longueur;
@@ -38,84 +40,24 @@ public class Donjon
                 + "\nLargeur du Donjon: " + Integer.toString(m_largeur) + "cases.";
     }
 
-    public String afficherHautDeCarte()
-    {
-        char[] alphabetMajuscule = {
-                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-                'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-                'U', 'V', 'W', 'X', 'Y', 'Z'
-        };
-
-        String result = "    ";
-
-        for (int i = 0; i < this.m_longueur; i++)
-        {
-            result += alphabetMajuscule[i] + " ";
-        }
-
-        result += "\n   *--";
-
-        for (int i = 0; i < this.m_longueur; i++)
-        {
-            result += "---";
-        }
-
-        result += "*\n";
-
-        return result;
+    public int getLargeur() {
+        return m_largeur;
     }
 
-    public String afficherBasDeCarte()
-    {
-        String result = "  *--";
-
-        for (int i = 0; i < this.m_longueur; i++)
-        {
-            result += "---";
-        }
-
-        result += "*\n    * Equipement  |  [ ] Obstacle  |";
-
-        return result;
+    public int getLongueur() {
+        return m_longueur;
     }
 
-    public String afficherDonjon()
+    public static double getDistance(Jouable j1, Jouable j2)
     {
-        String renduDonjon = "";
-        Position currentPos = new Position();
+            int x1 = j1.getPosition().getX();
+            int x2 = j2.getPosition().getX();
 
-        for(int i = 0; i < m_largeur; i++)
-        {
-            renduDonjon += Integer.toString(i) + "  |  ";
+            int y1 = j1.getPosition().getY();
+            int y2 = j2.getPosition().getY();
 
-            for(int j = 0; j < m_longueur; j++)
-            {
-                currentPos.setX(j);
-                currentPos.setY(i);
-
-                if (this.m_positionsEquipement.containsEquipement(currentPos))
-                {
-                    renduDonjon += this.m_positionsEquipement.getPositions().get(currentPos).getSymbole() + "  ";
-                }
-                else if(this.m_positionsJouable.containsJouable(currentPos))
-                {
-                    renduDonjon += this.m_positionsJouable.getPositions().get(currentPos).getSymbole() + "  ";
-                }
-                else if(this.m_positionsObstacle.containsObstacle(currentPos))
-                {
-                    renduDonjon += "[ ]  ";
-                }
-                else
-                {
-                    renduDonjon += ".  ";
-                }
-            }
-            renduDonjon += Integer.toString(i) + "|\n";
-        }
-
-        return renduDonjon;
+            return Math.sqrt( ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)) );
     }
-
 
     public PositionsJouables getPositionsJouables() {
         return m_positionsJouable;

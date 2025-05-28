@@ -24,6 +24,7 @@ public abstract class Jouable
         return  this.m_position;
     }
 
+
     public int getPvMax()
     {
         return m_caracteristiques.getPvMax();
@@ -82,6 +83,16 @@ public abstract class Jouable
     public void setForce(int force)
     {
         m_caracteristiques.setForce(force);
+    }
+
+    public int getArmure()
+    {
+        return m_caracteristiques.getArmure();
+    }
+
+    public void setArmure(int armure)
+    {
+        m_caracteristiques.setArmure(armure);
     }
 
 }

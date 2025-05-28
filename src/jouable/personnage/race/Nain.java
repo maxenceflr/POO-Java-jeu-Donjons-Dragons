@@ -12,15 +12,11 @@ public class Nain implements Race {
     }
 
     public Nain() {
-        this.m_caracteristiques = new CaracteristiquesBase(6, 0, 0, 0, 0); // force, dex, init, vit, pvmax
+        this.m_caracteristiques = new CaracteristiquesBase(6, 0, 0, 0, 0, 0); // force, dex, init, vit, pvmax
         this.m_caracteristiques.setCurrentPv(m_caracteristiques.getPvMax());
     }
     public String getRace(){
         return "Nain";
-    }
-    public CaracteristiquesBase ajouterCaracteristique(CaracteristiquesBase)
-    {
-
     }
 
     @Override
