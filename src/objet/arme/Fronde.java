@@ -1,10 +1,12 @@
 package objet.arme;
 
+import partie.De;
+
 public class Fronde extends ArmeDistance
 {
     public Fronde()
     {
-        super(0, 6);
+        super(new De(1, 4), 6);
     }
 
     @Override

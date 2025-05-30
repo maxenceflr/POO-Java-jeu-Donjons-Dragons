@@ -1,10 +1,12 @@
 package objet.arme;
 
+import partie.De;
+
 public class ArbaleteLegere extends ArmeDistance
 {
     public ArbaleteLegere()
     {
-        super(0, 16);
+        super(new De(1, 8), 16);
     }
 
     @Override
