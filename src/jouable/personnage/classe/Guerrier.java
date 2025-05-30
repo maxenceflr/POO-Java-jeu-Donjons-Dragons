@@ -1,17 +1,19 @@
 package jouable.personnage.classe;
 
+import objet.Equipement;
 import objet.arme.*;
 import objet.armure.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Guerrier extends Classe{
     public Guerrier(){
-        super(20);
-        this.m_listEquipement.add(new CoteMailles());
-        this.m_listEquipement.add(new EpeeLongue());
-        this.m_listEquipement.add(new ArbaleteLegere());
-
+        super(20, new ArrayList<Equipement>(Arrays.asList(new CoteMailles(), new EpeeLongue(), new ArbaleteLegere())));
     }
-    public String getClasse() {
+
+    @Override
+    public String toString() {
         return "Guerrier";
     }
 }

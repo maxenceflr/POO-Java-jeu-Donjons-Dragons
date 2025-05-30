@@ -1,33 +1,23 @@
 package jouable.personnage.race;
 
+import jouable.personnage.Personnage;
 import stats.CaracteristiquesBase;
 import stats.CaracteristiquesBase;
 
 public class Elfe implements Race {
-    private CaracteristiquesBase m_caracteristiques;
-
-    public Elfe(CaracteristiquesBase caracteristique) {
-        caracteristique.setDexterite(caracteristique.getDexterite() + 6); // ✅ +6 en dextérité
-        this.m_caracteristiques = caracteristique;
-    }
+    private Integer m_dexterite;
 
     public Elfe() {
-        this.m_caracteristiques = new CaracteristiquesBase(0, 6, 0, 0, 0); // force, dex, init, vit, pvmax
-        this.m_caracteristiques.setCurrentPv(m_caracteristiques.getPvMax());
-    }
-    public String getRace(){
-        return "Elfe";
+        m_dexterite = 6;
     }
 
     @Override
-    public String toString() {
-        return this.getRace()+ " " +
-                "Force=" + m_caracteristiques.getForce() +
-                ", Dextérité=" + m_caracteristiques.getDexterite() +
-                ", Initiative=" + m_caracteristiques.getInitiative() +
-                ", Vitesse=" + m_caracteristiques.getVitesse() +
-                ", PV Max=" + m_caracteristiques.getPvMax() +
-                ", PV Actuels=" + m_caracteristiques.getCurrentPv() +
-                '}';
+    public void ajouterInitRacePerso(Personnage perso)
+    {
+        perso.setDexterite(perso.getDexterite() + m_dexterite);
+    }
+
+    public String toString(){
+        return "Elfe";
     }
 }

@@ -31,12 +31,17 @@ public class PositionsEquipement
         }
     }
 
+    public Equipement getEquipementFromPosition(Position position)
+    {
+        return m_positionsEquipement.get(position);
+    }
+
     public void retirerEquipement(Position position)
     {
         m_positionsEquipement.remove(position);
     }
 
-    public HashMap<Position, Equipement> getPositions()
+    public HashMap<Position, Equipement> getPositionsEquipement()
     {
         return m_positionsEquipement;
     }
