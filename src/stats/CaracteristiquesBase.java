@@ -21,6 +21,11 @@ public class CaracteristiquesBase
         m_armure = armure;
     }
 
+    public CaracteristiquesBase()
+    {
+        this(0,0,0,0,0,0);
+    }
+
     public int getForce()
     {
         return m_force;

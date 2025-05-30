@@ -25,7 +25,6 @@ public class Donjon
 
     }
 
-    /*
     public Donjon(int longueur, int largeur, PositionsJouables jouable, PositionsEquipement equipement, PositionsObstacle obstacle)
     {
         m_longueur = longueur;
@@ -35,15 +34,18 @@ public class Donjon
         m_positionsObstacle = obstacle;
     }
 
+
     public Donjon(int longueur, int largeur)
     {
         this(longueur, largeur, new PositionsJouables(), new PositionsEquipement(), new PositionsObstacle());
     }
 
+
+
     public Donjon()
     {
         this(25,25);
-    }*/
+    }
 
     public int getLargeur() {
         return m_largeur;
@@ -95,8 +97,6 @@ public class Donjon
 
             return Math.sqrt( ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)) );
     }
-
-
 
     public String toString()
     {

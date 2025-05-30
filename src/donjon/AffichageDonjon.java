@@ -11,17 +11,17 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
     private Scanner scanner = new Scanner(System.in);
 
-    public void afficherDonjon(Donjon donjon) {
+    public static void afficherDonjon(Donjon donjon) {
         char[] alphabetMajuscule = {
                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
                 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
                 'U', 'V', 'W', 'X', 'Y', 'Z'
         };
 
-        String result = "    ";
+        String result = "      ";
 
         for (int i = 0; i < donjon.getLongueur(); i++) {
-            result += alphabetMajuscule[i] + " ";
+            result += alphabetMajuscule[i] + "  ";
         }
 
         result += "\n   *--";
@@ -30,33 +30,44 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             result += "---";
         }
 
+        result += "*";
+
         System.out.println(result);
+
         String renduDonjon = "";
         Position currentPos = new Position();
 
         for (int i = 0; i < donjon.getLargeur(); i++) {
-            renduDonjon += Integer.toString(i) + "  |  ";
 
-            for (int j = 0; j < donjon.getLargeur(); j++) {
+            if (i > 9)
+            {
+                renduDonjon += Integer.toString(i) + " | ";
+            }
+            else
+            {
+                renduDonjon += Integer.toString(i) + "  | ";
+            }
+
+            for (int j = 0; j < donjon.getLongueur(); j++) {
                 currentPos.setX(j);
                 currentPos.setY(i);
 
                 if (donjon.getPositionsEquipement().containsEquipement(currentPos)) {
-                    renduDonjon += donjon.getPositionsEquipement().getEquipementFromPosition(currentPos).getSymbole() + "  ";
+                    renduDonjon += " " + donjon.getPositionsEquipement().getEquipementFromPosition(currentPos).getSymbole() + " ";
                 } else if (donjon.getPositionsJouables().containsJouable(currentPos)) {
-                    renduDonjon += donjon.getPositionsJouables().getPositions().get(currentPos).getSymbole() + "  ";
+                    renduDonjon += donjon.getPositionsJouables().getPositions().get(currentPos).getSymbole();
                 } else if (donjon.getPositionsObstacle().containsObstacle(currentPos)) {
-                    renduDonjon += "[ ]  ";
+                    renduDonjon += "[ ]";
                 } else {
-                    renduDonjon += ".  ";
+                    renduDonjon += " . ";
                 }
             }
-            renduDonjon += Integer.toString(i) + "|\n";
+            renduDonjon += " |\n";
         }
 
-        System.out.println(renduDonjon);
+        System.out.print(renduDonjon);
 
-        String res = "  *--";
+        String res = "   *--";
 
         for (int i = 0; i < donjon.getLongueur(); i++) {
             res += "---";
