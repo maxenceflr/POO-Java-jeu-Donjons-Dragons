@@ -1,7 +1,7 @@
 package donjon;
 
 import objet.Equipement;
-
+import java.util.Set;
 import java.util.HashMap;
 
 public class PositionsEquipement
@@ -49,6 +49,10 @@ public class PositionsEquipement
     public boolean containsEquipement(Position position)
     {
         return m_positionsEquipement.containsKey(position);
+    }
+    public Set<Position> getCasesOccupees()
+    {
+        return m_positionsEquipement.keySet();
     }
 
     @Override
