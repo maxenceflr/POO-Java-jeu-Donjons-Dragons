@@ -12,20 +12,12 @@ public class Guerison implements Sorts{
         return "Guérison";
     }
 
-    @Override
-    public void utiliser(Personnage lanceur, List<Jouable> cibles) {
+    public void lancer(Personnage lanceur, Personnage cible) {
 
         De de = new De(1, 10);
-        int pvSoigne = de.jeter();
-        Jouable cible =  cibles.getFirst();
 
-        if (cible.getCurrentPv() + pvSoigne >= cible.getPvMax())
-        {
-            cible.setCurrentPv(cible.getPvMax());
-        }
-        else
-        {
-            cible.setCurrentPv(cible.getCurrentPv() + pvSoigne);
-        }
+        int pvSoigne = de.jeter();
+
+        cible.setCurrentPv(Math.min(cible.getCurrentPv() + pvSoigne, cible.getPvMax()));
     }
 }

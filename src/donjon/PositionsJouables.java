@@ -32,22 +32,15 @@ public class PositionsJouables
         return new Position(-1, -1);
     }
 
+
     public Jouable getJouableFromPosition(Position position)
     {
         return m_positionsJouable.get(position);
     }
 
-    public boolean deplacerJouable(Jouable jouable, Position position)
+    public void deplacerJouable(Jouable jouable, Position position)
     {
-        if (!m_positionsJouable.containsKey(position))
-        {
             this.ajouterJouable(jouable, position);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 
     public boolean containsJouable(Position position)
