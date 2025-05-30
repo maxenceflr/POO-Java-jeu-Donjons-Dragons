@@ -4,13 +4,18 @@ import java.util.Random;
 
 public class De {
 
-    private int m_nbDes;
-    private int m_nbFaces;
+    private final int m_nbDes;
+    private final int m_nbFaces;
 
     public De (int nbDes, int nbFaces)
     {
         m_nbDes = nbDes;
         m_nbFaces = nbFaces;
+    }
+
+    public De ()
+    {
+        this(0,0);
     }
 
     public int jeter(){
@@ -25,5 +30,8 @@ public class De {
         return somme;
     }
 
-
+    public String toString()
+    {
+        return Integer.toString(m_nbDes) + "d" + Integer.toString(m_nbFaces);
+    }
 }

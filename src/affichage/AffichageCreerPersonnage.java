@@ -51,13 +51,13 @@ public class AffichageCreerPersonnage {
 
             switch (choix) {
                 case 1:
-                    return new Humain(car);
+                    return new Humain();
                 case 2:
-                    return new Nain(car);
+                    return new Nain();
                 case 3:
-                    return new Elfe(car);
+                    return new Elfe();
                 case 4:
-                    return new Halfelin(car);
+                    return new Halfelin();
                 default:
                     System.out.println("Choix invalide. Race par défaut : Humain");
                     return new Humain();

@@ -59,7 +59,7 @@ public class Affichage implements AffichageDonjon{
 
                 if (donjon.getPositionsEquipement().containsEquipement(currentPos))
                 {
-                    renduDonjon += donjon.getPositionsEquipement().getPositions().get(currentPos).getSymbole() + "  ";
+                    renduDonjon += donjon.getPositionsEquipement().getEquipementFromPosition(currentPos).getSymbole() + "  ";
                 }
                 else if(donjon.getPositionsJouables().containsJouable(currentPos))
                 {

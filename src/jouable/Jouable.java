@@ -1,6 +1,7 @@
 package jouable;
 
 
+import donjon.Donjon;
 import donjon.Position;
 import stats.CaracteristiquesBase;
 
@@ -10,18 +11,11 @@ public abstract class Jouable
 {
     protected CaracteristiquesBase m_caracteristiques;
 
-    protected Position m_position;
-
-    public abstract void attaquer(Jouable other);
+    public abstract void attaquer(Position position, Donjon donjon);
 
     public abstract String getSymbole();
 
-
-    public Position getPosition()
-    {
-        return  this.m_position;
-    }
-
+    public abstract String toString();
 
     public int getPvMax()
     {
@@ -83,14 +77,14 @@ public abstract class Jouable
         m_caracteristiques.setForce(force);
     }
 
-    public int getArmure()
+    public int getClasseArmure()
     {
         return m_caracteristiques.getArmure();
     }
 
-    public void setArmure(int armure)
+    public void setClasseArmure(int class_armure)
     {
-        m_caracteristiques.setArmure(armure);
+        m_caracteristiques.setArmure(class_armure);
     }
 
 }

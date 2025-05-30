@@ -1,34 +1,30 @@
 package jouable.personnage.race;
 
+import jouable.personnage.Personnage;
 import stats.CaracteristiquesBase;
 import stats.CaracteristiquesBase;
 
 public class Halfelin implements Race {
-    private CaracteristiquesBase m_caracteristiques;
+    private Integer m_dexterite;
+    private Integer m_vitesse;
 
-    public Halfelin(CaracteristiquesBase caracteristique) {
-        caracteristique.setDexterite(caracteristique.getDexterite() + 4); // +4 dextérité
-        caracteristique.setVitesse(caracteristique.getVitesse() + 2);     // +2 vitesse
-        this.m_caracteristiques = caracteristique;
-    }
 
-    public Halfelin() {
-        this.m_caracteristiques = new CaracteristiquesBase(0, 4, 0, 2, 0); // force, dex, init, vit, pvmax
-        this.m_caracteristiques.setCurrentPv(m_caracteristiques.getPvMax());
-    }
-    public String getRace(){
-        return "Halfelin";
+    public Halfelin()
+    {
+        m_dexterite = 4;
+        m_vitesse = 2;
     }
 
     @Override
-    public String toString() {
-        return this.getRace()+ " {" +
-                "Force=" + m_caracteristiques.getForce() +
-                ", Dextérité=" + m_caracteristiques.getDexterite() +
-                ", Initiative=" + m_caracteristiques.getInitiative() +
-                ", Vitesse=" + m_caracteristiques.getVitesse() +
-                ", PV Max=" + m_caracteristiques.getPvMax() +
-                ", PV Actuels=" + m_caracteristiques.getCurrentPv() +
-                '}';
+    public void ajouterInitRacePerso(Personnage perso)
+    {
+        perso.setDexterite(perso.getDexterite() + m_dexterite);
+        perso.setVitesse(perso.getVitesse() + m_dexterite);
     }
+
+    @Override
+    public String toString(){
+        return "Halfelin";
+    }
+
 }

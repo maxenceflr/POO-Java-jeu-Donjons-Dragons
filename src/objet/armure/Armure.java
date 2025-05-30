@@ -1,10 +1,11 @@
 package objet.armure;
 
+import jouable.personnage.Personnage;
 import objet.Equipement;
 
-public class Armure extends Equipement
+public abstract class Armure extends Equipement
 {
-    private int m_classeArmure;
+    protected final int m_classeArmure;
 
     protected Armure(int armure)
     {
@@ -25,5 +26,11 @@ public class Armure extends Equipement
     public String toString()
     {
         return  "Classe d'armure : " + Integer.toString(m_classeArmure);
+    }
+
+    public void equiper(Personnage perso)
+    {
+        perso.setClasseArmure(perso.getClasseArmure() + m_classeArmure);
+        perso.setArmure(this);
     }
 }

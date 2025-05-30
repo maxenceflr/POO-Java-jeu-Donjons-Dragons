@@ -1,8 +1,7 @@
-package jouable.personnage;
+package jouable;
 
 import donjon.Donjon;
 import donjon.Position;
-import jouable.Jouable;
 import partie.De;
 
 public class Monstre extends Jouable {
@@ -23,7 +22,7 @@ public class Monstre extends Jouable {
     public void attaquer(Position other, Donjon donjon)
     {
         De deAttaque = new De(1, 20);
-        Jouable otherJouable = donjon.getJouableFromPostion(other);
+        Jouable otherJouable = donjon.getJouableFromPosition(other);
 
         if (Donjon.getDistance(donjon.getPositionFromJouable(this), other) < this.m_portee)
         {
@@ -48,6 +47,11 @@ public class Monstre extends Jouable {
     public String getSymbole()
     {
         return m_symbole;
+    }
+
+    public String toString()
+    {
+        return "espèce: " + this.m_espece;
     }
 
 }
