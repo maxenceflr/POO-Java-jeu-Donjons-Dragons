@@ -1,6 +1,9 @@
 package donjon;
 
+import java.util.List;
+import java.util.ArrayList;
 import jouable.Jouable;
+import jouable.personnage.Personnage;
 
 public class Donjon
 {
@@ -10,14 +13,14 @@ public class Donjon
     private PositionsEquipement m_positionsEquipement;
     private PositionsObstacle m_positionsObstacle;
 
-    public Donjon()
+    public Donjon(List<Personnage> listePersonnages)
     {
         AffichageDonjon af = new AffichageDonjon();
         m_longueur = af.demanderLongeur();
         m_largeur = af.demanderLargeur();
-        m_positionsObstacle = obstacle;
-        m_positionsEquipement = af.placerEquipement();
-        m_positionsJouable = jouable;
+        m_positionsObstacle = af.PlacerObstacle(this);
+        m_positionsEquipement = af.placerEquipement(this);
+        m_positionsJouable = af.PlacerPersonnages(listePersonnages,this);
 
     }
     /*
