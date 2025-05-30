@@ -3,16 +3,17 @@ package jouable.personnage.classe;
 import objet.arme.*;
 import objet.armure.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Roublard extends Classe{
     public Roublard()
     {
-        super(16);
-
-        this.m_listEquipement.add(new Rapiere());
-        this.m_listEquipement.add(new ArcCourt());
-
+        super(16, new ArrayList<>(Arrays.asList(new Rapiere(), new ArcCourt())));
     }
-    public String getClasse() {
+
+    @Override
+    public String toString() {
         return "Roublard";
     }
 }

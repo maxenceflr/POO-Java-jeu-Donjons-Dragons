@@ -18,65 +18,30 @@ import java.util.Optional;
 public class Personnage extends Jouable {
 
     private final String m_nom;
-    private List<Equipement> m_inventaire;
+    private Inventaire m_inventaire;
     private Optional<Arme> m_arme;
     private Optional<Armure> m_armure;
-    private Race m_race;
-    private Classe m_classe;
+    private final Race m_race;
+    private final Classe m_classe;
 
     public Personnage(String nom, Race race, Classe classe, CaracteristiquesBase carac) {
         m_nom = nom;
         m_race= race;
         m_classe = classe;
-        m_inventaire= new ArrayList<>();
+        m_inventaire = new Inventaire();
         m_arme = Optional.empty();
         m_armure= Optional.empty();
         m_caracteristiques = carac;
-        m_position = new Position(-1, -1);
     }
 
-
-    public void equiperArme(Arme arme)
-    {
-        if (m_inventaire.contains(arme)) {
-            if(m_arme.isEmpty())
-            {
-                m_arme = Optional.of(arme);
-                m_inventaire.remove(arme);
-            }
-            else
-            {
-                m_inventaire.add(m_arme.get());
-                m_arme = Optional.of(arme);
-                m_inventaire.remove(arme);
-            }
-        }
-    }
-
-    public void equiperArmure(Armure armure)
-    {
-        if (m_inventaire.contains(armure)) {
-            if(m_armure.isEmpty())
-            {
-                m_armure = Optional.of(armure);
-                m_inventaire.remove(armure);
-            }
-            else
-            {
-                m_inventaire.add(m_armure.get());
-                m_armure = Optional.of(armure);
-                m_inventaire.remove(armure);
-            }
-        }
-    }
-
-    public void attaquer(Jouable other)
+    public void attaquer(Position other, Donjon donjon)
     {
         De deAttaque = new De(1, 20);
+        Jouable otherJouable = donjon.getJouableFromPosition(other);
 
         if (this.m_arme.isPresent())
         {
-            if (Donjon.getDistance(this, other) < m_arme.get().getPortee())
+            if (Donjon.getDistance(donjon.getPositionFromJouable(this), other) < m_arme.get().getPortee())
             {
                 int somme_attaque = deAttaque.jeter();
 
@@ -89,12 +54,30 @@ public class Personnage extends Jouable {
                     somme_attaque += this.m_caracteristiques.getDexterite();
                 }
 
-                if (somme_attaque > other.getArmure())
+                if (somme_attaque > otherJouable.getClasseArmure())
                 {
-                    other.setCurrentPv(other.getCurrentPv() - this.m_arme.get().getDeDegat().jeter());
+                    otherJouable.setCurrentPv(otherJouable.getCurrentPv() - this.m_arme.get().getDeDegats().jeter());
                 }
             }
         }
+    }
+
+    public void equiper(Equipement item)
+    {
+        m_inventaire.getEquipement(item).equiper(this);
+        m_inventaire.retirerEquipement(item);
+    }
+
+    public void ramasser(Position pos, Donjon donjon) {
+        this.m_inventaire.ajouterEquipement(donjon.getEquipementFromPosition(pos));
+    }
+
+    public void setArmure(Armure armure) {
+        m_armure = Optional.of(armure);
+    }
+
+    public void setArme(Arme arme) {
+        m_arme = Optional.of(arme);
     }
 
     public String getSymbole()
@@ -102,20 +85,21 @@ public class Personnage extends Jouable {
       return this.m_nom.substring(0, 3);
     };
 
-    public void ramasser(Equipement objet, Donjon donjon) {
-        if (donjon.getPositionsEquipement().containsEquipement(this.getPosition()))
-        {
-            m_inventaire.add(objet);
-            donjon.getPositionsEquipement().retirerEquipement(this.getPosition());
-        }
-    }
-
-
     public String getNom() {
         return m_nom;
     }
+
+    public Classe getClasse(){
+        return  this.m_classe;
+    }
+
+    public Inventaire getInventaire()
+    {
+        return this.m_inventaire;
+    }
+
     @Override
     public String toString() {
-        return "Personnage : "+ this.getNom()+ "\nRace : " + m_race.getRace()+"\nClasse : " + m_classe.getClasse();
+        return "Personnage : "+ this.getNom()+ "\nRace : " + m_race.toString()+"\nClasse : " + m_classe.toString();
     }
 }

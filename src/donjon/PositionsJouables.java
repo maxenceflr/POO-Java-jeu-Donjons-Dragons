@@ -3,6 +3,7 @@ import jouable.Jouable;
 import objet.Equipement;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class PositionsJouables
 {
@@ -16,6 +17,24 @@ public class PositionsJouables
     public void ajouterJouable(Jouable jouable, Position position)
     {
         m_positionsJouable.put(position, jouable);
+    }
+
+    public Position getPositionJouable(Jouable jouable)
+    {
+        for (Map.Entry<Position, Jouable> elt : m_positionsJouable.entrySet())
+        {
+            if (elt.getValue() == jouable)
+            {
+                return elt.getKey();
+            }
+        }
+
+        return new Position(-1, -1);
+    }
+
+    public Jouable getJouableFromPosition(Position position)
+    {
+        return m_positionsJouable.get(position);
     }
 
     public boolean deplacerJouable(Jouable jouable, Position position)
