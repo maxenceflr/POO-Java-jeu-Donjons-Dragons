@@ -21,6 +21,7 @@ public class Donjon
         m_positionsJouable = jouable;
 
     }
+
     /*
     public Donjon(int longueur, int largeur, PositionsJouables jouable, PositionsEquipement equipement, PositionsObstacle obstacle)
     {
@@ -47,6 +48,18 @@ public class Donjon
 
     public int getLongueur() {
         return m_longueur;
+    }
+
+    public PositionsJouables getPositionsJouables() {
+        return m_positionsJouable;
+    }
+
+    public PositionsEquipement getPositionsEquipement() {
+        return m_positionsEquipement;
+    }
+
+    public PositionsObstacle getPositionsObstacle() {
+        return m_positionsObstacle;
     }
 
     public boolean estPrise(Position position)
@@ -80,17 +93,7 @@ public class Donjon
             return Math.sqrt( ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)) );
     }
 
-    public PositionsJouables getPositionsJouables() {
-        return m_positionsJouable;
-    }
 
-    public PositionsEquipement getPositionsEquipement() {
-        return m_positionsEquipement;
-    }
-
-    public PositionsObstacle getPositionsObstacle() {
-        return m_positionsObstacle;
-    }
 
     public String toString()
     {

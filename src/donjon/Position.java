@@ -16,6 +16,12 @@ public class Position {
         m_y = 0;
     }
 
+    public Position(Position other)
+    {
+        m_x = other.m_x;
+        m_y = other.m_y;
+    }
+
     public int getX() {
         return m_x;
     }
