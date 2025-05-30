@@ -42,7 +42,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
                 currentPos.setY(i);
 
                 if (donjon.getPositionsEquipement().containsEquipement(currentPos)) {
-                    renduDonjon += donjon.getPositionsEquipement().getPositions().get(currentPos).getSymbole() + "  ";
+                    renduDonjon += donjon.getPositionsEquipement().getEquipementFromPosition(currentPos).getSymbole() + "  ";
                 } else if (donjon.getPositionsJouables().containsJouable(currentPos)) {
                     renduDonjon += donjon.getPositionsJouables().getPositions().get(currentPos).getSymbole() + "  ";
                 } else if (donjon.getPositionsObstacle().containsObstacle(currentPos)) {

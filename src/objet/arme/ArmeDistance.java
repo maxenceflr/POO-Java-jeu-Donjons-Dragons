@@ -1,8 +1,11 @@
 package objet.arme;
 
+import jouable.personnage.Personnage;
+import partie.De;
+
 public class ArmeDistance extends Arme
 {
-    public ArmeDistance(int degats, int portee)
+    public ArmeDistance(De degats, int portee)
     {
         super(degats, portee);
     }
@@ -12,6 +15,10 @@ public class ArmeDistance extends Arme
         super();
     }
 
+    public void equiper(Personnage perso)
+    {
+        perso.setArme(this);
+    }
     @Override
     public String toString()
     {

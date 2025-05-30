@@ -1,10 +1,12 @@
 package objet.arme;
 
+import partie.De;
+
 public class ArcCourt extends ArmeDistance
 {
     public ArcCourt()
     {
-        super(0, 16);
+        super(new De(1, 6), 16);
     }
 
     @Override

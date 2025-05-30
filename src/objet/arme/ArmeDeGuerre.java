@@ -1,11 +1,14 @@
 package objet.arme;
 
+import jouable.personnage.Personnage;
+import partie.De;
+
 public abstract class ArmeDeGuerre extends Arme
 {
     protected int m_vitesse;
     protected int m_force;
 
-    public ArmeDeGuerre(int degats, int portee, int vitesse, int force)
+    public ArmeDeGuerre(De degats, int portee, int vitesse, int force)
     {
         super(degats, portee);
         m_vitesse = vitesse;
@@ -14,9 +17,16 @@ public abstract class ArmeDeGuerre extends Arme
 
     public ArmeDeGuerre()
     {
-        super(0, 1);
+        super(new De(1, 8), 1);
         m_force = 4;
         m_vitesse = -2;
+    }
+
+    public void equiper(Personnage perso)
+    {
+        perso.setArme(this);
+        perso.setVitesse(perso.getVitesse() + this.m_vitesse);
+        perso.setForce(perso.getForce() + this.m_force);
     }
 
     public int getVitesse()

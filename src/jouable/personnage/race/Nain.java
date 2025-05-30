@@ -1,33 +1,27 @@
 package jouable.personnage.race;
 
+import jouable.personnage.Personnage;
 import stats.CaracteristiquesBase;
 import stats.CaracteristiquesBase;
 
 public class Nain implements Race {
-    private CaracteristiquesBase m_caracteristiques;
+    private Integer m_force;
 
-    public Nain(CaracteristiquesBase caracteristique) {
-        caracteristique.setForce(caracteristique.getForce() + 6); // ✅ +6 en force
-        this.m_caracteristiques = caracteristique;
-    }
-
-    public Nain() {
-        this.m_caracteristiques = new CaracteristiquesBase(6, 0, 0, 0, 0, 0); // force, dex, init, vit, pvmax
-        this.m_caracteristiques.setCurrentPv(m_caracteristiques.getPvMax());
-    }
-    public String getRace(){
-        return "Nain";
+    public Nain()
+    {
+        m_force = 6;
     }
 
     @Override
-    public String toString() {
-        return this.getRace()+ " {" +
-                "Force=" + m_caracteristiques.getForce() +
-                ", Dextérité=" + m_caracteristiques.getDexterite() +
-                ", Initiative=" + m_caracteristiques.getInitiative() +
-                ", Vitesse=" + m_caracteristiques.getVitesse() +
-                ", PV Max=" + m_caracteristiques.getPvMax() +
-                ", PV Actuels=" + m_caracteristiques.getCurrentPv() +
-                '}';
+    public void ajouterInitRacePerso(Personnage perso)
+    {
+        perso.setForce(perso.getForce() + m_force);
     }
+
+
+    @Override
+    public String toString(){
+        return "Nain";
+    }
+
 }

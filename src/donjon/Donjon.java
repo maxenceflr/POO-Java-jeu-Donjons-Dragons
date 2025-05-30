@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import jouable.Jouable;
 import jouable.personnage.Personnage;
+import objet.Equipement;
 
 public class Donjon
 {
@@ -43,17 +44,6 @@ public class Donjon
         this(25,25);
     }*/
 
-    public boolean estPrise(Position position)
-    {
-        return m_positionsObstacle.containsObstacle(position) || m_positionsJouable.containsJouable(position) || m_positionsEquipement.containsEquipement(position);
-    }
-
-    public String toString()
-    {
-        return "Longueur du Donjon: " + Integer.toString(m_longueur) + "cases."
-                + "\nLargeur du Donjon: " + Integer.toString(m_largeur) + "cases.";
-    }
-
     public int getLargeur() {
         return m_largeur;
     }
@@ -62,13 +52,33 @@ public class Donjon
         return m_longueur;
     }
 
-    public static double getDistance(Jouable j1, Jouable j2)
+    public boolean estPrise(Position position)
     {
-            int x1 = j1.getPosition().getX();
-            int x2 = j2.getPosition().getX();
+        return m_positionsObstacle.containsObstacle(position) || m_positionsJouable.containsJouable(position) || m_positionsEquipement.containsEquipement(position);
+    }
 
-            int y1 = j1.getPosition().getY();
-            int y2 = j2.getPosition().getY();
+    public Position getPositionFromJouable(Jouable jouable)
+    {
+        return this.m_positionsJouable.getPositionJouable(jouable);
+    }
+
+    public Jouable getJouableFromPosition(Position position)
+    {
+        return this.getPositionsJouables().getJouableFromPosition(position);
+    }
+
+    public Equipement getEquipementFromPosition(Position position)
+    {
+        return this.getPositionsEquipement().getEquipementFromPosition(position);
+    }
+
+    public static double getDistance(Position p1, Position p2)
+    {
+            int x1 = p1.getX();
+            int x2 = p2.getX();
+
+            int y1 = p1.getY();
+            int y2 = p2.getY();
 
             return Math.sqrt( ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)) );
     }
@@ -83,5 +93,11 @@ public class Donjon
 
     public PositionsObstacle getPositionsObstacle() {
         return m_positionsObstacle;
+    }
+
+    public String toString()
+    {
+        return "Longueur du Donjon: " + Integer.toString(m_longueur) + "cases."
+                + "\nLargeur du Donjon: " + Integer.toString(m_largeur) + "cases.";
     }
 }
