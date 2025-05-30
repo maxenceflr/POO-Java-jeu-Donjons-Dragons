@@ -8,11 +8,10 @@ import java.util.function.DoubleConsumer;
 
 public abstract class Arme extends Equipement
 {
-    protected int m_degats;
     protected int m_portee;
-    protected De m_deDegat;
+    protected De m_degats;
 
-    public Arme(int degats, int portee)
+    public Arme(De degats, int portee)
     {
         m_degats = degats;
         m_portee = portee;
@@ -20,21 +19,16 @@ public abstract class Arme extends Equipement
 
     public Arme()
     {
-        m_degats = 0;
+        m_degats = new De();
         m_portee = 0;
     }
 
-    public De getDeDegat()
-    {
-        return m_deDegat;
-    }
-
-    public int getDegats()
+    public De getDeDegats()
     {
         return m_degats;
     }
 
-    public void setDegats(int degats)
+    public void setDeDegats(De degats)
     {
         m_degats = degats;
     }
@@ -52,7 +46,7 @@ public abstract class Arme extends Equipement
     @Override
     public String toString()
     {
-        return  "Dégâts : " + Integer.toString(m_degats) +
+        return  "Dégâts : " + m_degats.toString() +
                 ", Portée : " + Integer.toString(m_portee);
     }
 

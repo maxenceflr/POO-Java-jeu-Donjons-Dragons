@@ -1,16 +1,24 @@
 package objet.arme;
 
+import jouable.personnage.Personnage;
+import partie.De;
+
 public abstract class ArmeCourante extends Arme
 {
 
-    public ArmeCourante(int degats, int portee)
+    public ArmeCourante(De degats, int portee)
     {
         super(degats, portee);
     }
 
     public ArmeCourante()
     {
-        super(0, 1);
+        super(new De(1, 6), 1);
+    }
+
+    public void equiper(Personnage perso)
+    {
+        perso.setArme(this);
     }
 
     @Override

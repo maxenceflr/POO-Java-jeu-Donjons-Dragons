@@ -1,6 +1,7 @@
 package jouable.personnage;
 
 import donjon.Donjon;
+import donjon.Position;
 import jouable.Jouable;
 import partie.De;
 
@@ -19,15 +20,27 @@ public class Monstre extends Jouable {
         m_symbole = symbole;
     }
 
-    public void attaquer(Jouable other)
+    public void attaquer(Position other, Donjon donjon)
     {
-        if (Donjon.getDistance(this, other) < this.m_portee)
+        De deAttaque = new De(1, 20);
+        Jouable otherJouable = donjon.getJouableFromPostion(other);
+
+        if (Donjon.getDistance(donjon.getPositionFromJouable(this), other) < this.m_portee)
         {
             int somme_attaque = m_degats.jeter();
 
             if (this.getForce() == 0)
             {
+                somme_attaque += this.getDexterite();
+            }
+            else
+            {
+                somme_attaque += this.getForce();
+            }
 
+            if (somme_attaque > otherJouable.getClasseArmure())
+            {
+                otherJouable.setCurrentPv(otherJouable.getCurrentPv() - this.m_degats.jeter());
             }
         }
     }
