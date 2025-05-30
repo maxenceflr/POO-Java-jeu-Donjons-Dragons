@@ -4,6 +4,8 @@ import donjon.Donjon;
 import donjon.Position;
 import partie.De;
 
+
+
 public class Monstre extends Jouable {
 
     private De m_degats;
@@ -17,6 +19,21 @@ public class Monstre extends Jouable {
         m_portee = portee;
         m_espece = espece;
         m_symbole = symbole;
+    }
+
+    public static Monstre creerDragon()
+    {
+        return new Monstre(new De(1,12), 4, "Dragon", "}X{");
+    }
+
+    public static Monstre creerDemogorgon()
+    {
+        return new Monstre(new De(1,6), 1, "Démogorgon", "~X~");
+    }
+
+    public static Monstre creerGobelin()
+    {
+        return new Monstre(new De(1,2), 1, "Gobelin", "-X-");
     }
 
     public void attaquer(Position other, Donjon donjon)

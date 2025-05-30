@@ -56,7 +56,12 @@ public class PositionsJouables
     @Override
     public String toString()
     {
-        return "";
+        String result = "";
+
+        for (Map.Entry<Position, Jouable> elt : m_positionsJouable.entrySet()) {
+            result += elt.getKey().toString() + " : " + elt.getValue().toString();
+        }
+        return result;
     }
 
 }
