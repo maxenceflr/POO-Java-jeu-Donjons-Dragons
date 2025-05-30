@@ -10,6 +10,17 @@ public class Donjon
     private PositionsEquipement m_positionsEquipement;
     private PositionsObstacle m_positionsObstacle;
 
+    public Donjon()
+    {
+        AffichageDonjon af = new AffichageDonjon();
+        m_longueur = af.demanderLongeur();
+        m_largeur = af.demanderLargeur();
+        m_positionsObstacle = obstacle;
+        m_positionsEquipement = af.placerEquipement();
+        m_positionsJouable = jouable;
+
+    }
+    /*
     public Donjon(int longueur, int largeur, PositionsJouables jouable, PositionsEquipement equipement, PositionsObstacle obstacle)
     {
         m_longueur = longueur;
@@ -27,7 +38,7 @@ public class Donjon
     public Donjon()
     {
         this(25,25);
-    }
+    }*/
 
     public boolean estPrise(Position position)
     {
