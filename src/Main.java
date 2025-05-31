@@ -1,4 +1,5 @@
 import donjon.*;
+import jouable.Monstre;
 import jouable.personnage.Personnage;
 import jouable.personnage.classe.Magicien;
 import jouable.personnage.race.Elfe;
@@ -10,10 +11,8 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String args[])
     {
-        Elfe eli = new Elfe();
-        Magicien magi = new Magicien();
-        CaracteristiquesBase cara = new CaracteristiquesBase(1,1,1,1,1,14);
-        Personnage perso = new Personnage("Max",eli,magi,cara);
+        Monstre momo = new Monstre();
+        Personnage perso = new Personnage();
         List<Personnage> listperso =new ArrayList<>();
         listperso.add(perso);
 

@@ -8,7 +8,7 @@ public class Humain implements Race {
 
     public Humain()
     {
-        this.m_caracteristiques= new CaracteristiquesBase(2,2,2,2,0, 0);
+        this.m_caracteristiques= new CaracteristiquesBase(2,2,2,2,0,0);
     }
 
     @Override
