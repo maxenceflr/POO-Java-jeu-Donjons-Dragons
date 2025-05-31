@@ -1,6 +1,8 @@
 package donjon;
 
 import objet.Equipement;
+
+import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
 
@@ -56,8 +58,16 @@ public class PositionsEquipement
     }
 
     @Override
-    public String toString()
-    {
-        return "";
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Positions des équipements :\n");
+
+        for (Map.Entry<Position, Equipement> entry : m_positionsEquipement.entrySet()) {
+            sb.append("Position ").append(entry.getKey())
+                    .append(" → Equipement : ").append(entry.getValue())
+                    .append("\n");
+        }
+
+        return sb.toString();
     }
 }
