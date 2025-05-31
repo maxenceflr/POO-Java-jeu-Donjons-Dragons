@@ -35,8 +35,8 @@ public class PersonnageTest {
         personnage.setArme(baton);
         personnage.setArmure(demi);
 
-        assertEquals(personnage.getArme(),baton);
-        assertEquals(personnage.getArmure(),demi);
+        assertEquals(personnage.getArme().get(),baton);
+        assertEquals(personnage.getArmure().get(),demi);
     }
 
     @Test

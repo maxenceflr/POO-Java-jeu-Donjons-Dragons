@@ -4,6 +4,7 @@ import jouable.personnage.AffichagePersonnageInterface;
 
 import java.util.Scanner;
 import partie.*;
+import stats.CaracteristiquesBase;
 
 public class AffichageMonstre{
     public static String choisirEspece() {
@@ -69,6 +70,78 @@ public class AffichageMonstre{
                 return 0;
             } else {
                 System.out.println("Réponse invalide. Veuillez taper 'oui' ou 'non'.");
+            }
+        }
+    }
+    public static CaracteristiquesBase choisirCaracteristiques() {
+        Scanner scanner = new Scanner(System.in);
+        int force, vitesse, initiative, dexterite, pv, armure;
+
+        System.out.println("=== Définissez les caractéristiques de votre monstre ===");
+
+        force = demanderEntier(scanner, "Force");
+        vitesse = demanderEntier(scanner, "Vitesse");
+        initiative = demanderEntier(scanner, "Initiative");
+        dexterite = demanderEntier(scanner, "Dextérité");
+        pv = demanderEntier(scanner, "Points de vie (PV)");
+        armure = choisirArmure();
+
+        CaracteristiquesBase carac = new CaracteristiquesBase();
+        carac.setForce(force);
+        carac.setVitesse(vitesse);
+        carac.setInitiative(initiative);
+        carac.setDexterite(dexterite);
+        carac.setPvMax(pv);
+        carac.setCurrentPv(pv);
+        carac.setArmure(armure);
+
+        return carac;
+    }
+    public static int choisirArmure() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("Choisissez une armure :");
+            System.out.println("1 - Armure d'écaille");
+            System.out.println("2 - Cotte de maille");
+            System.out.println("3 - Demi-plate");
+            System.out.println("4 - Harmois");
+            System.out.print("Votre choix : ");
+
+            String saisie = scanner.nextLine().trim();
+            try {
+                int choix = Integer.parseInt(saisie);
+                switch (choix) {
+                    case 1:
+                        return 9;
+                    case 2:
+                        return 11;
+                    case 3:
+                        return 10;
+                    case 4:
+                        return 12;
+                    default:
+                        System.out.println("Choix invalide. Veuillez entrer un nombre entre 1 et 6.\n");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrée invalide. Veuillez entrer un nombre entier.\n");
+            }
+        }
+    }
+
+    private static int demanderEntier(Scanner scanner, String nomChamp) {
+        while (true) {
+            System.out.print(nomChamp + " : ");
+            String saisie = scanner.nextLine().trim();
+            try {
+                int valeur = Integer.parseInt(saisie);
+                if (valeur >= 0) {
+                    return valeur;
+                } else {
+                    System.out.println("Veuillez entrer un entier positif ou nul.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrée invalide. Veuillez entrer un nombre entier.");
             }
         }
     }

@@ -2,14 +2,13 @@ package affichage;
 import java.util.Scanner;
 
 import jouable.personnage.AffichagePersonnageInterface;
-import jouable.personnage.classe.*;
 import jouable.personnage.race.*;
 import stats.CaracteristiquesBase;
+import jouable.personnage.classe.*;
 public class AffichagePersonnage implements AffichagePersonnageInterface {
 
-
-    public Integer choisirClasse(CaracteristiquesBase car) {
-        Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
+    public Classe choisirClasse() {
         while (true) {
             System.out.println("Choisissez une classe :");
             System.out.println("1 - Clerc");
@@ -23,19 +22,22 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
             try {
                 choix = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Entrée invalide. Veuillez entrer un nombre.");
+                System.out.println("Entrée invalide. Veuillez entrer un nombre.\n");
                 continue;
             }
 
-            if (choix >= 1 && choix <= 4) {
-                return choix;
-            } else {
-                System.out.println("Choix invalide. Veuillez recommencer.\n");
+            switch (choix) {
+                case 1: return new Clerc();
+                case 2: return new Guerrier();
+                case 3: return new Magicien();
+                case 4: return new Roublard();
+                default:
+                    System.out.println("Choix invalide. Veuillez recommencer.\n");
             }
         }
     }
-    public Integer choisirRace(CaracteristiquesBase car) {
-        Scanner scanner = new Scanner(System.in);
+    public Race choisirRace(CaracteristiquesBase car) {
+
         while (true) {
             System.out.println("Choisissez une race :");
             System.out.println("1 - Humain");
@@ -49,34 +51,41 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
             try {
                 choix = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Entrée invalide. Veuillez entrer un nombre.");
+                System.out.println("Entrée invalide. Veuillez entrer un nombre.\n");
                 continue;
             }
 
-            if (choix >= 1 && choix <= 4) {
-                return choix;
-            } else {
-                System.out.println("Choix invalide. Veuillez recommencer.\n");
+            switch (choix) {
+                case 1:
+                    return new Humain();
+                case 2:
+                    return new Nain();
+                case 3:
+                    return new Elfe();
+                case 4:
+                    return new Halfelin();
+                default:
+                    System.out.println("Choix invalide. Veuillez recommencer.\n");
             }
+
         }
     }
 
 
-    public String choisirNom()
-    {
-        Scanner scanner = new Scanner(System.in);
+    public String choisirNom() {
 
         while (true) {
-            System.out.print("Entrez le nom de votre personnage (puis appuyez sur Entrée) : ");
+            System.out.print("Entrez le nom de votre personnage (lettres uniquement) : ");
             String nom = scanner.nextLine().trim();
 
-            if (!nom.isEmpty()) {
-                return nom;
+            if (nom.isEmpty()) {
+                System.out.println("Le nom ne peut pas être vide. Veuillez réessayer.");
+            } else if (!nom.matches("[a-zA-ZÀ-ÿ\\- ]+")) {
+                System.out.println("Le nom ne doit contenir que des lettres. Aucun chiffre ni symbole n'est autorisé.");
             } else {
-                System.out.println("Le nom ne peut pas être vide. Appuyez sur Entrée après avoir saisi un nom.");
+                return nom;
             }
         }
-
     }
 
 
