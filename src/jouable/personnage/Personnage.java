@@ -43,9 +43,9 @@ public class Personnage extends Jouable {
         {
             if (Donjon.getDistance(donjon.getPositionFromJouable(this), other) < m_arme.get().getPortee())
             {
-                int somme_attaque = deAttaque.jeter();
+                int somme_attaque = deAttaque.jeter() + m_arme.get().getBonusAttaque();
 
-                if(m_arme.get() instanceof ArmeCourante || m_arme.get() instanceof ArmeDeGuerre)
+                if(m_arme.get().getPortee() < 2)
                 {
                     somme_attaque += this.m_caracteristiques.getForce();
                 }
@@ -56,7 +56,7 @@ public class Personnage extends Jouable {
 
                 if (somme_attaque > otherJouable.getClasseArmure())
                 {
-                    otherJouable.setCurrentPv(otherJouable.getCurrentPv() - this.m_arme.get().getDeDegats().jeter());
+                    otherJouable.setCurrentPv(otherJouable.getCurrentPv() - (this.m_arme.get().getDeDegats().jeter() + m_arme.get().getBonusAttaque()));
                 }
             }
         }
@@ -70,6 +70,7 @@ public class Personnage extends Jouable {
 
     public void ramasser(Position pos, Donjon donjon) {
         this.m_inventaire.ajouterEquipement(donjon.getEquipementFromPosition(pos));
+        donjon.getPositionsEquipement().retirerEquipement(pos);
     }
 
     public void setArmure(Armure armure) {
@@ -78,6 +79,13 @@ public class Personnage extends Jouable {
 
     public void setArme(Arme arme) {
         m_arme = Optional.of(arme);
+    }
+
+    public Optional<Armure> getArmure() {
+        return m_armure;
+    }
+    public Optional<Arme> getArme() {
+        return m_arme;
     }
 
     public String getSymbole()

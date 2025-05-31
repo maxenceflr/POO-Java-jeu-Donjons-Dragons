@@ -11,66 +11,72 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
     private Scanner scanner = new Scanner(System.in);
 
-    public void afficherDonjon(Donjon donjon) {
+    public static void afficherDonjon(Donjon donjon) {
         char[] alphabetMajuscule = {
                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
                 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
                 'U', 'V', 'W', 'X', 'Y', 'Z'
         };
 
-        int longueur = donjon.getLongueur();
-        int largeur = donjon.getLargeur();
-        Position pos = new Position();
+        String result = "      ";
 
-        // === 1. En-tête des lettres ===
-        StringBuilder result = new StringBuilder("    ");
-        for (int i = 0; i < longueur; i++) {
-            result.append(String.format(" %-3c", alphabetMajuscule[i]));
+        for (int i = 0; i < donjon.getLongueur(); i++) {
+            result += alphabetMajuscule[i] + "  ";
         }
-        result.append("\n");
 
-        // === 2. Ligne de séparation ===
-        result.append("   *");
-        result.append("-".repeat(4 * longueur));
-        result.append("\n");
+        result += "\n   *--";
 
-        // === 3. Grille ===
-        for (int y = 0; y < largeur; y++) {
-            result.append(String.format("%-3d|", y)); // numéro ligne gauche
+        for (int i = 0; i < donjon.getLongueur(); i++) {
+            result += "---";
+        }
 
-            for (int x = 0; x < longueur; x++) {
-                pos.setX(x);
-                pos.setY(y);
+        result += "*";
 
-                String symbole;
+        System.out.println(result);
 
-                if (donjon.getPositionsEquipement().containsEquipement(pos)) {
-                    symbole = "*";
-                } else if (donjon.getPositionsObstacle().containsObstacle(pos)) {
-                    symbole = "[ ]";
-                } else {
-                    symbole = ".";
-                }
+        String renduDonjon = "";
+        Position currentPos = new Position();
 
-                // Affichage formaté sur 4 caractères pour l'alignement
-                result.append(String.format(" %-3s", symbole));
+        for (int i = 0; i < donjon.getLargeur(); i++) {
+
+            if (i > 9)
+            {
+                renduDonjon += Integer.toString(i) + " | ";
+            }
+            else
+            {
+                renduDonjon += Integer.toString(i) + "  | ";
             }
 
-            result.append("|"); // bord droit
-            result.append(String.format("%3d\n", y)); // numéro ligne droite
+            for (int j = 0; j < donjon.getLongueur(); j++) {
+                currentPos.setX(j);
+                currentPos.setY(i);
+
+                if (donjon.getPositionsEquipement().containsEquipement(currentPos)) {
+                    renduDonjon += " " + donjon.getPositionsEquipement().getEquipementFromPosition(currentPos).getSymbole() + " ";
+                } else if (donjon.getPositionsJouables().containsJouable(currentPos)) {
+                    renduDonjon += donjon.getPositionsJouables().getPositions().get(currentPos).getSymbole();
+                } else if (donjon.getPositionsObstacle().containsObstacle(currentPos)) {
+                    renduDonjon += "[ ]";
+                } else {
+                    renduDonjon += " . ";
+                }
+            }
+            renduDonjon += " |\n";
         }
 
-        // === 4. Ligne du bas + légende ===
-        result.append("   *");
-        result.append("-".repeat(4 * longueur));
-        result.append("*\n");
+        System.out.print(renduDonjon);
 
-        result.append("    * * = Equipement  |  [ ] = Obstacle  |\n");
+        String res = "   *--";
 
-        // === 5. Affichage final ===
-        System.out.println(result.toString());
+        for (int i = 0; i < donjon.getLongueur(); i++) {
+            res += "---";
+        }
+
+        res += "*\n    * Equipement  |  [ ] Obstacle  |";
+
+        System.out.println(res);
     }
-
 
 
     public int demanderLargeur() {
