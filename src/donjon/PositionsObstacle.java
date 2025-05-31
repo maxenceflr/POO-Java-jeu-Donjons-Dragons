@@ -13,6 +13,8 @@ public class PositionsObstacle
 
     public void ajouterObstacle(Position position)
     {
+
+        System.out.println("L'obstacle a ete ajouter au "+ position.toString());
         m_positionsObstacle.add(position);
     }
 
@@ -30,10 +32,15 @@ public class PositionsObstacle
     {
         return m_positionsObstacle.contains(position);
     }
-
     @Override
-    public String toString()
-    {
-        return "";
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Positions des obstacles :\n");
+        for (Position pos : m_positionsObstacle) {
+            sb.append("Obstacle en position (" + pos.getX() + ", " + pos.getY() + ")\n");
+        }
+        return sb.toString();
     }
+
+
 }

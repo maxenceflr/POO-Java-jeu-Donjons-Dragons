@@ -31,4 +31,8 @@ public class Position {
     public void setY(int m_y) {
         this.m_y = m_y;
     }
+    @Override
+    public String toString() {
+        return "X:"+m_x+"  Y:"+m_y;
+    }
 }

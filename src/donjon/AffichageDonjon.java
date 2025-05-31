@@ -18,54 +18,59 @@ public class AffichageDonjon implements AffichageDonjonInterface {
                 'U', 'V', 'W', 'X', 'Y', 'Z'
         };
 
-        String result = "    ";
+        int longueur = donjon.getLongueur();
+        int largeur = donjon.getLargeur();
+        Position pos = new Position();
 
-        for (int i = 0; i < donjon.getLongueur(); i++) {
-            result += alphabetMajuscule[i] + " ";
+        // === 1. En-tête des lettres ===
+        StringBuilder result = new StringBuilder("    ");
+        for (int i = 0; i < longueur; i++) {
+            result.append(String.format(" %-3c", alphabetMajuscule[i]));
         }
+        result.append("\n");
 
-        result += "\n   *--";
+        // === 2. Ligne de séparation ===
+        result.append("   *");
+        result.append("-".repeat(4 * longueur));
+        result.append("\n");
 
-        for (int i = 0; i < donjon.getLongueur(); i++) {
-            result += "---";
-        }
+        // === 3. Grille ===
+        for (int y = 0; y < largeur; y++) {
+            result.append(String.format("%-3d|", y)); // numéro ligne gauche
 
-        System.out.println(result);
-        String renduDonjon = "";
-        Position currentPos = new Position();
+            for (int x = 0; x < longueur; x++) {
+                pos.setX(x);
+                pos.setY(y);
 
-        for (int i = 0; i < donjon.getLargeur(); i++) {
-            renduDonjon += Integer.toString(i) + "  |  ";
+                String symbole;
 
-            for (int j = 0; j < donjon.getLargeur(); j++) {
-                currentPos.setX(j);
-                currentPos.setY(i);
-
-                if (donjon.getPositionsEquipement().containsEquipement(currentPos)) {
-                    renduDonjon += donjon.getPositionsEquipement().getEquipementFromPosition(currentPos).getSymbole() + "  ";
-                } else if (donjon.getPositionsJouables().containsJouable(currentPos)) {
-                    renduDonjon += donjon.getPositionsJouables().getPositions().get(currentPos).getSymbole() + "  ";
-                } else if (donjon.getPositionsObstacle().containsObstacle(currentPos)) {
-                    renduDonjon += "[ ]  ";
+                if (donjon.getPositionsEquipement().containsEquipement(pos)) {
+                    symbole = "*";
+                } else if (donjon.getPositionsObstacle().containsObstacle(pos)) {
+                    symbole = "[ ]";
                 } else {
-                    renduDonjon += ".  ";
+                    symbole = ".";
                 }
+
+                // Affichage formaté sur 4 caractères pour l'alignement
+                result.append(String.format(" %-3s", symbole));
             }
-            renduDonjon += Integer.toString(i) + "|\n";
+
+            result.append("|"); // bord droit
+            result.append(String.format("%3d\n", y)); // numéro ligne droite
         }
 
-        System.out.println(renduDonjon);
+        // === 4. Ligne du bas + légende ===
+        result.append("   *");
+        result.append("-".repeat(4 * longueur));
+        result.append("*\n");
 
-        String res = "  *--";
+        result.append("    * * = Equipement  |  [ ] = Obstacle  |\n");
 
-        for (int i = 0; i < donjon.getLongueur(); i++) {
-            res += "---";
-        }
-
-        res += "*\n    * Equipement  |  [ ] Obstacle  |";
-
-        System.out.println(res);
+        // === 5. Affichage final ===
+        System.out.println(result.toString());
     }
+
 
 
     public int demanderLargeur() {

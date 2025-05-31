@@ -14,7 +14,7 @@ public class Guerison implements Sorts{
 
     @Override
     public void utiliser(Personnage lanceur, List<Jouable> cibles) {
-
+/*
         De de = new De(1, 10);
         int pvSoigne = de.jeter();
         Jouable cible =  cibles.getFirst();
@@ -26,6 +26,6 @@ public class Guerison implements Sorts{
         else
         {
             cible.setCurrentPv(cible.getCurrentPv() + pvSoigne);
-        }
+        }*/
     }
 }
