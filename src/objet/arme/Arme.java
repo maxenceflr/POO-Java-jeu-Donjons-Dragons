@@ -10,22 +10,40 @@ public abstract class Arme extends Equipement
 {
     protected int m_portee;
     protected De m_degats;
+    protected int m_bonusAttaque;
 
     public Arme(De degats, int portee)
     {
         m_degats = degats;
         m_portee = portee;
+        m_bonusAttaque = 0;
     }
 
     public Arme()
     {
         m_degats = new De();
         m_portee = 0;
+        m_bonusAttaque = 0;
+    }
+
+    public void ajouterBonus(int bonus)
+    {
+        this.m_bonusAttaque += bonus;
     }
 
     public De getDeDegats()
     {
         return m_degats;
+    }
+
+    public void setBonusAttaque(int bonus)
+    {
+        m_bonusAttaque = bonus;
+    }
+
+    public int getBonusAttaque()
+    {
+        return m_bonusAttaque;
     }
 
     public void setDeDegats(De degats)

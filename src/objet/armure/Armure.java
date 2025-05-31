@@ -5,7 +5,7 @@ import objet.Equipement;
 
 public abstract class Armure extends Equipement
 {
-    protected final int m_classeArmure;
+    protected int m_classeArmure;
 
     protected Armure(int armure)
     {
@@ -20,6 +20,11 @@ public abstract class Armure extends Equipement
     public int getArmure()
     {
         return m_classeArmure;
+    }
+
+    public void ajouterBonus(int bonus)
+    {
+        this.m_classeArmure += bonus;
     }
 
     @Override

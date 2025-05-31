@@ -4,7 +4,6 @@ import jouable.personnage.Personnage;
 import java.util.List;
 
 public interface AffichageDonjonInterface {
-    void afficherDonjon(Donjon donjon);
     int demanderLargeur();
     int demanderLongeur();
     Position demanderPositionObstacle(Donjon donjon, PositionsObstacle PO);

@@ -9,4 +9,5 @@ public abstract class Equipement
         return "*";
     }
     public abstract void equiper(Personnage perso);
+    public abstract void ajouterBonus(int bonus);
 }
