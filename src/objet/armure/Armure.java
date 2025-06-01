@@ -30,7 +30,7 @@ public abstract class Armure extends Equipement
     @Override
     public String toString()
     {
-        return  "Classe d'armure : " + Integer.toString(m_classeArmure);
+        return  "\nClasse d'armure : " + Integer.toString(m_classeArmure);
     }
 
     public void equiper(Personnage perso)

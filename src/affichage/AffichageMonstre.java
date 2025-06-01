@@ -1,5 +1,6 @@
 package affichage;
 
+import jouable.Monstre;
 import jouable.personnage.AffichagePersonnageInterface;
 
 import java.util.Scanner;
@@ -61,15 +62,17 @@ public class AffichageMonstre{
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.print("Voulez-vous porter une attaque ? (oui/non) : ");
-            String reponse = scanner.nextLine().trim().toLowerCase();
-
-            if (reponse.equals("oui")) {
-                return 1;
-            } else if (reponse.equals("non")) {
-                return 0;
-            } else {
-                System.out.println("Réponse invalide. Veuillez taper 'oui' ou 'non'.");
+            System.out.print("Entrez les dégâts que votre attaque inflige (nombre entier positif) : ");
+            String saisie = scanner.nextLine().trim();
+            try {
+                int porter = Integer.parseInt(saisie);
+                if (porter > 0) {
+                    return porter;
+                } else {
+                    System.out.println("La poertée doit être un entier strictement positif.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrée invalide. Veuillez saisir un nombre entier.");
             }
         }
     }
@@ -146,15 +149,15 @@ public class AffichageMonstre{
         }
     }
 
-    public static void afficherCaracteristiaque(Integer CurrentPv, Integer PvMax, Integer Dexteriter, Integer Force, Integer Vitesse, Integer Initiative, Integer ClassArmure) {
+    public static void afficherCaracteristiaque(Monstre monstr) {
         System.out.println("Les caracteristiques du joueur sont :");
-        System.out.println("- CurrentPv : " + CurrentPv);
-        System.out.println("- PvMax : " + PvMax);
-        System.out.println("- Dexteriter : " + Dexteriter);
-        System.out.println("- Force : " + Force);
-        System.out.println("- Vitesse : " + Vitesse);
-        System.out.println("- Initiative : " + Initiative);
-        System.out.println("- Class d'Armure: " + ClassArmure);
+        System.out.println("- CurrentPv : " + monstr.getCurrentPv());
+        System.out.println("- PvMax : " + monstr.getPvMax());
+        System.out.println("- Dexteriter : " + monstr.getDexterite());
+        System.out.println("- Force : " + monstr.getForce());
+        System.out.println("- Vitesse : " + monstr.getVitesse());
+        System.out.println("- Initiative : " + monstr.getInitiative());
+        System.out.println("- "+ monstr.getNomArmure()+" avec une protection de ");
     }
 
 

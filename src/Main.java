@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String args[])
     {
+
         Monstre momo = new Monstre();
         Personnage perso = new Personnage();
         List<Personnage> listperso =new ArrayList<>();
