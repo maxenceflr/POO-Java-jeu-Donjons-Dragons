@@ -1,5 +1,6 @@
 package affichage;
 import donjon.*;
+import jouable.Monstre;
 import jouable.personnage.Personnage;
 import objet.arme.armecourante.Baton;
 import objet.arme.armecourante.MasseDarme;
@@ -401,6 +402,23 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
     public PositionsJouables PlacerPersonnages(List<Personnage> perso, Donjon donjon) {
         PositionsJouables PJ = new PositionsJouables();
+        while(true)
+        {
+            Monstre momo = new Monstre();
+            System.out.println("Où voulez-vous le placer ?");
+            Position pos = demanderPositionPersonnage(donjon, PJ); // On suppose que cette méthode existe et vérifie les collisions
+
+            PJ.ajouterJouable(momo,pos); // On l'ajoute à la liste des positions jouables
+            System.out.println("Voulez-vous ajouter un autre Monstre?(oui/non)");
+            String reponse = scanner.nextLine().trim().toLowerCase();
+
+            if (!reponse.equals("oui")||!reponse.equals("o")) {
+                break; // sort de la boucle si la réponse n'est pas "oui"
+            }
+
+
+
+        }
 
         for (int i = 0; i < perso.size(); i++) {
             Personnage p = perso.get(i);
@@ -418,6 +436,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
     public Position demanderPositionPersonnage(Donjon donjon, PositionsJouables PJ) {
         int largeurDonjon = donjon.getLargeur();
         int longeurDonjon = donjon.getLongueur();
+
 
         while (true) {
             // Demande de la longeur (ligne)

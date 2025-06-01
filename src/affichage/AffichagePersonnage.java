@@ -2,6 +2,7 @@ package affichage;
 import java.util.Scanner;
 
 import jouable.personnage.AffichagePersonnageInterface;
+import jouable.personnage.Personnage;
 import jouable.personnage.race.*;
 import stats.CaracteristiquesBase;
 import jouable.personnage.classe.*;
@@ -36,7 +37,7 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
             }
         }
     }
-    public Race choisirRace(CaracteristiquesBase car) {
+    public Race choisirRace(Personnage perso) {
 
         while (true) {
             System.out.println("Choisissez une race :");
@@ -57,13 +58,21 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
 
             switch (choix) {
                 case 1:
-                    return new Humain();
+                    Humain hum = new Humain();
+                    hum.ajouterInitRacePerso(perso);
+                    return hum;
                 case 2:
-                    return new Nain();
+                    Nain nain = new Nain();
+                    nain.ajouterInitRacePerso(perso);
+                    return nain;
                 case 3:
-                    return new Elfe();
+                    Elfe elfe = new Elfe();
+                    elfe.ajouterInitRacePerso(perso);
+                    return elfe;
                 case 4:
-                    return new Halfelin();
+                    Halfelin halfelin = new Halfelin();
+                    halfelin.ajouterInitRacePerso(perso);
+                    return halfelin;
                 default:
                     System.out.println("Choix invalide. Veuillez recommencer.\n");
             }
@@ -90,14 +99,19 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
 
 
 
-    public void afficherCaracteristique(Integer currentPv, Integer pvMax, Integer dexterite, Integer force, Integer vitesse, Integer initiative) {
-        System.out.println("Les caractéristiques du joueur sont :");
-        System.out.println("- Current Pv : " + currentPv);
-        System.out.println("- Pv Max : " + pvMax);
-        System.out.println("- Dextérité : " + dexterite);
-        System.out.println("- Force : " + force);
-        System.out.println("- Vitesse : " + vitesse);
-        System.out.println("- Initiative : " + initiative);
+    public void afficherCaracteristique(Personnage perso) {
+        System.out.println("\n\n\n\n"+perso.getNom()+" :");
+        System.out.println("Race :"+perso.getRace().toString()+" Classe :"+perso.getClasse().toString());
+        System.out.println("- Current Pv : " + perso.getCurrentPv());
+        System.out.println("- Pv Max : " +perso.getPvMax());
+        System.out.println("- Dextérité : " + perso.getDexterite());
+        System.out.println("- Force : " + perso.getForce());
+        System.out.println("- Vitesse : " + perso.getVitesse());
+        System.out.println("- Initiative : " + perso.getInitiative());
+        System.out.println(perso.getInventaire().toString()+"\n");
+        System.out.println(perso.getStringArme());
+        System.out.println(perso.getStringArmure()+"\n\n");
+
     }
 
 

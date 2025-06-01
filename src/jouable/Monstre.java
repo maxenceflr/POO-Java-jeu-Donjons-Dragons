@@ -3,8 +3,11 @@ package jouable;
 import affichage.AffichageMonstre;
 import donjon.Donjon;
 import donjon.Position;
+import objet.armure.*;
 import partie.De;
 import stats.CaracteristiquesBase;
+
+import static affichage.AffichageMonstre.choisirEspece;
 
 
 public class Monstre extends Jouable {
@@ -13,7 +16,6 @@ public class Monstre extends Jouable {
     private int m_portee;
     private String m_espece;
     private String m_symbole;
-    private CaracteristiquesBase m_caracteristique;
 
     public Monstre(De deDegats, int portee, String espece, String symbole, CaracteristiquesBase cara)
     {
@@ -21,17 +23,44 @@ public class Monstre extends Jouable {
         m_portee = portee;
         m_espece = espece;
         m_symbole = symbole;
-        m_caracteristique=cara;
+        m_caracteristiques=cara;
+        AffichageMonstre af =new AffichageMonstre();
+
     }
     public Monstre()
     {
         AffichageMonstre af = new AffichageMonstre();
-        m_espece = af.choisirEspece();
-        m_symbole = af.choisirRepresentation();
-        m_caracteristique=af.choisirCaracteristiques();
-        m_degats = af.choisirDegatAttaque();
-        m_portee = af.choisirPorterAttaque();
+        int choix = af.choisirEspece();
+
+        if (choix == 1) {
+            Monstre gob = creerGobelin();
+            copierDepuis(gob);
+        } else if (choix == 2) {
+            Monstre dragon = creerDragon();
+            copierDepuis(dragon);
+        } else if (choix == 3) {
+            Monstre demo = creerDemogorgon();
+            copierDepuis(demo);
+        } else {
+            m_espece = af.choisirEspecePersonaliser();
+            m_symbole = af.choisirRepresentation();
+            m_degats = af.choisirDegatAttaque();
+            m_caracteristiques = af.choisirCaracteristiques();
+            m_portee = af.choisirPorterAttaque();
+        }
+        af.afficherCaracteristiaque(this);
+
+
     }
+    private void copierDepuis(Monstre autre) {
+        this.m_degats = autre.m_degats;
+        this.m_portee = autre.m_portee;
+        this.m_espece = autre.m_espece;
+        this.m_symbole = autre.m_symbole;
+        this.m_caracteristiques = autre.m_caracteristiques;
+    }
+
+
 
     public static Monstre creerDragon()
     {
@@ -76,6 +105,21 @@ public class Monstre extends Jouable {
     public String getSymbole()
     {
         return m_symbole;
+    }
+    public String getNomArmure()
+    {
+        switch (this.m_caracteristiques.getArmure()) {
+            case 9:
+                return "Armure d'Ecailles";
+            case 10:
+                return "Armure Demi-Plate";
+            case 11:
+                return "Cote de Mailles";
+            case 12:
+                return "Harnois";
+            default:
+                throw new IllegalArgumentException("ID d'armure inconnu : " + this.m_caracteristiques.getArmure());
+        }
     }
 
     public String toString()
