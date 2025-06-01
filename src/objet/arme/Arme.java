@@ -68,4 +68,5 @@ public abstract class Arme extends Equipement
                 ", Portée : " + Integer.toString(m_portee);
     }
 
+
 }
