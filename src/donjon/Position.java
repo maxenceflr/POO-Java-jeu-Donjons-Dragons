@@ -50,6 +50,12 @@ public class Position {
     }
 
     @Override
+    public String toString()
+    {
+        return "(" + Integer.toString(m_x) + ", " + Integer.toString(m_y) + ")";
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(m_x + m_y); // génère un hash basé sur le champ name
     }

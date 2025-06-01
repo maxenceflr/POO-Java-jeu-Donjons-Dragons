@@ -40,6 +40,7 @@ public class PositionsJouables
 
     public void deplacerJouable(Jouable jouable, Position position)
     {
+            this.m_positionsJouable.remove(getPositionJouable(jouable));
             this.ajouterJouable(jouable, position);
     }
 
@@ -59,7 +60,7 @@ public class PositionsJouables
         String result = "";
 
         for (Map.Entry<Position, Jouable> elt : m_positionsJouable.entrySet()) {
-            result += elt.getKey().toString() + " : " + elt.getValue().toString();
+            result += elt.getKey().toString() + "\n" + elt.getValue().toString();
         }
         return result;
     }

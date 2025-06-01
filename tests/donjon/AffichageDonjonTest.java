@@ -40,6 +40,4 @@ class AffichageDonjonTest
         AffichageDonjon.afficherDonjon(donjon_test);
 
     }
-
-
 }

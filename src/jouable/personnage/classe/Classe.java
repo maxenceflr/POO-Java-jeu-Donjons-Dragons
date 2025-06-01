@@ -35,12 +35,12 @@ public abstract class  Classe {
         return m_pv;
     }
 
-    /*public void ajouterClasseInitPerso(CaracteristiquesBase cara)
+    public void ajouterClasseInitPerso(Personnage perso)
     {
-        cara.setPvMax(m_pv);
-        cara.setCurrentPv(m_pv);
-        /*cara.getInventaire().setInventaire(m_listEquipement);
-    }*/
+        perso.setPvMax(m_pv);
+        perso.setCurrentPv(m_pv);
+        perso.getInventaire().setInventaire(m_listEquipement);
+    }
 
     public Integer getPv() {
         return m_pv;
