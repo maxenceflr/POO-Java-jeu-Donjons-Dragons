@@ -10,21 +10,21 @@ import objet.arme.*;
 import objet.armure.*;
 import partie.De;
 import stats.CaracteristiquesBase;
-
+import affichage.AffichagePersonnage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class Personnage extends Jouable {
 
-    private final String m_nom;
+    private String m_nom;
     private Inventaire m_inventaire;
     private Optional<Arme> m_arme;
     private Optional<Armure> m_armure;
     private final Race m_race;
     private final Classe m_classe;
 
-    public Personnage(String nom, Race race, Classe classe, CaracteristiquesBase carac) {
+    public Personnage(String nom, Race race, Classe classe, CaracteristiquesBase carac) {/*constructeur pour les test*/
         m_nom = nom;
         m_race= race;
         m_classe = classe;
@@ -32,6 +32,21 @@ public class Personnage extends Jouable {
         m_arme = Optional.empty();
         m_armure= Optional.empty();
         m_caracteristiques = carac;
+    }
+
+
+    public Personnage() {
+        AffichagePersonnage af =new AffichagePersonnage();
+        CaracteristiquesBase CA = new CaracteristiquesBase();
+        m_nom = af.choisirNom();
+        m_race= af.choisirRace(CA);
+        m_classe = af.choisirClasse();
+        CA.ajouterClasseBonus(m_classe.getPvClasse());
+        m_inventaire = new Inventaire();
+        m_inventaire.setInventaire(m_classe.getListeEquipement());
+        m_arme = Optional.empty();
+        m_armure= Optional.empty();
+        m_caracteristiques = CA;
     }
 
     public void attaquer(Position other, Donjon donjon)
@@ -88,10 +103,18 @@ public class Personnage extends Jouable {
         return m_arme;
     }
 
-    public String getSymbole()
-    {
-      return this.m_nom.substring(0, 3);
-    };
+
+    public String getSymbole() {
+        if (this.m_nom.length() >= 3) {
+            return this.m_nom.substring(0, 3);
+        }
+        else if (this.m_nom.length() >= 2){
+            return this.m_nom+" "; // ou return nom + 1 espace pour  toujours 3 caractères
+        }
+
+        return this.m_nom+"  "; // ou return nom + 2 espace pour  toujours 3 caractères
+
+    }
 
     public String getNom() {
         return m_nom;

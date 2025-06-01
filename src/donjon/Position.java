@@ -37,6 +37,7 @@ public class Position {
         this.m_y = m_y;
     }
 
+
     @Override
     public boolean equals(Object other) {
         //Run Time Type Information!

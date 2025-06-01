@@ -3,6 +3,7 @@ package jouable.personnage.classe;
 import jouable.personnage.Personnage;
 import jouable.personnage.sorts.Sorts;
 import objet.Equipement;
+import stats.CaracteristiquesBase;
 
 
 import java.util.List;
@@ -29,13 +30,17 @@ public abstract class  Classe {
         m_sorts = liste_sort;
         m_listEquipement = equipement;
     }
-
-    public void ajouterClasseInitPerso(Personnage perso)
+    public int getPvClasse()
     {
-        perso.setPvMax(m_pv);
-        perso.setCurrentPv(m_pv);
-        perso.getInventaire().setInventaire(m_listEquipement);
+        return m_pv;
     }
+
+    /*public void ajouterClasseInitPerso(CaracteristiquesBase cara)
+    {
+        cara.setPvMax(m_pv);
+        cara.setCurrentPv(m_pv);
+        /*cara.getInventaire().setInventaire(m_listEquipement);
+    }*/
 
     public Integer getPv() {
         return m_pv;

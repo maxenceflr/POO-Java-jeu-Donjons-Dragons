@@ -1,5 +1,6 @@
 package donjon;
 
+import affichage.AffichageDonjon;
 import jouable.Monstre;
 import jouable.personnage.Personnage;
 import jouable.personnage.classe.Guerrier;
@@ -20,7 +21,8 @@ class AffichageDonjonTest
     @Test
     void DonjonTestRempli()
     {
-        Personnage personnageTest = new Personnage("Maxence", new Humain(), new Guerrier(), new CaracteristiquesBase());
+        CaracteristiquesBase stats = new CaracteristiquesBase(10, 10, 10, 10, 10, 10);
+        Personnage personnageTest = new Personnage("Maxence", new Humain(), new Guerrier(), stats);
         Monstre monstreTest = Monstre.creerDragon();
 
         Position positionTest1 = new Position(9, 3);
