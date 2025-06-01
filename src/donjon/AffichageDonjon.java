@@ -1,11 +1,20 @@
 package donjon;
 import jouable.personnage.Personnage;
-import objet.arme.*;
-import objet.armure.*;
-import java.util.Set;
+import objet.arme.armecourante.Baton;
+import objet.arme.armecourante.MasseDarme;
+import objet.arme.armedeguerre.EpeeLongue;
+import objet.arme.armedeguerre.Rapiere;
+import objet.arme.armedistance.ArbaleteLegere;
+import objet.arme.armedistance.ArcCourt;
+import objet.arme.armedistance.Fronde;
+import objet.armure.armurelegere.ArmureEcailles;
+import objet.armure.armurelegere.DemiPlate;
+import objet.armure.armurelourde.CoteMailles;
+import objet.armure.armurelourde.Harnois;
+
 import java.util.Scanner;
 import java.util.List;
-import java.util.ArrayList;
+
 public class AffichageDonjon implements AffichageDonjonInterface {
 
 

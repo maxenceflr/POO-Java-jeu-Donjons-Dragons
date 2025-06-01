@@ -1,10 +1,16 @@
-package objet.armure;
+package objet.armure.armurelourde;
 
 public class CoteMailles extends ArmureLourde
 {
     public CoteMailles()
     {
         super(11);
+    }
+
+    @Override
+    public String getNomEquipement()
+    {
+        return "Cotte de mailles";
     }
 
     @Override

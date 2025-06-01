@@ -1,6 +1,8 @@
-package objet.armure;
+package objet.armure.armurelegere;
 
-public class ArmureLegere extends Armure
+import objet.armure.Armure;
+
+public abstract class ArmureLegere extends Armure
 {
 
     public ArmureLegere()
@@ -12,6 +14,7 @@ public class ArmureLegere extends Armure
     {
         super(armure);
     }
+
 
     @Override
     public String toString() {

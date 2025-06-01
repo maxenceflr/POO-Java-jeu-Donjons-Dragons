@@ -1,8 +1,9 @@
-package objet.armure;
+package objet.armure.armurelourde;
 
 import jouable.personnage.Personnage;
+import objet.armure.Armure;
 
-public class ArmureLourde extends Armure
+public abstract class ArmureLourde extends Armure
 {
     protected int m_vitesse;
 

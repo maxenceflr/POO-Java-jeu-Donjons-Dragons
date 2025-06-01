@@ -1,4 +1,4 @@
-package objet.arme;
+package objet.arme.armedistance;
 
 import partie.De;
 
@@ -8,6 +8,13 @@ public class ArcCourt extends ArmeDistance
     {
         super(new De(1, 6), 16);
     }
+
+    @Override
+    public String getNomEquipement()
+    {
+        return "Arc court";
+    }
+
 
     @Override
     public String toString() {

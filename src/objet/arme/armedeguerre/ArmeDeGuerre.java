@@ -1,6 +1,7 @@
-package objet.arme;
+package objet.arme.armedeguerre;
 
 import jouable.personnage.Personnage;
+import objet.arme.Arme;
 import partie.De;
 
 public abstract class ArmeDeGuerre extends Arme

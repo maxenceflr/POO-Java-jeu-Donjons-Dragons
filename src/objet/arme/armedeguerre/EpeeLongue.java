@@ -1,10 +1,16 @@
-package objet.arme;
+package objet.arme.armedeguerre;
 
 public class EpeeLongue extends ArmeDeGuerre
 {
     public EpeeLongue()
     {
         super();
+    }
+
+    @Override
+    public String getNomEquipement()
+    {
+        return "Epée longue";
     }
 
     @Override

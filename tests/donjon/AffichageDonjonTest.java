@@ -4,7 +4,7 @@ import jouable.Monstre;
 import jouable.personnage.Personnage;
 import jouable.personnage.classe.Guerrier;
 import jouable.personnage.race.Humain;
-import objet.arme.ArbaleteLegere;
+import objet.arme.armedistance.ArbaleteLegere;
 import org.junit.jupiter.api.Test;
 import stats.CaracteristiquesBase;
 
