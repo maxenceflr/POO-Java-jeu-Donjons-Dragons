@@ -39,7 +39,7 @@ public class Personnage extends Jouable {
         AffichagePersonnage af =new AffichagePersonnage();
         CaracteristiquesBase CA = new CaracteristiquesBase();
         m_nom = af.choisirNom();
-        m_race= af.choisirRace(CA);
+        m_race= af.choisirRace(this);
         m_classe = af.choisirClasse();
         CA.ajouterClasseBonus(m_classe.getPvClasse());
         m_inventaire = new Inventaire();
@@ -47,6 +47,7 @@ public class Personnage extends Jouable {
         m_arme = Optional.empty();
         m_armure= Optional.empty();
         m_caracteristiques = CA;
+        af.afficherCaracteristique(this);
     }
 
     public void attaquer(Position other, Donjon donjon)
@@ -123,10 +124,37 @@ public class Personnage extends Jouable {
     public Classe getClasse(){
         return  this.m_classe;
     }
+    public Race getRace(){
+        return  this.m_race;
+    }
 
     public Inventaire getInventaire()
     {
         return this.m_inventaire;
+    }
+    public String getStringArme()/*Renvoie les info sur l'arme que porte le personnage sous forme de string*/
+    {
+        if (m_arme.isPresent())
+        {
+            return "porte l'arme "+m_arme.toString();
+
+        }
+        else
+        {
+            return "Ne porte pas d'arme pour le moment";
+        }
+    }
+    public String getStringArmure()/*Renvoie les infos sur l'armure que porte le personnage sous forme de string*/
+    {
+        if (m_arme.isPresent())
+        {
+            return "porte l'arme "+m_armure.toString();
+
+        }
+        else
+        {
+            return "Ne porte pas d'armure pour le moment";
+        }
     }
 
     @Override
