@@ -100,17 +100,17 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
 
 
     public void afficherCaracteristique(Personnage perso) {
-        System.out.println("Les caractéristiques du joueur "+perso.getNom()+"sont :");
+        System.out.println("\n\n\n\n"+perso.getNom()+" :");
+        System.out.println("Race :"+perso.getRace().toString()+" Classe :"+perso.getClasse().toString());
         System.out.println("- Current Pv : " + perso.getCurrentPv());
         System.out.println("- Pv Max : " +perso.getPvMax());
         System.out.println("- Dextérité : " + perso.getDexterite());
         System.out.println("- Force : " + perso.getForce());
         System.out.println("- Vitesse : " + perso.getVitesse());
         System.out.println("- Initiative : " + perso.getInitiative());
-        System.out.println("\nC'est un "+perso.getRace().toString()+" "+perso.getClasse().toString());
-        System.out.println(perso.getInventaire().toString());
+        System.out.println(perso.getInventaire().toString()+"\n");
         System.out.println(perso.getStringArme());
-        System.out.println(perso.getStringArmure());
+        System.out.println(perso.getStringArmure()+"\n\n");
 
     }
 

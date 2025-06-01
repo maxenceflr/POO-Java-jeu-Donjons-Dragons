@@ -8,7 +8,33 @@ import partie.*;
 import stats.CaracteristiquesBase;
 
 public class AffichageMonstre{
-    public static String choisirEspece() {
+    public static int choisirEspece()
+    {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("=== Choisissez l'espèce du monstre ===");
+            System.out.println("1 - Gobelin");
+            System.out.println("2 - Dragon");
+            System.out.println("3 - Démogorgon");
+            System.out.println("4 - Monstre personnalisé");
+            System.out.print("Votre choix : ");
+
+            String saisie = scanner.nextLine().trim();
+            try {
+                int choix = Integer.parseInt(saisie);
+                if (choix >= 1 && choix <= 4) {
+                    return choix;
+                } else {
+                    System.out.println("Choix invalide. Veuillez entrer 1, 2 ou 3.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrée invalide. Veuillez entrer un nombre entier.");
+            }
+        }
+
+    }
+    public static String choisirEspecePersonaliser() {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -150,7 +176,7 @@ public class AffichageMonstre{
     }
 
     public static void afficherCaracteristiaque(Monstre monstr) {
-        System.out.println("Les caracteristiques du joueur sont :");
+        System.out.println("Les caracteristiques du monstre sont :");
         System.out.println("- CurrentPv : " + monstr.getCurrentPv());
         System.out.println("- PvMax : " + monstr.getPvMax());
         System.out.println("- Dexteriter : " + monstr.getDexterite());

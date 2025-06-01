@@ -39,14 +39,15 @@ public class Personnage extends Jouable {
         AffichagePersonnage af =new AffichagePersonnage();
         CaracteristiquesBase CA = new CaracteristiquesBase();
         m_nom = af.choisirNom();
+
+        m_arme = Optional.empty();
+        m_armure= Optional.empty();
+        m_caracteristiques = CA;
         m_race= af.choisirRace(this);
         m_classe = af.choisirClasse();
         CA.ajouterClasseBonus(m_classe.getPvClasse());
         m_inventaire = new Inventaire();
         m_inventaire.setInventaire(m_classe.getListeEquipement());
-        m_arme = Optional.empty();
-        m_armure= Optional.empty();
-        m_caracteristiques = CA;
         af.afficherCaracteristique(this);
     }
 
