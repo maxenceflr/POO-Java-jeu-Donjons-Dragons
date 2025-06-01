@@ -5,8 +5,8 @@ import jouable.personnage.classe.*;
 
 public interface AffichagePersonnageInterface {
     Classe choisirClasse();
-    Race choisirRace(CaracteristiquesBase car);
+    public Race choisirRace(Personnage perso);
     String choisirNom();
-    void afficherCaracteristique(Integer currentPv, Integer pvMax, Integer dexterite, Integer force, Integer vitesse, Integer initiative);
+    public void afficherCaracteristique(Personnage perso);
 
 }
