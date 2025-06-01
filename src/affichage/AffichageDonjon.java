@@ -1,4 +1,5 @@
-package donjon;
+package affichage;
+import donjon.*;
 import jouable.personnage.Personnage;
 import objet.arme.armecourante.Baton;
 import objet.arme.armecourante.MasseDarme;

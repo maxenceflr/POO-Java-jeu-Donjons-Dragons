@@ -1,7 +1,8 @@
 package donjon;
 
 import java.util.List;
-import java.util.ArrayList;
+
+import affichage.AffichageDonjon;
 import jouable.Jouable;
 import jouable.personnage.Personnage;
 import objet.Equipement;
@@ -22,6 +23,9 @@ public class Donjon
         m_positionsObstacle = af.PlacerObstacle(this);
         m_positionsEquipement = af.placerEquipement(this);
         m_positionsJouable = af.PlacerPersonnages(listePersonnages,this);
+        System.out.println(m_positionsEquipement.toString());
+        System.out.println(m_positionsObstacle.toString());
+        af.afficherDonjon(this);
 
     }
 
