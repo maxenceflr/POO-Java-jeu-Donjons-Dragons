@@ -1,10 +1,16 @@
-package objet.arme;
+package objet.arme.armecourante;
 
 public class Baton extends ArmeCourante
 {
     public Baton()
     {
         super();
+    }
+
+    @Override
+    public String getNomEquipement()
+    {
+        return "Bâton";
     }
 
     @Override

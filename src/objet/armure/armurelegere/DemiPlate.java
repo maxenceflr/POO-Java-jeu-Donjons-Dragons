@@ -1,12 +1,16 @@
-package objet.armure;
-
-import objet.armure.ArmureLegere;
+package objet.armure.armurelegere;
 
 public class DemiPlate extends ArmureLegere
 {
     public DemiPlate()
     {
         super(10);
+    }
+
+    @Override
+    public String getNomEquipement()
+    {
+        return "DemiPlate";
     }
 
     @Override

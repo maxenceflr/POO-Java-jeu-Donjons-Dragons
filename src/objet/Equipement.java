@@ -8,6 +8,7 @@ public abstract class Equipement
     {
         return "*";
     }
+    public abstract String getNomEquipement();
     public abstract void equiper(Personnage perso);
     public abstract void ajouterBonus(int bonus);
 }

@@ -1,12 +1,16 @@
-package objet.armure;
-
-import objet.armure.ArmureLourde;
+package objet.armure.armurelourde;
 
 public class Harnois extends ArmureLourde
 {
     public Harnois()
     {
         super(12);
+    }
+
+    @Override
+    public String getNomEquipement()
+    {
+        return "Harnois";
     }
 
     @Override

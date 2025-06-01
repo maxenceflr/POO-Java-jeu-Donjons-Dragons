@@ -1,7 +1,7 @@
 package jouable.personnage.classe;
 
-import objet.arme.*;
-import objet.armure.*;
+import objet.arme.armedeguerre.Rapiere;
+import objet.arme.armedistance.ArcCourt;
 
 import java.util.ArrayList;
 import java.util.Arrays;

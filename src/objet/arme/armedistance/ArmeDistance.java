@@ -1,9 +1,10 @@
-package objet.arme;
+package objet.arme.armedistance;
 
 import jouable.personnage.Personnage;
+import objet.arme.Arme;
 import partie.De;
 
-public class ArmeDistance extends Arme
+public abstract class ArmeDistance extends Arme
 {
     public ArmeDistance(De degats, int portee)
     {
