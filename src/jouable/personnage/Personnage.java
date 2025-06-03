@@ -160,6 +160,6 @@ public class Personnage extends Jouable {
 
     @Override
     public String toString() {
-        return "Personnage : "+ this.getNom()+ "\nRace : " + m_race.toString()+"\nClasse : " + m_classe.toString();
+        return "Personnage : "+ this.getNom()+ "(Race : " + m_race.toString()+" Classe : " + m_classe.toString()+")";
     }
 }

@@ -18,6 +18,7 @@ public class Donjon
     public Donjon(List<Personnage> listePersonnages)
     {
         AffichageDonjon af = new AffichageDonjon();
+        af.commencerCreation();
         m_longueur = af.demanderLongeur();
         m_largeur = af.demanderLargeur();
         m_positionsObstacle = af.PlacerObstacle(this);

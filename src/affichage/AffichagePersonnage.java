@@ -102,7 +102,7 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
     public void afficherCaracteristique(Personnage perso) {
         System.out.println("\n\n\n\n"+perso.getNom()+" :");
         System.out.println("Race :"+perso.getRace().toString()+" Classe :"+perso.getClasse().toString());
-        System.out.println("- Current Pv : " + perso.getCurrentPv());
+        System.out.println("\n- Current Pv : " + perso.getCurrentPv());
         System.out.println("- Pv Max : " +perso.getPvMax());
         System.out.println("- Dextérité : " + perso.getDexterite());
         System.out.println("- Force : " + perso.getForce());
