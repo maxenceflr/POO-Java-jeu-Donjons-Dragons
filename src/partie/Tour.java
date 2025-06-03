@@ -2,6 +2,7 @@ package partie;
 
 import jouable.Jouable;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -15,6 +16,12 @@ public class Tour
         m_numeroTour = 0;
         m_ordreJeu = jouables;
         m_ordreJeu.sort(Comparator.comparing(Jouable::getInitiative).reversed());
+    }
+
+    public Tour()
+    {
+        m_numeroTour = 0;
+        m_ordreJeu = new ArrayList<>();
     }
 
     public void nextTour()
@@ -31,5 +38,6 @@ public class Tour
     {
         return m_ordreJeu;
     }
+
 
 }
