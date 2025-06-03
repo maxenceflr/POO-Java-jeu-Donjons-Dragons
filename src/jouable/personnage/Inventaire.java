@@ -51,7 +51,7 @@ public class Inventaire {
 
         for (int i = 0; i < m_inventaire.size(); i++)
         {
-            result += "[" + Integer.toString(i+1) + "]" + m_inventaire.get(i).getNomEquipement() + " ";
+            result += "[" + Integer.toString(i+1) + "] " + m_inventaire.get(i).getNomEquipement() + " ";
         }
 
         return result;
