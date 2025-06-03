@@ -79,7 +79,10 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
         System.out.println(res);
     }
-
+    public void commencerCreation()
+    {
+        System.out.println("Creation d'un nouveu donjon");
+    }
 
     public int demanderLargeur() {
         int largeur;

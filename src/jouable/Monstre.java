@@ -121,6 +121,10 @@ public class Monstre extends Jouable {
                 throw new IllegalArgumentException("ID d'armure inconnu : " + this.m_caracteristiques.getArmure());
         }
     }
+    public String getStringEspece()
+    {
+        return m_espece;
+    }
 
     public String toString()
     {

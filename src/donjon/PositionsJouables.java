@@ -2,7 +2,9 @@ package donjon;
 import jouable.Jouable;
 import objet.Equipement;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PositionsJouables
@@ -51,6 +53,23 @@ public class PositionsJouables
     public HashMap<Position, Jouable> getPositions()
     {
         return m_positionsJouable;
+    }
+    public Jouable getJouableByIndex(int index) {
+        int i = 0;
+        for (Jouable jouable : m_positionsJouable.values()) {
+            if (i == index) {
+                return jouable;
+            }
+            i++;
+        }
+        return null; // ou tu peux lancer une exception si tu préfères
+    }
+
+    public int size() {
+        return this.m_positionsJouable.size();
+    }
+    public List<Jouable> getListeJouables() {
+        return new ArrayList<>(m_positionsJouable.values());
     }
 
     @Override
