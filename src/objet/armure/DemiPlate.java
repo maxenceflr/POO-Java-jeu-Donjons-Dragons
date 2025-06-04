@@ -12,6 +12,6 @@ public class DemiPlate extends ArmureLegere
     @Override
     public String toString()
     {
-        return "Demi-plate : " + super.toString();
+        return "Demi-plate " + super.toString();
     }
 }

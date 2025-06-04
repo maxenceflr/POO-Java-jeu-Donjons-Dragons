@@ -441,17 +441,15 @@ PositionsDesObstacles "1..*" o--> "1..* \nm_positionObstacle" Position : détien
 
 package partie {
 
-    class MaitreDuJeu {
-        + lancerPartie(): void
-        + afficherEtat(): void
-    }
+    class partie{
+        - m_donjon(Donjon)
+        - m_tour(int)
+        + commencerPartie()
+        + changerDonjon(): Donjon
+        + finirPartie()
+        + tour(int nbTour,)
 
-    class GestionTour {
-        - m_tourActuel: Integer
-        + initialiserOrdre()
-        + prochainTour(): Jouable
-        + changerOrdre(Jouable)
-    }
+
 
     class InitialiseurPartie {
         + creerPersonnages(): Personnage[*]

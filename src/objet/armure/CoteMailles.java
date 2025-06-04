@@ -10,6 +10,6 @@ public class CoteMailles extends ArmureLourde
     @Override
     public String toString()
     {
-        return "Côte de mailles : " + super.toString();
+        return "Côte de mailles " + super.toString();
     }
 }

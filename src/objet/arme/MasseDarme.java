@@ -10,6 +10,6 @@ public class MasseDarme extends ArmeCourante
     @Override
     public String toString()
     {
-        return "Masse D'arme : " + super.toString();
+        return "Masse D'arme " + super.toString();
     }
 }

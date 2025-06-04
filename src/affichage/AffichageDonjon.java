@@ -83,6 +83,12 @@ public class AffichageDonjon implements AffichageDonjonInterface {
     {
         System.out.println("Creation d'un nouveu donjon");
     }
+    public String demanderNomDonjon()
+    {
+        System.out.println("Quel est le nom de ce donjon?");
+        String nom = scanner.nextLine();
+        return nom;
+    }
 
     public int demanderLargeur() {
         int largeur;

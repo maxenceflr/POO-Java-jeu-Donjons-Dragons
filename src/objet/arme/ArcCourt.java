@@ -11,6 +11,6 @@ public class ArcCourt extends ArmeDistance
 
     @Override
     public String toString() {
-        return "Arc Court : " + super.toString();
+        return "Arc Court " + super.toString();
     }
 }

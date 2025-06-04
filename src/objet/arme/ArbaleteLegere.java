@@ -11,6 +11,6 @@ public class ArbaleteLegere extends ArmeDistance
 
     @Override
     public String toString() {
-        return "ArbalèteLégère : " + super.toString();
+        return "ArbalèteLégère " + super.toString();
     }
 }

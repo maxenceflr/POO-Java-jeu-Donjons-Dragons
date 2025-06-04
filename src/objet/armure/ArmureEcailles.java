@@ -10,6 +10,6 @@ public class ArmureEcailles extends ArmureLegere
     @Override
     public String toString()
     {
-        return "Armure d'écailles : " + super.toString();
+        return "Armure d'écailles " + super.toString();
     }
 }
