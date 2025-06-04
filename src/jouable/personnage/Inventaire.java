@@ -1,6 +1,8 @@
 package jouable.personnage;
 
 import objet.Equipement;
+import objet.arme.Arme;
+import objet.armure.Armure;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,17 +45,23 @@ public class Inventaire {
     {
         m_inventaire = equipements;
     }
-
     @Override
     public String toString()
     {
-        String result = "";
+        String inventaire= "L'inventaire est composé de:\n\n";
+        String armes = "Armes :\n";
+        String armures = "Armures :\n";
 
-        for (int i = 0; i < m_inventaire.size(); i++)
-        {
-            result += "[" + Integer.toString(i+1) + "] " + m_inventaire.get(i).getNomEquipement() + " ";
+        for (int i = 0; i < m_inventaire.size(); i++) {
+            Equipement e = m_inventaire.get(i);
+
+            if (e instanceof Arme) {
+                armes += "- " + e + "\n";
+            } else if (e instanceof Armure) {
+                armures += "- " + e + "\n";
+            }
         }
 
-        return result;
+        return inventaire+armes + armures;
     }
 }

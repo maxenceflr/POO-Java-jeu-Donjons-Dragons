@@ -14,10 +14,13 @@ public class Donjon
     private PositionsJouables m_positionsJouable;
     private PositionsEquipement m_positionsEquipement;
     private PositionsObstacle m_positionsObstacle;
+    private final String m_nom;
 
     public Donjon(List<Personnage> listePersonnages)
     {
         AffichageDonjon af = new AffichageDonjon();
+        af.commencerCreation();
+        m_nom= af.demanderNomDonjon();
         m_longueur = af.demanderLongeur();
         m_largeur = af.demanderLargeur();
         m_positionsObstacle = af.PlacerObstacle(this);
@@ -36,6 +39,7 @@ public class Donjon
         m_positionsEquipement = equipement;
         m_positionsJouable = jouable;
         m_positionsObstacle = obstacle;
+        m_nom="Donjon";
     }
 
 
@@ -50,6 +54,11 @@ public class Donjon
     {
         this(25,25);
     }
+    public String getNom()
+    {
+        return m_nom;
+    }
+
 
     public int getLargeur() {
         return m_largeur;
