@@ -2,21 +2,12 @@ package affichage;
 import donjon.*;
 import jouable.Monstre;
 import jouable.personnage.Personnage;
-import objet.arme.armecourante.Baton;
-import objet.arme.armecourante.MasseDarme;
-import objet.arme.armedeguerre.EpeeLongue;
-import objet.arme.armedeguerre.Rapiere;
-import objet.arme.armedistance.ArbaleteLegere;
-import objet.arme.armedistance.ArcCourt;
-import objet.arme.armedistance.Fronde;
-import objet.armure.armurelegere.ArmureEcailles;
-import objet.armure.armurelegere.DemiPlate;
-import objet.armure.armurelourde.CoteMailles;
-import objet.armure.armurelourde.Harnois;
-
+import objet.arme.*;
+import objet.armure.*;
+import java.util.Set;
 import java.util.Scanner;
 import java.util.List;
-
+import java.util.ArrayList;
 public class AffichageDonjon implements AffichageDonjonInterface {
 
 
@@ -49,7 +40,6 @@ public class AffichageDonjon implements AffichageDonjonInterface {
         Position currentPos = new Position();
 
         for (int i = 0; i < donjon.getLargeur(); i++) {
-            currentPos.setY(i);
 
             if (i > 9)
             {
@@ -62,6 +52,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
             for (int j = 0; j < donjon.getLongueur(); j++) {
                 currentPos.setX(j);
+                currentPos.setY(i);
 
                 if (donjon.getPositionsEquipement().containsEquipement(currentPos)) {
                     renduDonjon += " " + donjon.getPositionsEquipement().getEquipementFromPosition(currentPos).getSymbole() + " ";
@@ -88,7 +79,16 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
         System.out.println(res);
     }
-
+    public void commencerCreation()
+    {
+        System.out.println("Creation d'un nouveu donjon");
+    }
+    public String demanderNomDonjon()
+    {
+        System.out.println("Quel est le nom de ce donjon?");
+        String nom = scanner.nextLine();
+        return nom;
+    }
 
     public int demanderLargeur() {
         int largeur;

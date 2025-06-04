@@ -1,9 +1,8 @@
 package jouable.personnage.classe;
 
 import objet.Equipement;
-import objet.arme.armedeguerre.EpeeLongue;
-import objet.arme.armedistance.ArbaleteLegere;
-import objet.armure.armurelourde.CoteMailles;
+import objet.arme.*;
+import objet.armure.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
