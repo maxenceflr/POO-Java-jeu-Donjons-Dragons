@@ -9,6 +9,6 @@ public class EpeeLongue extends ArmeDeGuerre
 
     @Override
     public String toString() {
-        return "EpeeLongue : " + super.toString();
+        return "EpeeLongue " + super.toString();
     }
 }

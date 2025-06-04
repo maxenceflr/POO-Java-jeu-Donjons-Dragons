@@ -11,6 +11,6 @@ public class Fronde extends ArmeDistance
 
     @Override
     public String toString() {
-        return "Fronde : " + super.toString();
+        return "Fronde " + super.toString();
     }
 }

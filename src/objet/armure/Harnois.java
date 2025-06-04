@@ -12,6 +12,6 @@ public class Harnois extends ArmureLourde
     @Override
     public String toString()
     {
-        return "Harnois : " + super.toString();
+        return "Harnois " + super.toString();
     }
 }

@@ -10,6 +10,6 @@ public class Baton extends ArmeCourante
     @Override
     public String toString()
     {
-        return "Bâton : " + super.toString();
+        return "Bâton " + super.toString() ;
     }
 }

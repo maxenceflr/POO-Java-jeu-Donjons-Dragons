@@ -9,6 +9,6 @@ public class Rapiere extends ArmeDeGuerre
 
     @Override
     public String toString() {
-        return "Rapière : " + super.toString();
+        return "Rapière " + super.toString();
     }
 }

@@ -137,7 +137,7 @@ public class Personnage extends Jouable {
     {
         if (m_arme.isPresent())
         {
-            return "porte l'arme "+m_arme.toString();
+            return "Arme portée: "+m_arme.toString()+"("+m_arme.toString();
 
         }
         else
@@ -149,7 +149,7 @@ public class Personnage extends Jouable {
     {
         if (m_arme.isPresent())
         {
-            return "porte l'arme "+m_armure.toString();
+            return "Armure porté: "+m_armure.toString();
 
         }
         else
