@@ -65,14 +65,14 @@ public class Tour {
                         return true;
                     }
                 }
-            } else if (j instanceof Monstre) {
-                Monstre m =(Monstre) j;
-                while (!valide) {
-                    AffichageTour.afficherTourMonstre(m_donjon, m_numeroDeDonjon,this, m, m_listeJouable);
-                    if(this.personnageMort())
-                    {
-                        partieperdue();
-                    }
+                } else if (j instanceof Monstre) {
+                    Monstre m =(Monstre) j;
+                    while (!valide) {
+                        valide=AffichageTour.afficherTourMonstre(m_donjon, m_numeroDeDonjon,this, m, m_listeJouable);
+                        if(this.personnageMort())
+                        {
+                            partieperdue();
+                        }
                 }
             }
 
