@@ -75,6 +75,7 @@ public class Tour {
                         }
                 }
             }
+            m_actionRestante-=1;
 
         }
         return false;
@@ -105,6 +106,10 @@ public class Tour {
     public int getNumTour()
     {
         return m_numeroDeTour;
+    }
+    public int getActionRestante()
+    {
+        return m_actionRestante;
     }
 
 
