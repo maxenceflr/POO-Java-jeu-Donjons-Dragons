@@ -4,6 +4,7 @@ import donjon.Donjon;
 import donjon.Position;
 import jouable.Jouable;
 import jouable.Monstre;
+import jouable.personnage.Inventaire;
 import jouable.personnage.Personnage;
 import jouable.personnage.race.Elfe;
 import jouable.personnage.race.Halfelin;
@@ -22,7 +23,7 @@ public class AffichageTour {
         afficherEnteteDonjon(numDonjon,t.getNumTour(),m);/*le 1 sera remplacer par get numDonjon*/
         afficherLesJouable(lj,m);
         afficherRecapMonstre(m);
-        return afficherActionsMonstre(m);
+        return afficherActionsMonstre(m, donj);
 
 
 
@@ -32,7 +33,7 @@ public class AffichageTour {
         afficherEnteteDonjon(numDonjon,t.getNumTour(),p);/*le 1 sera remplacer par get numDonjon*/
         afficherLesJouable(lj,p);
         afficherRecapPersonnage(p);
-        return afficherActionsPersonnage(p);
+        return afficherActionsPersonnage(p, donj);
 
     }
     public static void afficherEnteteDonjon(int numDonjon,int numTour, Jouable j) {
@@ -83,7 +84,7 @@ public class AffichageTour {
         System.out.println("\tVitesse: "+m.getVitesse());
 
     }
-    public static boolean afficherActionsPersonnage(Personnage p) {
+    public static boolean afficherActionsPersonnage(Personnage p,Donjon donj) {
         Scanner scanner = new Scanner(System.in);
         boolean commandeValide=true;
         while (true) {
@@ -116,40 +117,57 @@ public class AffichageTour {
                 case "att":
                     // Ici tu devras parser une case (ex: "B3") et appeler une méthode comme p.attaquer(case)
                     System.out.println(p.getNom() + " attaque la case " + argument);
+                    Position position_attaque = Position.getPositionFromCode(argument);
+                    p.attaquer(position_attaque, donj);
                     // Exemple : p.attaquer(parseCase(argument));
                     break;
 
                 case "dep":
                     System.out.println(p.getNom() + " se déplace vers la case " + argument);
-                    /*Position po = donj.getPositionFromJouable(p);
-                    po.setX(po.getLargeur(argument));
-                    po.setY(po.getLongeur(argument));
-                    donj.getPositionsJouables().deplacerJouable(p,po);*/
+                    Position position_deplacement = Position.getPositionFromCode(argument);
+                    donj.getPositionsJouables().deplacerJouable(p, position_deplacement);
                     break;
 
                 case "equ":
-                    /*try {
+                    try {
                         int numero = Integer.parseInt(argument);
-                        List<Equipement> inventaire = p.getInventaire().getInventaire();
+                        Inventaire inventairePerso = p.getInventaire();
 
-                        if (inventaire != null && numero >= 0 && numero < inventaire.size()) {
-                            Equipement o = inventaire.get(numero);
-                            if (o != null) {
-                                // faire quelque chose avec o
+                        if (inventairePerso != null && numero >= 0 && numero < inventairePerso.getInventaire().size()) {
+                            Equipement o = inventairePerso.getInventaire().get(numero);
+                            if (o != null)
+                            {
+                                p.equiper(o);
                             } else {
                                 System.out.println("Aucun objet à cet emplacement.");
                             }
-                        } else {
+                        }
+                        else
+                        {
                             System.out.println("Indice d'inventaire invalide ou inventaire vide.");
                         }
                         break;
-                    } catch (NumberFormatException e) {
+                    }
+                    catch (NumberFormatException e)
+                    {
                         System.out.println("Numéro d'équipement invalide.");
-                    }*/
-                    System.out.println(p.getNom() + " equipe l'element numerot " + argument + "del'inventaire");
+                    }
+                    System.out.println(p.getNom() + " équipe l'element numero " + argument + "de l'inventaire");
                     break;
+
                 case "ram":
-                    System.out.println(p.getNom() + "Vous ramasser un objet");
+                    Position position_joueur = donj.getPositionFromJouable(p);
+
+                    if(donj.getPositionsEquipement().containsEquipement(position_joueur))
+                    {
+                        p.ramasser(position_joueur, donj);
+                    }
+                    else
+                    {
+                        System.out.println("Aucun équipement à ramasser !");
+                    }
+
+                    System.out.println(p.getNom() + "Vous ramassez un objet");
                     break;
 
 
@@ -161,7 +179,7 @@ public class AffichageTour {
         }
 
     }
-    public static boolean afficherActionsMonstre(Monstre m) {
+    public static boolean afficherActionsMonstre(Monstre m, Donjon donj) {
         Scanner scanner = new Scanner(System.in);
         boolean commandeValide=true;
         while (true) {
@@ -186,40 +204,16 @@ public class AffichageTour {
                 case "att":
                     // Ici tu devras parser une case (ex: "B3") et appeler une méthode comme p.attaquer(case)
                     System.out.println(m.getNom() + " attaque la case " + argument);
+                    Position position_attaque = Position.getPositionFromCode(argument);
+                    m.attaquer(position_attaque, donj);
                     // Exemple : p.attaquer(parseCase(argument));
                     break;
 
                 case "dep":
                     System.out.println(m.getNom() + " se déplace vers la case " + argument);
-                    /*Position po = donj.getPositionFromJouable(p);
-                    po.setX(po.getLargeur(argument));
-                    po.setY(po.getLongeur(argument));
-                    donj.getPositionsJouables().deplacerJouable(p,po);*/
+                    Position position_deplacement = Position.getPositionFromCode(argument);
+                    donj.getPositionsJouables().deplacerJouable(m, position_deplacement);
                     break;
-
-                case "equ":
-                    /*try {
-                        int numero = Integer.parseInt(argument);
-                        List<Equipement> inventaire = p.getInventaire().getInventaire();
-
-                        if (inventaire != null && numero >= 0 && numero < inventaire.size()) {
-                            Equipement o = inventaire.get(numero);
-                            if (o != null) {
-                                // faire quelque chose avec o
-                            } else {
-                                System.out.println("Aucun objet à cet emplacement.");
-                            }
-                        } else {
-                            System.out.println("Indice d'inventaire invalide ou inventaire vide.");
-                        }
-                        break;
-                    } catch (NumberFormatException e) {
-                        System.out.println("Numéro d'équipement invalide.");
-                    }*/
-                    System.out.println(m.getNom() + " equipe l'element numerot " + argument + "del'inventaire");
-                    break;
-
-
 
                 default:
                     System.out.println("Commande inconnue. Veuillez réessayer.");
@@ -228,7 +222,8 @@ public class AffichageTour {
             return commandeValide;
         }
 
-    }public static void afficherPerdue()
+    }
+    public static void afficherPerdue()
     {
         final String ANSI_RED = "\u001B[31m";
         final String ANSI_RESET = "\u001B[0m";

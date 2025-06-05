@@ -3,8 +3,8 @@ package jouable.personnage.classe;
 import jouable.personnage.sorts.ArmeMagique;
 import jouable.personnage.sorts.BoogieWoogie;
 import jouable.personnage.sorts.Guerison;
-import objet.arme.*;
-import objet.armure.*;
+import objet.arme.armecourante.Baton;
+import objet.arme.armedistance.Fronde;
 
 import java.util.ArrayList;
 import java.util.Arrays;

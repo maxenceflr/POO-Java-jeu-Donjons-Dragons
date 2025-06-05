@@ -32,6 +32,7 @@ public class PositionsObstacle
     {
         return m_positionsObstacle.contains(position);
     }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
