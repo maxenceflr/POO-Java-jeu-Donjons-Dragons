@@ -12,7 +12,7 @@ public class ArbaleteLegere extends ArmeDistance
     @Override
     public String getNomEquipement()
     {
-        return "ArbalèteLégère";
+        return "Arbalète Légère";
     }
 
     @Override

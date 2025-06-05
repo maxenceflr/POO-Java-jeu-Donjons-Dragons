@@ -29,17 +29,14 @@ public class Position {
     public int getY() {
         return m_y;
     }
-    public int getLargeur(String code) {
-        // Exemple : "2C" → C est la colonne → on convertit 'C' en 2 (si A=0, B=1, C=2...)
-        char colonne = code.charAt(1);
-        return colonne - 'A'+1; // renvoie 3 pour "2C"
+
+    public static Position getPositionFromCode(String code)
+    {
+        int x = (int)code.charAt(0) % 65;
+        int y = code.charAt(1) - '0';
+        return new Position(x, y);
     }
 
-    public int getLongeur(String code) {
-        // Exemple : "2C" → 2 est la ligne → on convertit en entier
-        char ligne = code.charAt(0);
-        return Character.getNumericValue(ligne) ; // renvoie 2 pour "2C"
-    }
 
     public void setX(int m_x) {
         this.m_x = m_x;
@@ -48,7 +45,6 @@ public class Position {
     public void setY(int m_y) {
         this.m_y = m_y;
     }
-
 
     @Override
     public boolean equals(Object other) {
@@ -64,5 +60,11 @@ public class Position {
     @Override
     public int hashCode() {
         return Objects.hash(m_x + m_y); // génère un hash basé sur le champ name
+    }
+
+    @Override
+    public String toString()
+    {
+        return "(" + Integer.toString(m_x) + ", " + Integer.toString(m_y) + ")";
     }
 }

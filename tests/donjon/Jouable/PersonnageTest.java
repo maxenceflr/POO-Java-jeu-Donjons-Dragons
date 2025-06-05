@@ -1,11 +1,11 @@
 package donjon.Jouable;
 
-import jouable.Monstre;
+import donjon.Position;
 import jouable.personnage.Personnage;
 import jouable.personnage.classe.Guerrier;
 import jouable.personnage.race.Humain;
-import objet.arme.*;
-import objet.armure.DemiPlate;
+import objet.arme.armecourante.Baton;
+import objet.armure.armurelegere.DemiPlate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import stats.CaracteristiquesBase;
@@ -42,6 +42,16 @@ public class PersonnageTest {
     @Test
     void testSymboleNom() {
         assertEquals("Max", personnage.getSymbole());
+    }
+
+    @Test
+    void testAttaquePosition()
+    {
+        String code = "B3";
+        Position position_B3 = Position.getPositionFromCode(code);
+
+        assertEquals(new Position(1, 3), position_B3);
+
     }
 
 

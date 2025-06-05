@@ -81,6 +81,11 @@ public class Personnage extends Jouable {
 
     public void equiper(Equipement item)
     {
+        if(m_arme.isPresent())
+        {
+            m_inventaire.ajouterEquipement(m_arme.get());
+            m_arme = Optional.empty();
+        }
         m_inventaire.getEquipement(item).equiper(this);
         m_inventaire.retirerEquipement(item);
     }
