@@ -85,7 +85,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
     }
     public String demanderNomDonjon()
     {
-        System.out.println("Quel est le nom de ce donjon?");
+        System.out.println("Quel est le nom de ce donjon?( ex: Donjon du l'aube");
         String nom = scanner.nextLine();
         return nom;
     }
