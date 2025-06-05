@@ -35,6 +35,7 @@ public abstract class Arme extends Equipement
     {
         return m_degats;
     }
+    public String getNomEquipement(){return "";}
 
     public void setBonusAttaque(int bonus)
     {
