@@ -415,17 +415,18 @@ public class AffichageDonjon implements AffichageDonjonInterface {
         while(true)
         {
             Monstre momo = new Monstre();
-            System.out.println("Où voulez-vous le placer ?");
-            Position pos = demanderPositionPersonnage(donjon, PJ); // On suppose que cette méthode existe et vérifie les collisions
+            System.out.println("Où voulez-vous placer " + momo.getNom() + " ?");
+            Position pos = demanderPositionPersonnage(donjon, PJ);
 
-            PJ.ajouterJouable(momo,pos); // On l'ajoute à la liste des positions jouables
-            System.out.println("Voulez-vous ajouter un autre Monstre?(oui/non)");
+            PJ.ajouterJouable(momo, pos);
+
+            System.out.println("Voulez-vous ajouter un autre Monstre ? (oui/non)");
+            scanner.nextLine(); // vide le buffer avant de lire la vraie réponse
             String reponse = scanner.nextLine().trim().toLowerCase();
 
-            if (!reponse.equals("oui")||!reponse.equals("o")) {
-                break; // sort de la boucle si la réponse n'est pas "oui"
+            if (!reponse.equals("oui") && !reponse.equals("o")) {
+                break;
             }
-
 
 
         }
@@ -453,7 +454,15 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             int longeur;
             do {
                 System.out.print("Veuillez entrer la ligne (entre 1 et " + longeurDonjon + ") : ");
+                while (!scanner.hasNextInt()) {
+                    System.out.println("Saisie incorrecte. Réessayez.");
+                    scanner.next(); // Consommer l'entrée invalide
+                    System.out.print("Veuillez entrer la ligne (entre 1 et " + longeurDonjon + ") : ");
+                }
                 longeur = scanner.nextInt();
+                if (longeur < 1 || longeur > longeurDonjon) {
+                    System.out.println("Saisie incorrecte. Réessayez.");
+                }
             } while (longeur < 1 || longeur > longeurDonjon);
 
             // Demande de la largeur (colonne) sous forme de lettre
@@ -467,7 +476,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
                     if (lettreColonne >= 'A' && lettreColonne <= maxLettre)
                         break;
                 }
-                System.out.println("Entrée invalide. Réessayez.");
+                System.out.println("Saisie incorrecte. Réessayez.");
             }
 
             int colonne = lettreColonne - 'A' + 1;
@@ -484,6 +493,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
                 return pos;  // Position libre
             }
         }
+
     }
 }
 

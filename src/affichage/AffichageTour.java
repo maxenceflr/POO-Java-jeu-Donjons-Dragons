@@ -18,22 +18,22 @@ import java.util.Scanner;
 
 public class AffichageTour {
 
-    public static boolean afficherTourMonstre(Donjon donj,int numDonjon, int numTour, Monstre m,List<Jouable> lj)
+    public static boolean afficherTourMonstre(Donjon donj,int numDonjon, Tour t, Monstre m,List<Jouable> lj)
     {
-        afficherEnteteDonjon(numDonjon,numTour,m);/*le 1 sera remplacer par get numDonjon*/
+        afficherEnteteDonjon(numDonjon,t.getNumTour(),m);/*le 1 sera remplacer par get numDonjon*/
         afficherLesJouable(lj,m);
         afficherRecapMonstre(m);
-        return afficherActionsMonstre(m, donj);
+        return afficherActionsMonstre(m, donj,t.getActionRestante());
 
 
 
     }
-    public static boolean afficherTourPersonage(Donjon donj,int numDonjon, int numTour, Personnage p,List<Jouable> lj)
+    public static boolean afficherTourPersonage(Donjon donj,int numDonjon,Tour t, Personnage p,List<Jouable> lj)
     {
-        afficherEnteteDonjon(numDonjon,numTour,p);/*le 1 sera remplacer par get numDonjon*/
+        afficherEnteteDonjon(numDonjon,t.getNumTour(),p);/*le 1 sera remplacer par get numDonjon*/
         afficherLesJouable(lj,p);
         afficherRecapPersonnage(p);
-        return afficherActionsPersonnage(p, donj);
+        return afficherActionsPersonnage(p, donj,t.getActionRestante());
 
     }
     public static void afficherEnteteDonjon(int numDonjon,int numTour, Jouable j) {
@@ -84,11 +84,11 @@ public class AffichageTour {
         System.out.println("\tVitesse: "+m.getVitesse());
 
     }
-    public static boolean afficherActionsPersonnage(Personnage p,Donjon donj) {
+    public static boolean afficherActionsPersonnage(Personnage p,Donjon donj,int actionRestante) {
         Scanner scanner = new Scanner(System.in);
         boolean commandeValide=true;
         while (true) {
-            System.out.println("\nChoisissez une action :");
+            System.out.println("\nIl vous reste "+actionRestante+" action restante:");
             System.out.println("- laisser le maître du jeu commenter l'action précédente (mj <texte>)");
             System.out.println("- commenter action précédente (com <texte>)");
             System.out.println("- attaquer (att <Case>)");
@@ -180,11 +180,11 @@ public class AffichageTour {
         }
 
     }
-    public static boolean afficherActionsMonstre(Monstre m, Donjon donj) {
+    public static boolean afficherActionsMonstre(Monstre m, Donjon donj,int actionRestante) {
         Scanner scanner = new Scanner(System.in);
         boolean commandeValide=true;
         while (true) {
-            System.out.println("\nChoisissez une action :");
+            System.out.println("\nIl vous reste "+actionRestante+" action restante:");
             System.out.println("- le maître du jeu commente l'action précédente (mj <texte>)");
             System.out.println("- attaquer (att <Case>)");
             System.out.println("- se déplacer (dep <Case>)");
