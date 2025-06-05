@@ -22,9 +22,15 @@ public abstract class ArmureLourde extends Armure
     @Override
     public void equiper(Personnage perso)
     {
-        perso.setClasseArmure(perso.getClasseArmure() + this.m_classeArmure);
+        if(perso.getArmure().isPresent())
+        {
+            perso.getInventaire().ajouterEquipement(perso.getArmure().get());
+        }
+
+        perso.setClasseArmure(this.m_classeArmure);
         perso.setArmure(this);
-        perso.setVitesse(perso.getVitesse() - m_vitesse);
+        perso.setVitesse(perso.getVitesse() + m_vitesse);
+
     }
 
     public int getVitesse() {
@@ -34,5 +40,17 @@ public abstract class ArmureLourde extends Armure
     @Override
     public String toString() {
         return super.toString();
+    }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        //Run Time Type Information!
+        if (other == null || other.getClass() != getClass()) {
+            return false;
+        } else {
+            ArmureLourde conversion = (ArmureLourde) other;
+            return m_classeArmure == conversion.m_classeArmure && m_vitesse == conversion.m_vitesse;
+        }
     }
 }

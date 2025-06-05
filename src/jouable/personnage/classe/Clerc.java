@@ -1,5 +1,6 @@
 package jouable.personnage.classe;
 
+import jouable.personnage.Personnage;
 import jouable.personnage.sorts.Guerison;
 import jouable.personnage.sorts.Sorts;
 import objet.Equipement;
@@ -18,6 +19,16 @@ public class Clerc extends Classe{
         super(16,
                 new ArrayList<Equipement>(Arrays.asList(new MasseDarme(), new ArmureEcailles(), new ArbaleteLegere())),
                 Optional.of(new ArrayList<Sorts>(Arrays.asList(new Guerison()))));
+    }
+
+    @Override
+    public void ajouterClasseInitPerso(Personnage perso)
+    {
+        perso.setPvMax(m_pv);
+        perso.setCurrentPv(m_pv);
+        perso.getInventaire().setInventaire(m_listEquipement);
+        perso.equiper(perso.getInventaire().getEquipement(new MasseDarme()));
+        perso.equiper(perso.getInventaire().getEquipement(new ArmureEcailles()));
     }
 
     @Override

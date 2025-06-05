@@ -26,9 +26,6 @@ public class Partie {
         {
             Donjon donj =new Donjon(listperso);
             explorerDonjon(donj,i+1);
-
-
-
         }
     }
     public static void explorerDonjon(Donjon donj,int nbDonjon)

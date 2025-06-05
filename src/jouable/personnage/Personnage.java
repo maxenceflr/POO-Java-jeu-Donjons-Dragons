@@ -32,6 +32,9 @@ public class Personnage extends Jouable {
         m_arme = Optional.empty();
         m_armure= Optional.empty();
         m_caracteristiques = carac;
+
+        m_classe.ajouterClasseInitPerso(this);
+        //m_race.ajouterInitRacePerso(this);
     }
 
 
@@ -58,7 +61,7 @@ public class Personnage extends Jouable {
 
         if (this.m_arme.isPresent())
         {
-            if (Donjon.getDistance(donjon.getPositionFromJouable(this), other) < m_arme.get().getPortee())
+            if (Donjon.getDistance(donjon.getPositionFromJouable(this), other) <= m_arme.get().getPortee())
             {
                 int somme_attaque = deAttaque.jeter() + m_arme.get().getBonusAttaque();
 
@@ -71,9 +74,16 @@ public class Personnage extends Jouable {
                     somme_attaque += this.m_caracteristiques.getDexterite();
                 }
 
+                System.out.println("Dé d'attaque: " + Integer.toString(somme_attaque));
+
                 if (somme_attaque > otherJouable.getClasseArmure())
                 {
-                    otherJouable.setCurrentPv(otherJouable.getCurrentPv() - (this.m_arme.get().getDeDegats().jeter() + m_arme.get().getBonusAttaque()));
+                    int degâts_arme = this.m_arme.get().getDeDegats().jeter() + m_arme.get().getBonusAttaque();
+                    System.out.println("ça touche ! \nDégâts arme: " + Integer.toString(degâts_arme));
+                    otherJouable.setCurrentPv(otherJouable.getCurrentPv() - degâts_arme);
+                }
+                else {
+                    System.out.println("ça touche pas");
                 }
             }
         }
@@ -81,11 +91,6 @@ public class Personnage extends Jouable {
 
     public void equiper(Equipement item)
     {
-        if(m_arme.isPresent())
-        {
-            m_inventaire.ajouterEquipement(m_arme.get());
-            m_arme = Optional.empty();
-        }
         m_inventaire.getEquipement(item).equiper(this);
         m_inventaire.retirerEquipement(item);
     }
@@ -165,6 +170,9 @@ public class Personnage extends Jouable {
 
     @Override
     public String toString() {
-        return "Personnage : "+ this.getNom()+ "(Race : " + m_race.toString()+" Classe : " + m_classe.toString()+")";
+        return "Personnage: "+ this.getNom()+ "\nRace: " + m_race.toString()+"\nClasse: " + m_classe.toString() +
+                "\nArme équipée: " + this.m_arme.get().getNomEquipement() +
+                "\nArmure équipée: " + this.m_armure.get().getNomEquipement() +
+                "\nStatistiques: \n" + this.m_caracteristiques.toString();
     }
 }

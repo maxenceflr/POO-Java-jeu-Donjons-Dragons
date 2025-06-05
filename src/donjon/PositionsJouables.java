@@ -42,7 +42,10 @@ public class PositionsJouables
 
     public void deplacerJouable(Jouable jouable, Position position)
     {
-            this.ajouterJouable(jouable, position);
+            if (Donjon.getDistance(this.getPositionJouable(jouable), position) < (double)jouable.getVitesse() / 3)
+            {
+                this.ajouterJouable(jouable, position);
+            }
     }
 
     public boolean containsJouable(Position position)
@@ -54,6 +57,7 @@ public class PositionsJouables
     {
         return m_positionsJouable;
     }
+
     public Jouable getJouableByIndex(int index) {
         int i = 0;
         for (Jouable jouable : m_positionsJouable.values()) {

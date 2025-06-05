@@ -2,6 +2,7 @@ package objet.armure;
 
 import jouable.personnage.Personnage;
 import objet.Equipement;
+import objet.arme.Arme;
 
 public abstract class Armure extends Equipement
 {
@@ -39,7 +40,22 @@ public abstract class Armure extends Equipement
 
     public void equiper(Personnage perso)
     {
-        perso.setClasseArmure(perso.getClasseArmure() + m_classeArmure);
+        if(perso.getArmure().isPresent())
+        {
+            perso.getInventaire().ajouterEquipement(perso.getArmure().get());
+        }
         perso.setArmure(this);
+        perso.setClasseArmure(m_classeArmure);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        //Run Time Type Information!
+        if (other == null || other.getClass() != getClass()) {
+            return false;
+        } else {
+            Armure conversion = (Armure) other;
+            return m_classeArmure == conversion.m_classeArmure;
+        }
     }
 }
