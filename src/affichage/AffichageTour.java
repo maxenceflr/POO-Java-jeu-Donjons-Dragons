@@ -17,9 +17,9 @@ import java.util.Scanner;
 
 public class AffichageTour {
 
-    public static boolean afficherTourMonstre(Donjon donj,int numDonjon, int numTour, Monstre m,List<Jouable> lj)
+    public static boolean afficherTourMonstre(Donjon donj,int numDonjon, Tour t, Monstre m,List<Jouable> lj)
     {
-        afficherEnteteDonjon(numDonjon,numTour,m);/*le 1 sera remplacer par get numDonjon*/
+        afficherEnteteDonjon(numDonjon,t.getNumTour(),m);/*le 1 sera remplacer par get numDonjon*/
         afficherLesJouable(lj,m);
         afficherRecapMonstre(m);
         return afficherActionsMonstre(m);
@@ -27,9 +27,9 @@ public class AffichageTour {
 
 
     }
-    public static boolean afficherTourPersonage(Donjon donj,int numDonjon, int numTour, Personnage p,List<Jouable> lj)
+    public static boolean afficherTourPersonage(Donjon donj,int numDonjon,Tour t, Personnage p,List<Jouable> lj)
     {
-        afficherEnteteDonjon(numDonjon,numTour,p);/*le 1 sera remplacer par get numDonjon*/
+        afficherEnteteDonjon(numDonjon,t.getNumTour(),p);/*le 1 sera remplacer par get numDonjon*/
         afficherLesJouable(lj,p);
         afficherRecapPersonnage(p);
         return afficherActionsPersonnage(p);
