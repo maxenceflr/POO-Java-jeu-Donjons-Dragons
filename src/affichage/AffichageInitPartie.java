@@ -38,7 +38,7 @@ public class AffichageInitPartie {
                 " '----------------'                                                                                                       \n" +
                 " .----------------.  .----------------.  .----------------.  .----------------.  .----------------.  .-----------------.  \n" +
                 "| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |  \n" +
-                "| |  ______    | || |  _______     | || |      __      | || |    ______    | || |     ____     | || | ____  _____  | |  \n" +
+                "| |  ______      | || |  _______     | || |      __      | || |    ______    | || |     ____     | || | ____  _____  | |  \n" +
                 "| | |_   ___ `.  | || | |_   __ \\    | || |     /  \\     | || |  .' ___  |   | || |   .'    `.   | || ||_   \\|_   _| | |  \n" +
                 "| |   | |   `. \\ | || |   | |__) |   | || |    / /\\ \\    | || | / .'   \\_|   | || |  /  .--.  \\  | || |  |   \\ | |   | |  \n" +
                 "| |   | |    | | | || |   |  __ /    | || |   / ____ \\   | || | | |    ____  | || |  | |    | |  | || |  | |\\ \\| |   | |  \n" +
@@ -73,15 +73,17 @@ public class AffichageInitPartie {
     }
     public static void affichageEntreeDonjon(String nomDonjon,int numDonjon)
     {
-        System.out.println("Vous entrez dans le "+nomDonjon);
+        System.out.println("\n\nVous entrez dans le "+nomDonjon);
         switch (numDonjon) {
             case 1:
-                System.out.println("Votre groupe fraichement formé entre dans son premier donjon");
+                System.out.println("Votre groupe fraichement formé entre dans son premier donjon\n\n");
+                break;
             case 2:
-                System.out.println("Votre groupe est fatigué et a peur le "+nomDonjon+" est terrifiant, une atmosphere de mort y règne");
+                System.out.println("Votre groupe est fatigué et a peur le "+nomDonjon+" est terrifiant, une atmosphere de mort y règne\n\n");
+                break;
             case 3:
-                System.out.println("Votre groupe n'a jamais été aussi soudé que maintenant, \nAu bout du "+nomDonjon+" Vous attend la gloire et la liberté");
-
+                System.out.println("Votre groupe n'a jamais été aussi soudé que maintenant, \nAu bout du "+nomDonjon+" Vous attend la gloire et la liberté\n\n");
+                break;
 
         }
     }
