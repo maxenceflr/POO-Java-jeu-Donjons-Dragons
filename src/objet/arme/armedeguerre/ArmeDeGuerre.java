@@ -4,6 +4,8 @@ import jouable.personnage.Personnage;
 import objet.arme.Arme;
 import partie.De;
 
+import java.util.Optional;
+
 public abstract class ArmeDeGuerre extends Arme
 {
     protected int m_vitesse;
@@ -13,7 +15,7 @@ public abstract class ArmeDeGuerre extends Arme
     {
         super(degats, portee);
         m_vitesse = vitesse;
-        m_vitesse = force;
+        m_force = force;
     }
 
     public ArmeDeGuerre()
@@ -25,6 +27,11 @@ public abstract class ArmeDeGuerre extends Arme
 
     public void equiper(Personnage perso)
     {
+        if(perso.getArme().isPresent())
+        {
+            perso.getInventaire().ajouterEquipement(perso.getArme().get());
+        }
+
         perso.setArme(this);
         perso.setVitesse(perso.getVitesse() + this.m_vitesse);
         perso.setForce(perso.getForce() + this.m_force);
@@ -54,5 +61,18 @@ public abstract class ArmeDeGuerre extends Arme
     public String toString()
     {
         return super.toString();
+    }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        //Run Time Type Information!
+        if (other == null || other.getClass() != getClass()) {
+            return false;
+        } else {
+            ArmeDeGuerre conversion = (ArmeDeGuerre) other;
+            return m_portee == conversion.m_portee && m_degats.equals(conversion.m_degats)
+                    && m_vitesse == conversion.m_vitesse && m_force == conversion.m_force;
+        }
     }
 }

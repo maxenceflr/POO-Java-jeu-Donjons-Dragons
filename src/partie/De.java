@@ -1,5 +1,7 @@
 package partie;
 
+import objet.armure.armurelourde.Harnois;
+
 import java.util.Random;
 
 public class De {
@@ -30,8 +32,20 @@ public class De {
         return somme;
     }
 
+    @Override
     public String toString()
     {
         return Integer.toString(m_nbDes) + "d" + Integer.toString(m_nbFaces);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        //Run Time Type Information!
+        if (other == null || other.getClass() != getClass()) {
+            return false;
+        } else {
+            De conversion = (De) other;
+            return m_nbFaces == conversion.m_nbFaces && m_nbDes == conversion.m_nbDes;
+        }
     }
 }

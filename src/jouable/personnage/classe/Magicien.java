@@ -1,10 +1,13 @@
 package jouable.personnage.classe;
 
+import jouable.personnage.Personnage;
 import jouable.personnage.sorts.ArmeMagique;
 import jouable.personnage.sorts.BoogieWoogie;
 import jouable.personnage.sorts.Guerison;
 import objet.arme.armecourante.Baton;
+import objet.arme.armedeguerre.EpeeLongue;
 import objet.arme.armedistance.Fronde;
+import objet.armure.armurelourde.CoteMailles;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +19,15 @@ public class Magicien extends Classe{
         super(20,
                 new ArrayList<>(Arrays.asList(new Baton(), new Fronde())),
                 Optional.of(new ArrayList<>(Arrays.asList(new Guerison(), new ArmeMagique(), new BoogieWoogie()))));
+    }
+
+    @Override
+    public void ajouterClasseInitPerso(Personnage perso)
+    {
+        perso.setPvMax(m_pv);
+        perso.setCurrentPv(m_pv);
+        perso.getInventaire().setInventaire(m_listEquipement);
+        perso.equiper(perso.getInventaire().getEquipement(new Baton()));
     }
 
     @Override

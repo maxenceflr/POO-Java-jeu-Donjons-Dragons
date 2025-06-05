@@ -49,9 +49,8 @@ public class Monstre extends Jouable {
             m_portee = af.choisirPorterAttaque();
         }
         af.afficherCaracteristiaque(this);
-
-
     }
+
     private void copierDepuis(Monstre autre) {
         this.m_degats = autre.m_degats;
         this.m_portee = autre.m_portee;
@@ -60,11 +59,9 @@ public class Monstre extends Jouable {
         this.m_caracteristiques = autre.m_caracteristiques;
     }
 
-
-
     public static Monstre creerDragon()
     {
-        return new Monstre(new De(1,12), 4, "Dragon", "}X{",new CaracteristiquesBase(12,12,12,12,12,12));
+        return new Monstre(new De(1,12), 4, "Dragon", "}X{",new CaracteristiquesBase(12,12,12,12,12,30));
     }
 
     public static Monstre creerDemogorgon()
@@ -132,7 +129,9 @@ public class Monstre extends Jouable {
 
     public String toString()
     {
-        return "espèce: " + this.m_espece;
+        return "Espèce: " + this.m_espece + "\nDégâts: " + this.m_degats.toString() +
+                "\nPortée: " + Integer.toString(m_portee) + "\nSymbole: " + this.m_symbole +
+                "\nStatistiques:\n" + this.m_caracteristiques.toString();
     }
 
 }

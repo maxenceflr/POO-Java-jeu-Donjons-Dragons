@@ -116,6 +116,7 @@ public class AffichageTour {
 
                 case "att":
                     // Ici tu devras parser une case (ex: "B3") et appeler une méthode comme p.attaquer(case)
+
                     System.out.println(p.getNom() + " attaque la case " + argument);
                     Position position_attaque = Position.getPositionFromCode(argument);
                     p.attaquer(position_attaque, donj);
@@ -130,7 +131,7 @@ public class AffichageTour {
 
                 case "equ":
                     try {
-                        int numero = Integer.parseInt(argument);
+                        int numero = Integer.parseInt(argument) - 1;
                         Inventaire inventairePerso = p.getInventaire();
 
                         if (inventairePerso != null && numero >= 0 && numero < inventairePerso.getInventaire().size()) {

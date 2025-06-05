@@ -1,5 +1,6 @@
 package objet.arme.armedistance;
 
+import objet.arme.Arme;
 import partie.De;
 
 public class Fronde extends ArmeDistance
@@ -18,5 +19,16 @@ public class Fronde extends ArmeDistance
     @Override
     public String toString() {
         return "Fronde : " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        //Run Time Type Information!
+        if (other == null || other.getClass() != getClass()) {
+            return false;
+        } else {
+            Fronde conversion = (Fronde) other;
+            return m_portee == conversion.m_portee && m_degats.equals(conversion.m_degats);
+        }
     }
 }

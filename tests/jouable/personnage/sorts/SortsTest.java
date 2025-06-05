@@ -47,4 +47,6 @@ class SortsTest {
         assertEquals(position2, donjonTest.getPositionFromJouable(personnage1));
         assertEquals(position1, donjonTest.getPositionFromJouable(personnage2));
     }
+
+
 }

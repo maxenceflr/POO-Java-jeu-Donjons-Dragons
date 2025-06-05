@@ -12,8 +12,8 @@ import java.util.Optional;
 
 public abstract class  Classe {
 
-    private Integer m_pv;
-    private Optional<List<Sorts>> m_sorts;
+    protected Integer m_pv;
+    protected Optional<List<Sorts>> m_sorts;
     protected List<Equipement>  m_listEquipement;
 
     public Classe(Integer pv)
@@ -35,12 +35,7 @@ public abstract class  Classe {
         return m_pv;
     }
 
-    /*public void ajouterClasseInitPerso(CaracteristiquesBase cara)
-    {
-        cara.setPvMax(m_pv);
-        cara.setCurrentPv(m_pv);
-        /*cara.getInventaire().setInventaire(m_listEquipement);
-    }*/
+    public abstract void ajouterClasseInitPerso(Personnage perso);
 
     public Integer getPv() {
         return m_pv;

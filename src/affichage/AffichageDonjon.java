@@ -44,6 +44,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
         Position currentPos = new Position();
 
         for (int i = 0; i < donjon.getLargeur(); i++) {
+            currentPos.setY(i);
 
             if (i > 9)
             {
@@ -56,13 +57,18 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
             for (int j = 0; j < donjon.getLongueur(); j++) {
                 currentPos.setX(j);
-                currentPos.setY(i);
 
-                if (donjon.getPositionsEquipement().containsEquipement(currentPos)) {
-                    renduDonjon += " " + donjon.getPositionsEquipement().getEquipementFromPosition(currentPos).getSymbole() + " ";
-                } else if (donjon.getPositionsJouables().containsJouable(currentPos)) {
+
+
+                if (donjon.getPositionsJouables().containsJouable(currentPos))
+                {
                     renduDonjon += donjon.getPositionsJouables().getPositions().get(currentPos).getSymbole();
-                } else if (donjon.getPositionsObstacle().containsObstacle(currentPos)) {
+                }
+                else if (donjon.getPositionsEquipement().containsEquipement(currentPos))
+                {
+                    renduDonjon += " " + donjon.getPositionsEquipement().getEquipementFromPosition(currentPos).getSymbole() + " ";
+                } else if (donjon.getPositionsObstacle().containsObstacle(currentPos))
+                {
                     renduDonjon += "[ ]";
                 } else {
                     renduDonjon += " . ";
