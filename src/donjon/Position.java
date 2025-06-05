@@ -25,8 +25,20 @@ public class Position {
         return m_x;
     }
 
+
     public int getY() {
         return m_y;
+    }
+    public int getLargeur(String code) {
+        // Exemple : "2C" → C est la colonne → on convertit 'C' en 2 (si A=0, B=1, C=2...)
+        char colonne = code.charAt(1);
+        return colonne - 'A'+1; // renvoie 3 pour "2C"
+    }
+
+    public int getLongeur(String code) {
+        // Exemple : "2C" → 2 est la ligne → on convertit en entier
+        char ligne = code.charAt(0);
+        return Character.getNumericValue(ligne) ; // renvoie 2 pour "2C"
     }
 
     public void setX(int m_x) {
@@ -47,12 +59,6 @@ public class Position {
             Position conversion = (Position) other;
             return m_x == conversion.m_x && m_y == conversion.m_y;
         }
-    }
-
-    @Override
-    public String toString()
-    {
-        return "(" + Integer.toString(m_x) + ", " + Integer.toString(m_y) + ")";
     }
 
     @Override
