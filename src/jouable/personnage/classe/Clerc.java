@@ -3,9 +3,8 @@ package jouable.personnage.classe;
 import jouable.personnage.sorts.Guerison;
 import jouable.personnage.sorts.Sorts;
 import objet.Equipement;
-import objet.arme.armecourante.MasseDarme;
-import objet.arme.armedistance.ArbaleteLegere;
-import objet.armure.armurelegere.ArmureEcailles;
+import objet.arme.*;
+import objet.armure.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

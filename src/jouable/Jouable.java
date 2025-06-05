@@ -25,7 +25,6 @@ public abstract class Jouable
 
     public int getCurrentPv()
     {
-        System.out.println(m_caracteristiques.toString());
         return m_caracteristiques.getCurrentPv();
     }
 
@@ -84,10 +83,10 @@ public abstract class Jouable
         return m_caracteristiques.getArmure();
     }
 
-
     public void setClasseArmure(int class_armure)
     {
         m_caracteristiques.setArmure(class_armure);
     }
+
 
 }

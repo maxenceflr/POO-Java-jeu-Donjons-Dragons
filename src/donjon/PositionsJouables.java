@@ -2,7 +2,9 @@ package donjon;
 import jouable.Jouable;
 import objet.Equipement;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PositionsJouables
@@ -40,7 +42,6 @@ public class PositionsJouables
 
     public void deplacerJouable(Jouable jouable, Position position)
     {
-            this.m_positionsJouable.remove(getPositionJouable(jouable));
             this.ajouterJouable(jouable, position);
     }
 
@@ -53,6 +54,23 @@ public class PositionsJouables
     {
         return m_positionsJouable;
     }
+    public Jouable getJouableByIndex(int index) {
+        int i = 0;
+        for (Jouable jouable : m_positionsJouable.values()) {
+            if (i == index) {
+                return jouable;
+            }
+            i++;
+        }
+        return null; // ou tu peux lancer une exception si tu préfères
+    }
+
+    public int size() {
+        return this.m_positionsJouable.size();
+    }
+    public List<Jouable> getListeJouables() {
+        return new ArrayList<>(m_positionsJouable.values());
+    }
 
     @Override
     public String toString()
@@ -60,7 +78,7 @@ public class PositionsJouables
         String result = "";
 
         for (Map.Entry<Position, Jouable> elt : m_positionsJouable.entrySet()) {
-            result += elt.getKey().toString() + "\n" + elt.getValue().toString();
+            result += elt.getKey().toString() + " : " + elt.getValue().toString();
         }
         return result;
     }

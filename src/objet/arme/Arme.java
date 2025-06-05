@@ -35,6 +35,7 @@ public abstract class Arme extends Equipement
     {
         return m_degats;
     }
+    public String getNomEquipement(){return "";}
 
     public void setBonusAttaque(int bonus)
     {
@@ -67,6 +68,5 @@ public abstract class Arme extends Equipement
         return  "\nDégâts : " + m_degats.toString() +
                 ", Portée : " + Integer.toString(m_portee);
     }
-
 
 }

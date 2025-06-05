@@ -3,11 +3,8 @@ package donjon;
 import affichage.AffichageDonjon;
 import jouable.Monstre;
 import jouable.personnage.Personnage;
-import jouable.personnage.classe.Guerrier;
-import jouable.personnage.race.Humain;
-import objet.arme.armedistance.ArbaleteLegere;
+import objet.arme.ArbaleteLegere;
 import org.junit.jupiter.api.Test;
-import stats.CaracteristiquesBase;
 
 class AffichageDonjonTest
 {
@@ -21,8 +18,7 @@ class AffichageDonjonTest
     @Test
     void DonjonTestRempli()
     {
-        CaracteristiquesBase stats = new CaracteristiquesBase(10, 10, 10, 10, 10, 10);
-        Personnage personnageTest = new Personnage("Maxence", new Humain(), new Guerrier(), stats);
+        Personnage personnageTest = new Personnage();
         Monstre monstreTest = Monstre.creerDragon();
 
         Position positionTest1 = new Position(9, 3);
@@ -40,4 +36,6 @@ class AffichageDonjonTest
         AffichageDonjon.afficherDonjon(donjon_test);
 
     }
+
+
 }
