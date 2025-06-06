@@ -58,8 +58,6 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             for (int j = 0; j < donjon.getLongueur(); j++) {
                 currentPos.setX(j);
 
-
-
                 if (donjon.getPositionsJouables().containsJouable(currentPos))
                 {
                     renduDonjon += donjon.getPositionsJouables().getPositions().get(currentPos).getSymbole();
@@ -453,6 +451,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             // Demande de la ligne
             int ligne;
             do {
+
                 System.out.print("Veuillez entrer la ligne sur laquelle il sera placer (entre 1 et " + largeurDonjon + ") : ");
                 while (!scanner.hasNextInt()) {
                     System.out.println("Saisie incorrecte. Réessayez.");
@@ -463,7 +462,8 @@ public class AffichageDonjon implements AffichageDonjonInterface {
                 if (ligne < 1 || ligne > largeurDonjon) {
                     System.out.println("Saisie incorrecte. Réessayez.");
                 }
-            } while (ligne < 1 || ligne > largeurDonjon);
+            } while ((ligne < 1 || ligne > largeurDonjon)&&(ligne < 1 || ligne > largeurDonjon));
+
 
             // Demande de la colonne sous forme de lettre
             char maxLettre = (char) ('A' + longeurDonjon - 1);

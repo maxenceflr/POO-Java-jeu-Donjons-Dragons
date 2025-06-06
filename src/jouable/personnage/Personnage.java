@@ -239,6 +239,17 @@ public class Personnage extends Jouable {
                 "\nStatistiques: \n" + this.m_caracteristiques.toString();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        //Run Time Type Information!
+        if (other == null || other.getClass() != getClass()) {
+            return false;
+        } else {
+            Personnage conversion = (Personnage) other;
+            return m_nom.equals(conversion.m_nom);
+        }
+    }
+
 
 }
 
