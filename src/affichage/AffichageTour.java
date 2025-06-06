@@ -228,12 +228,12 @@ public class AffichageTour {
         }
 
     }
-    public static void afficherPerdue()
+    public static void afficherPerdue(Personnage p)
     {
         final String ANSI_RED = "\u001B[31m";
         final String ANSI_RESET = "\u001B[0m";
 
-        String asciiArt =
+        String asciiArt ="                     "+p.getNom()+" est                                " +
                         "                             :                        \n" +
                         "                            t#,                       \n" +
                         "                           ;##W.   j.                 \n" +
