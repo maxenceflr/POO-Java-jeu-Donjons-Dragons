@@ -32,7 +32,7 @@ public class Position {
 
     public static Position getPositionFromCode(String code)
     {
-        int x = (int)code.charAt(0) % 65;
+        int x = (int)(code.charAt(0) % 65);
         int y = code.charAt(1) - '0';
         return new Position(x, y);
     }
