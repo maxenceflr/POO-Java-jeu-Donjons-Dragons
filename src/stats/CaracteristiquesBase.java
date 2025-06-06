@@ -34,12 +34,6 @@ public class CaracteristiquesBase
         m_armure = 0;
     }
 
-
-    /*public CaracteristiquesBase()
-    {
-        this(0,0,0,0,0,0);
-    }*/
-
     public int getForce()
     {
         return m_force;
@@ -109,6 +103,7 @@ public class CaracteristiquesBase
     {
         m_armure = armure;
     }
+    
     public void ajouterClasseBonus(int pv)
     {
         this.setPvMax(pv);
