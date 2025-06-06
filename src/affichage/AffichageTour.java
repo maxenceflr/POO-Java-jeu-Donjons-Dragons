@@ -130,7 +130,7 @@ public class AffichageTour {
                 case "dep":
                     System.out.println(p.getNom() + " se déplace vers la case " + argument);
                     Position position_deplacement = Position.getPositionFromCode(argument);
-                    donj.getPositionsJouables().deplacerJouable(p, position_deplacement);
+                    donj.getPositionsJouables().deplacerJouable(p, position_deplacement, donj);
                     break;
 
                 case "equ":
@@ -217,7 +217,7 @@ public class AffichageTour {
                 case "dep":
                     System.out.println(m.getNom() + " se déplace vers la case " + argument);
                     Position position_deplacement = Position.getPositionFromCode(argument);
-                    donj.getPositionsJouables().deplacerJouable(m, position_deplacement);
+                    donj.getPositionsJouables().deplacerJouable(m, position_deplacement, donj);
                     break;
 
                 default:
