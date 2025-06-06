@@ -451,17 +451,17 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             // Demande de la longeur (ligne)
             int longeur;
             do {
-                System.out.print("Veuillez entrer la ligne sur laquelle sera placer le Personnage(entre 1 et " + longeurDonjon + ") : ");
+                System.out.print("Veuillez entrer la ligne sur laquelle sera placer le Personnage(entre 0 et " + (longeurDonjon - 1) + ") : ");
                 while (!scanner.hasNextInt()) {
                     System.out.println("Saisie incorrecte. Réessayez.");
                     scanner.next(); // Consommer l'entrée invalide
                     System.out.print("Veuillez entrer la ligne (entre 1 et " + longeurDonjon + ") : ");
                 }
                 longeur = scanner.nextInt();
-                if (longeur < 1 || longeur > longeurDonjon) {
+                if (longeur < 0 || longeur > longeurDonjon) {
                     System.out.println("Saisie incorrecte. Réessayez.");
                 }
-            } while (longeur < 1 || longeur > longeurDonjon);
+            } while (longeur < 0|| longeur > longeurDonjon);
 
             // Demande de la largeur (colonne) sous forme de lettre
             char maxLettre = (char) ('A' + largeurDonjon - 1);
