@@ -16,12 +16,15 @@ import partie.Tour;
 import java.util.List;
 import java.util.Scanner;
 
+import static affichage.AffichageDonjon.afficherDonjon;
+
 public class AffichageTour {
 
     public static boolean afficherTourMonstre(Donjon donj,int numDonjon, Tour t, Monstre m,List<Jouable> lj)
     {
         afficherEnteteDonjon(numDonjon,t.getNumTour(),m);/*le 1 sera remplacer par get numDonjon*/
         afficherLesJouable(lj,m);
+        afficherDonjon(donj);
         afficherRecapMonstre(m);
         return afficherActionsMonstre(m, donj,t.getActionRestante());
 
@@ -32,6 +35,7 @@ public class AffichageTour {
     {
         afficherEnteteDonjon(numDonjon,t.getNumTour(),p);/*le 1 sera remplacer par get numDonjon*/
         afficherLesJouable(lj,p);
+        afficherDonjon(donj);
         afficherRecapPersonnage(p);
         return afficherActionsPersonnage(p, donj,t.getActionRestante());
 
@@ -39,7 +43,7 @@ public class AffichageTour {
     public static void afficherEnteteDonjon(int numDonjon,int numTour, Jouable j) {
         System.out.println("********************************************************************************");
         System.out.println("Donjon " + numDonjon + ":");
-        System.out.println("                                    " + j.toString() + "             ");
+        System.out.println("                          " + j.toString() + "             ");
         System.out.println("********************************************************************************");
         System.out.println("Tour " + numTour+ ":");
     }
@@ -66,8 +70,8 @@ public class AffichageTour {
     {
         System.out.println(p.getNom());
         System.out.println("\tVie: "+p.getCurrentPv()+"/"+p.getPvMax());
-        System.out.println("\tArmure: "+p.getArmure());
-        System.out.println("\tArme: "+p.getArme());
+        System.out.println("\tArmure: "+p.getStringArmure());//plutot qu'utiliser tostring sur get arrmure car verifie que armure existe
+        System.out.println("\tArme: "+p.getStringArme());
         System.out.println("\tInventaire:"+p.getInventaire());
         System.out.println("\tForce:"+p.getForce());
         System.out.println("\tDexterité: "+p.getDexterite());

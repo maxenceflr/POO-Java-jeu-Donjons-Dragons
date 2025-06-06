@@ -169,7 +169,7 @@ public class Personnage extends Jouable {
     {
         if (m_arme.isPresent())
         {
-            return "Arme portée: "+m_arme.toString()+"("+m_arme.toString();
+            return m_arme.toString();
 
         }
         else
@@ -181,7 +181,7 @@ public class Personnage extends Jouable {
     {
         if (m_arme.isPresent())
         {
-            return "Armure porté: "+m_armure.toString();
+            return m_armure.toString();
 
         }
         else
@@ -192,9 +192,14 @@ public class Personnage extends Jouable {
 
     @Override
     public String toString() {
-        return "Personnage: "+ this.getNom()+ "\nRace: " + m_race.toString()+"\nClasse: " + m_classe.toString() +
-                "\nArme équipée: " + this.m_arme.get().getNomEquipement() +
-                "\nArmure équipée: " + this.m_armure.get().getNomEquipement() +
+        String armeStr = m_arme.isPresent() ? m_arme.get().getNomEquipement() : "Aucune";
+        String armureStr = m_armure.isPresent() ? m_armure.get().getNomEquipement() : "Aucune";
+
+        return "Personnage: " + this.getNom() +
+                "\nRace: " + m_race.toString() +
+                "\nClasse: " + m_classe.toString() +
+                "\nArme équipée: " + armeStr +
+                "\nArmure équipée: " + armureStr +
                 "\nStatistiques: \n" + this.m_caracteristiques.toString();
     }
 
@@ -208,4 +213,7 @@ public class Personnage extends Jouable {
             return m_nom.equals(conversion.m_nom);
         }
     }
+
+
 }
+

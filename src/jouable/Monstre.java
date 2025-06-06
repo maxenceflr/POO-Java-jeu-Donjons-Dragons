@@ -122,7 +122,7 @@ public class Monstre extends Jouable {
             case 12:
                 return "Harnois";
             default:
-                throw new IllegalArgumentException("ID d'armure inconnu : " + this.m_caracteristiques.getArmure());
+                return "Armure inconnu avec un protection de : " + this.m_caracteristiques.getArmure();
         }
     }
     public String getStringArmure()/*Renvoie les infos sur l'armure que porte le personnage sous forme de string*/ {

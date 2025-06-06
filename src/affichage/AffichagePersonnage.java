@@ -109,8 +109,8 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
         System.out.println("- Vitesse : " + perso.getVitesse());
         System.out.println("- Initiative : " + perso.getInitiative());
         System.out.println(perso.getInventaire().toString()+"\n");
-        System.out.println(perso.getStringArme());
-        System.out.println(perso.getStringArmure()+"\n\n");
+        System.out.println("Arme Portée: "+perso.getStringArme());
+        System.out.println("Armure Portée: "+perso.getStringArmure()+"\n\n");
 
     }
 
