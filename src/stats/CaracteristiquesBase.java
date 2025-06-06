@@ -123,7 +123,7 @@ public class CaracteristiquesBase
                 "\nVitesse : " + Integer.toString(m_vitesse) +
                 "\nDextérité : " + Integer.toString(m_dexterite) +
                 "\nInitiative : " + Integer.toString(m_initiative) +
-                "\nArmure : " + Integer.toString(m_armure);
+                "\nArmure : " + Integer.toString(m_armure) + "\n";
     }
 }
 
