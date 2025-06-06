@@ -12,7 +12,7 @@ public abstract class Jouable
 {
     protected CaracteristiquesBase m_caracteristiques;
 
-    public abstract void attaquer(Position position, Donjon donjon);
+    public abstract AttackResult attaquer(Position position, Donjon donjon);
 
     public abstract String getSymbole();
 
