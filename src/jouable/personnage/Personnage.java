@@ -3,6 +3,7 @@ package jouable.personnage;
 import donjon.Donjon;
 import donjon.Position;
 import jouable.ActionResult;
+import jouable.AttackResult;
 import jouable.Jouable;
 import jouable.personnage.classe.Classe;
 import jouable.personnage.race.*;
@@ -57,7 +58,7 @@ public class Personnage extends Jouable {
         af.afficherCaracteristique(this);
     }
 
-    public ActionResult attaquer(Position other, Donjon donjon)
+    public AttackResult attaquer(Position other, Donjon donjon)
     {
         De deAttaque = new De(1, 20);
         Jouable otherJouable = donjon.getJouableFromPosition(other);
@@ -77,26 +78,25 @@ public class Personnage extends Jouable {
                     somme_attaque += this.m_caracteristiques.getDexterite();
                 }
 
-                System.out.println("Dé d'attaque: " + Integer.toString(somme_attaque));
-
                 if (somme_attaque > otherJouable.getClasseArmure())
                 {
                     int degats_arme = this.m_arme.get().getDeDegats().jeter() + m_arme.get().getBonusAttaque();
                     otherJouable.setCurrentPv(otherJouable.getCurrentPv() - degats_arme);
-                    return  SUCCESS;
+
+                    return  new AttackResult(SUCCESS, somme_attaque, degats_arme);
                 }
                 else
                 {
-                    return  FAILURE;
+                    return new AttackResult(FAILURE, somme_attaque, -1);
                 }
             }
             else
             {
-                return OUT_OF_REACH;
+                return new AttackResult(OUT_OF_REACH, -1, -1);
             }
         }
 
-        return NO_WEAPON;
+        return new AttackResult(NO_WEAPON, -1, -1);
     }
 
     public ActionResult equiper(Equipement item)

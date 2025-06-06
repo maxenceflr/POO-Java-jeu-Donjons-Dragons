@@ -1,5 +1,9 @@
 package jouable;
 
+import partie.De;
+
+import java.util.Optional;
+
 public enum ActionResult {
     SUCCESS,
     OBSTACLE,
@@ -7,6 +11,6 @@ public enum ActionResult {
     FAILURE,
     NO_ITEM,
     NO_WEAPON,
-    OCCUPIED_POSITION
-}
+    OCCUPIED_POSITION;
 
+}
