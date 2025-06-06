@@ -275,4 +275,15 @@ public class AffichageTour {
 
         System.out.println(asciiArt);
     }
+
+    public static void afficherGenerique(char c, int tempo) {
+        System.out.print(c);
+        System.out.flush();
+        try {
+            Thread.sleep(tempo);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 }
+
