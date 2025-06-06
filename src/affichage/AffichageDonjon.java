@@ -58,8 +58,6 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             for (int j = 0; j < donjon.getLongueur(); j++) {
                 currentPos.setX(j);
 
-
-
                 if (donjon.getPositionsJouables().containsJouable(currentPos))
                 {
                     renduDonjon += donjon.getPositionsJouables().getPositions().get(currentPos).getSymbole();

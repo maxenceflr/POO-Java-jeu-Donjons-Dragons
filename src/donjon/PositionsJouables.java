@@ -46,7 +46,9 @@ public class PositionsJouables
 
     public ActionResult deplacerJouable(Jouable jouable, Position position, Donjon donjon)
     {
-            if (Donjon.getDistance(this.getPositionJouable(jouable), position) >= (double)jouable.getVitesse() / 3) {
+            Position positionJouable = new Position(this.getPositionJouable(jouable));
+
+            if (Donjon.getDistance(positionJouable, position) > (double)jouable.getVitesse() / 3) {
                 return OUT_OF_REACH;
             }
             else if (donjon.getPositionsObstacle().containsObstacle(position))
@@ -57,6 +59,7 @@ public class PositionsJouables
                 return OCCUPIED_POSITION;
             } else
             {
+                this.m_positionsJouable.remove(positionJouable);
                 this.ajouterJouable(jouable, position);
                 return SUCCESS;
             }

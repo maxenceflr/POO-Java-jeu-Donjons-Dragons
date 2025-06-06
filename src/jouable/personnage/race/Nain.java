@@ -18,7 +18,6 @@ public class Nain implements Race {
         perso.setForce(perso.getForce() + m_force);
     }
 
-
     @Override
     public String toString(){
         return "Nain";
