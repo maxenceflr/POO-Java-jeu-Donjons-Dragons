@@ -10,8 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
 
-import static affichage.AffichageTour.afficherPerdue;
-import static affichage.AffichageTour.afficherTourPersonage;
+import static affichage.AffichageTour.*;
 import static partie.Partie.partieperdue;
 
 
@@ -36,9 +35,9 @@ public class Tour {
 
     public boolean commencerTour()
     {
-        int taille = m_donjon.getPositionsJouables().size();
+        int nbJouable = m_donjon.getPositionsJouables().size();
 
-        for (int i =0;i<taille;i++)
+        for (int i =0;i<nbJouable;i++)
         {
             Jouable j= m_listeJouable.get(i);
             boolean sucee=this.jouer(j);
@@ -54,12 +53,12 @@ public class Tour {
     public boolean jouer(Jouable j) {
         m_actionRestante=3;
         for (int i = 0; i < 3; i++) {//3 action par joueur
-            boolean valide = false;
+            boolean commandevalide = false;
 
             if (j instanceof Personnage) {
                 Personnage p= (Personnage) j;
-                while (!valide) {
-                    valide = AffichageTour.afficherTourPersonage(m_donjon, m_numeroDeDonjon, this, p, m_listeJouable);
+                while (!commandevalide) {
+                    commandevalide = afficherTourPersonage(m_donjon, m_numeroDeDonjon, this, p, m_listeJouable);
                     if(this.tousLesMonstresMorts())
                     {
                         return true;
@@ -67,11 +66,12 @@ public class Tour {
                 }
                 } else if (j instanceof Monstre) {
                     Monstre m =(Monstre) j;
-                    while (!valide) {
-                        valide=AffichageTour.afficherTourMonstre(m_donjon, m_numeroDeDonjon,this, m, m_listeJouable);
-                        if(this.personnageMort())
-                        {
-                            partieperdue();
+                    while (!commandevalide) {
+                        commandevalide=afficherTourMonstre(m_donjon, m_numeroDeDonjon,this, m, m_listeJouable);
+                        Personnage mort = this.getPersonnageMort();
+                        if (mort != null) {
+
+                            partieperdue(mort);
                         }
                 }
             }
@@ -80,16 +80,16 @@ public class Tour {
         }
         return false;
     }
-    public boolean personnageMort() {
+    public Personnage getPersonnageMort() {
         for (Jouable j : m_listeJouable) {
             if (j instanceof Personnage) {
-                Personnage p=(Personnage) j;
+                Personnage p = (Personnage) j;
                 if (p.getCurrentPv() < 1) {
-                    return true; // un perso est mort
+                    return p; // retourne le personnage mort
                 }
             }
         }
-        return false; // au moins un personnage est mort
+        return null; // aucun personnage mort
     }
 
     public boolean tousLesMonstresMorts() {
@@ -111,6 +111,7 @@ public class Tour {
     {
         return m_actionRestante;
     }
+
 
 
 

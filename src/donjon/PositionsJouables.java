@@ -57,6 +57,8 @@ public class PositionsJouables
                 return OCCUPIED_POSITION;
             } else
             {
+                Position acienneposition=this.getPositionJouable(jouable);
+                m_positionsJouable.remove(acienneposition);
                 this.ajouterJouable(jouable, position);
                 return SUCCESS;
             }
