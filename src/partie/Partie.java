@@ -13,9 +13,11 @@ import static affichage.AffichageTour.afficherGagneé;
 import static affichage.AffichageTour.afficherPerdue;
 
 public class Partie {
+
     public static void DebuterPartie()
     {
         int nbjoueur= demanderNbJoueur();
+
         List<Personnage> listperso = new ArrayList<>();
         for (int i = 0; i < nbjoueur; i++) {
             System.out.println("Création du personnage " + (i + 1) + " :");
@@ -29,6 +31,7 @@ public class Partie {
         }
         gagnee();
     }
+
     public static void explorerDonjon(Donjon donj,int nbDonjon)
     {
         affichageEntreeDonjon(donj.getNom(),nbDonjon);

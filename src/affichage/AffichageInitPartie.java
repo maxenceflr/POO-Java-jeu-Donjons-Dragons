@@ -67,7 +67,6 @@ public class AffichageInitPartie {
                 System.out.println("Veuillez entrer un nombre valide.");
                 scanner.next(); // Consomme la mauvaise entrée
             }
-
         }
         return nbjoueur;
     }

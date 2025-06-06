@@ -36,7 +36,7 @@ public class Tour {
     {
         int nbJouable = m_donjon.getPositionsJouables().size();
 
-        for (int i =0;i<nbJouable;i++)
+        for (int i = 0; i < nbJouable; i++)
         {
             Jouable j = m_listeJouable.get(i);
             boolean sucee = this.jouer(j);
