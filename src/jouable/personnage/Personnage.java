@@ -2,6 +2,7 @@ package jouable.personnage;
 
 import donjon.Donjon;
 import donjon.Position;
+import jouable.ActionResult;
 import jouable.Jouable;
 import jouable.personnage.classe.Classe;
 import jouable.personnage.race.*;
@@ -14,6 +15,8 @@ import affichage.AffichagePersonnage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static jouable.ActionResult.*;
 
 public class Personnage extends Jouable {
 
@@ -54,7 +57,7 @@ public class Personnage extends Jouable {
         af.afficherCaracteristique(this);
     }
 
-    public void attaquer(Position other, Donjon donjon)
+    public ActionResult attaquer(Position other, Donjon donjon)
     {
         De deAttaque = new De(1, 20);
         Jouable otherJouable = donjon.getJouableFromPosition(other);
@@ -78,26 +81,45 @@ public class Personnage extends Jouable {
 
                 if (somme_attaque > otherJouable.getClasseArmure())
                 {
-                    int degâts_arme = this.m_arme.get().getDeDegats().jeter() + m_arme.get().getBonusAttaque();
-                    System.out.println("ça touche ! \nDégâts arme: " + Integer.toString(degâts_arme));
-                    otherJouable.setCurrentPv(otherJouable.getCurrentPv() - degâts_arme);
+                    int degats_arme = this.m_arme.get().getDeDegats().jeter() + m_arme.get().getBonusAttaque();
+                    otherJouable.setCurrentPv(otherJouable.getCurrentPv() - degats_arme);
+                    return  SUCCESS;
                 }
-                else {
-                    System.out.println("ça touche pas");
+                else
+                {
+                    return  FAILURE;
                 }
             }
+            else
+            {
+                return OUT_OF_REACH;
+            }
+        }
+
+        return NO_WEAPON;
+    }
+
+    public ActionResult equiper(Equipement item)
+    {
+        if (this.m_inventaire.getInventaire().contains(item))
+        {
+            m_inventaire.getEquipement(item).equiper(this);
+            m_inventaire.retirerEquipement(item);
+            return SUCCESS;
+        }
+        else
+        {
+            return NO_ITEM;
         }
     }
 
-    public void equiper(Equipement item)
-    {
-        m_inventaire.getEquipement(item).equiper(this);
-        m_inventaire.retirerEquipement(item);
-    }
-
-    public void ramasser(Position pos, Donjon donjon) {
-        this.m_inventaire.ajouterEquipement(donjon.getEquipementFromPosition(pos));
-        donjon.getPositionsEquipement().retirerEquipement(pos);
+    public ActionResult ramasser(Position pos, Donjon donjon) {
+        if(donjon.getPositionsEquipement().containsEquipement(pos)) {
+            this.m_inventaire.ajouterEquipement(donjon.getEquipementFromPosition(pos));
+            donjon.getPositionsEquipement().retirerEquipement(pos);
+            return SUCCESS;
+        }
+        return NO_ITEM;
     }
 
     public void setArmure(Armure armure) {
