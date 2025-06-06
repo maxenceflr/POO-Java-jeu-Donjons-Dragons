@@ -1,4 +1,5 @@
 package donjon;
+import jouable.ActionResult;
 import jouable.Jouable;
 import objet.Equipement;
 
@@ -6,6 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static jouable.ActionResult.*;
+
 
 public class PositionsJouables
 {
@@ -40,13 +44,24 @@ public class PositionsJouables
         return m_positionsJouable.get(position);
     }
 
-    public void deplacerJouable(Jouable jouable, Position position)
+    public ActionResult deplacerJouable(Jouable jouable, Position position, Donjon donjon)
     {
-            if (Donjon.getDistance(this.getPositionJouable(jouable), position) < (double)jouable.getVitesse() / 3)
+            if (Donjon.getDistance(this.getPositionJouable(jouable), position) >= (double)jouable.getVitesse() / 3) {
+                return OUT_OF_REACH;
+            }
+            else if (donjon.getPositionsObstacle().containsObstacle(position))
+            {
+                return OBSTACLE;
+            } else if (donjon.getPositionsJouables().containsJouable(position))
+            {
+                return OCCUPIED_POSITION;
+            } else
             {
                 this.ajouterJouable(jouable, position);
+                return SUCCESS;
             }
     }
+
 
     public boolean containsJouable(Position position)
     {

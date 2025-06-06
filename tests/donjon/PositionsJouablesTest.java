@@ -21,7 +21,7 @@ class PositionsJouablesTest {
 
         Donjon donjonTest= new Donjon();
         donjonTest.getPositionsJouables().ajouterJouable(personnageTest, position1);
-        donjonTest.getPositionsJouables().deplacerJouable(personnageTest, position2);
+        donjonTest.getPositionsJouables().deplacerJouable(personnageTest, position2, donjonTest);
 
         assertEquals(position2, donjonTest.getPositionFromJouable(personnageTest));
 

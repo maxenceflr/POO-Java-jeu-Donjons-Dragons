@@ -8,6 +8,7 @@ import partie.De;
 import stats.CaracteristiquesBase;
 
 import static affichage.AffichageMonstre.choisirEspece;
+import static jouable.ActionResult.*;
 
 
 public class Monstre extends Jouable {
@@ -74,7 +75,7 @@ public class Monstre extends Jouable {
         return new Monstre(new De(1,2), 1, "Gobelin", "-X-",new CaracteristiquesBase(12,12,12,12,12,12));
     }
 
-    public void attaquer(Position other, Donjon donjon)
+    public ActionResult attaquer(Position other, Donjon donjon)
     {
         De deAttaque = new De(1, 20);
         Jouable otherJouable = donjon.getJouableFromPosition(other);
@@ -95,8 +96,12 @@ public class Monstre extends Jouable {
             if (somme_attaque > otherJouable.getClasseArmure())
             {
                 otherJouable.setCurrentPv(otherJouable.getCurrentPv() - this.m_degats.jeter());
+                return SUCCESS;
             }
+            return FAILURE;
         }
+
+        return OUT_OF_REACH;
     }
 
     public String getSymbole()
