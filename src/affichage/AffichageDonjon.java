@@ -147,7 +147,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
             int colonne = lettreColonne - 'A' + 1;
 
-            Position pos = new Position(longeur, colonne);
+            Position pos = new Position( colonne,longeur);
 
             if (PO.containsObstacle(pos)) {
                 System.out.println("Cette position est déjà occupée par un Obstacle.");
@@ -216,7 +216,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
             int colonne = lettreColonne - 'A' + 1;
 
-            Position pos = new Position(longeur, colonne);
+            Position pos = new Position(colonne,longeur);
 
             if (PE.containsEquipement(pos)) {
                 System.out.println("Cette position est déjà occupée par un équipement.");
@@ -451,7 +451,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             // Demande de la longeur (ligne)
             int longeur;
             do {
-                System.out.print("Veuillez entrer la ligne (entre 1 et " + longeurDonjon + ") : ");
+                System.out.print("Veuillez entrer la ligne sur laquelle sera placer le Personnage(entre 1 et " + longeurDonjon + ") : ");
                 while (!scanner.hasNextInt()) {
                     System.out.println("Saisie incorrecte. Réessayez.");
                     scanner.next(); // Consommer l'entrée invalide
@@ -469,6 +469,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             while (true) {
                 System.out.print("Veuillez entrer la colonne (lettre entre A et " + maxLettre + ") : ");
                 String saisie = scanner.next().toUpperCase();
+                saisie.trim();
                 if (saisie.length() == 1) {
                     lettreColonne = saisie.charAt(0);
                     if (lettreColonne >= 'A' && lettreColonne <= maxLettre)
@@ -479,7 +480,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
             int colonne = lettreColonne - 'A' + 1;
 
-            Position pos = new Position(longeur, colonne);
+            Position pos = new Position( colonne,longeur);
 
             if (PJ.containsJouable(pos)) {
                 System.out.println("Cette position est déjà occupée par un Personnage.");
