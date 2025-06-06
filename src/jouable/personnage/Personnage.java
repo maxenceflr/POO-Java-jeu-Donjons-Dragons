@@ -58,7 +58,7 @@ public class Personnage extends Jouable {
         af.afficherCaracteristique(this);
     }
 
-    public AttackResult attaquer(Position other, Donjon donjon)
+    /*public AttackResult attaquer(Position other, Donjon donjon)
     {
         De deAttaque = new De(1, 20);
         Jouable otherJouable = donjon.getJouableFromPosition(other);
@@ -97,7 +97,43 @@ public class Personnage extends Jouable {
         }
 
         return new AttackResult(NO_WEAPON, -1, -1);
+    }*/
+    public AttackResult attaquer(Position other, Donjon donjon)
+    {
+        De deAttaque = new De(1, 20);
+        Jouable otherJouable = donjon.getJouableFromPosition(other);
+
+        if (!this.m_arme.isPresent()) {
+            return new AttackResult(NO_WEAPON, -1, -1);
+        }
+
+        if (Donjon.getDistance(donjon.getPositionFromJouable(this), other) > m_arme.get().getPortee()) {
+            return new AttackResult(OUT_OF_REACH, -1, -1);
+        }
+
+        if (otherJouable == null) {
+            // Pas d'adversaire à la position ciblée
+            return new AttackResult(OUT_OF_REACH, -1, -1);
+        }
+
+        int somme_attaque = deAttaque.jeter() + m_arme.get().getBonusAttaque();
+
+        if (m_arme.get().getPortee() < 2) {
+            somme_attaque += this.m_caracteristiques.getForce();
+        } else {
+            somme_attaque += this.m_caracteristiques.getDexterite();
+        }
+
+        if (somme_attaque > otherJouable.getClasseArmure()) {
+            int degats_arme = this.m_arme.get().getDeDegats().jeter() + m_arme.get().getBonusAttaque();
+            otherJouable.setCurrentPv(otherJouable.getCurrentPv() - degats_arme);
+
+            return new AttackResult(SUCCESS, somme_attaque, degats_arme);
+        } else {
+            return new AttackResult(FAILURE, somme_attaque, -1);
+        }
     }
+
 
     public ActionResult equiper(Equipement item)
     {

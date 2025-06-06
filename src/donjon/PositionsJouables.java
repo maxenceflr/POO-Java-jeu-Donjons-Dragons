@@ -59,6 +59,7 @@ public class PositionsJouables
                 return OCCUPIED_POSITION;
             } else
             {
+
                 this.m_positionsJouable.remove(positionJouable);
                 this.ajouterJouable(jouable, position);
                 return SUCCESS;

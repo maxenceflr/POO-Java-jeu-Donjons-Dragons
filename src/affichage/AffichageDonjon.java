@@ -125,14 +125,14 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
         while (true) {
             // Demande de la longeur (ligne)
-            int longeur;
+            int ligne;
             do {
-                System.out.print("Veuillez entrer la ligne (entre 1 et " + longeurDonjon + ") : ");
-                longeur = scanner.nextInt();
-            } while (longeur < 1 || longeur > longeurDonjon);
+                System.out.print("Veuillez entrer la ligne (entre 1 et " + largeurDonjon + ") : ");
+                ligne = scanner.nextInt();
+            } while (ligne < 1 || ligne > largeurDonjon);
 
             // Demande de la largeur (colonne) sous forme de lettre
-            char maxLettre = (char) ('A' + largeurDonjon - 1);
+            char maxLettre = (char) ('A' + longeurDonjon - 1);
             char lettreColonne;
             while (true) {
                 System.out.print("Veuillez entrer la colonne (lettre entre A et " + maxLettre + ") : ");
@@ -147,7 +147,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
             int colonne = lettreColonne - 'A' + 1;
 
-            Position pos = new Position( colonne,longeur);
+            Position pos = new Position( colonne-1,ligne-1);
 
             if (PO.containsObstacle(pos)) {
                 System.out.println("Cette position est déjà occupée par un Obstacle.");
@@ -193,15 +193,15 @@ public class AffichageDonjon implements AffichageDonjonInterface {
         int longeurDonjon = donjon.getLongueur();
 
         while (true) {
-            // Demande de la longeur (ligne)
-            int longeur;
+            // Demande de la ligne
+            int ligne;
             do {
-                System.out.print("Veuillez entrer la ligne (entre 1 et " + longeurDonjon + ") : ");
-                longeur = scanner.nextInt();
-            } while (longeur < 1 || longeur > longeurDonjon);
+                System.out.print("Veuillez entrer la ligne (entre 1 et " + largeurDonjon + ") : ");
+                ligne = scanner.nextInt();
+            } while (ligne < 1 || ligne > largeurDonjon);
 
-            // Demande de la largeur (colonne) sous forme de lettre
-            char maxLettre = (char) ('A' + largeurDonjon - 1);
+            // Demande de la colonne sous forme de lettre
+            char maxLettre = (char) ('A' + longeurDonjon - 1);
             char lettreColonne;
             while (true) {
                 System.out.print("Veuillez entrer la colonne (lettre entre A et " + maxLettre + ") : ");
@@ -216,7 +216,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
             int colonne = lettreColonne - 'A' + 1;
 
-            Position pos = new Position(colonne,longeur);
+            Position pos = new Position(colonne-1,ligne-1);
 
             if (PE.containsEquipement(pos)) {
                 System.out.println("Cette position est déjà occupée par un équipement.");
@@ -227,6 +227,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             }
         }
     }
+
 
     public PositionsEquipement placerEquipement(Donjon donjon) {
         PositionsEquipement PE = new PositionsEquipement();
@@ -414,7 +415,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
         {
             Monstre momo = new Monstre();
             System.out.println("Où voulez-vous placer " + momo.getNom() + " ?");
-            Position pos = demanderPositionPersonnage(donjon, PJ);
+            Position pos = demanderPositionJouable(donjon, PJ);
 
             PJ.ajouterJouable(momo, pos);
 
@@ -433,7 +434,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             Personnage p = perso.get(i);
             System.out.println("Où voulez-vous placer " + p.getNom() + " ?");
 
-            Position pos = demanderPositionPersonnage(donjon, PJ); // On suppose que cette méthode existe et vérifie les collisions
+            Position pos = demanderPositionJouable(donjon, PJ); // On suppose que cette méthode existe et vérifie les collisions
 
             PJ.ajouterJouable(p,pos); // On l'ajoute à la liste des positions jouables
         }
@@ -442,34 +443,34 @@ public class AffichageDonjon implements AffichageDonjonInterface {
     }
 
 
-    public Position demanderPositionPersonnage(Donjon donjon, PositionsJouables PJ) {
+    public Position demanderPositionJouable(Donjon donjon, PositionsJouables PJ) {
         int largeurDonjon = donjon.getLargeur();
-        int donjonLongueur    = donjon.getLongueur();
-
+        int longeurDonjon = donjon.getLongueur();
 
         while (true) {
-            // Demande de la longeur (ligne)
-            int longeur;
+            // Demande de la ligne
+            int ligne;
             do {
-                System.out.print("Veuillez entrer la ligne sur laquelle sera placer le Personnage(entre 0 et " + donjonLongueur + ") : ");
+
+                System.out.print("Veuillez entrer la ligne sur laquelle il sera placer (entre 1 et " + largeurDonjon + ") : ");
                 while (!scanner.hasNextInt()) {
                     System.out.println("Saisie incorrecte. Réessayez.");
                     scanner.next(); // Consommer l'entrée invalide
-                    System.out.print("Veuillez entrer la ligne (entre 1 et " + donjonLongueur + ") : ");
+                    System.out.print("Veuillez entrer la ligne (entre 1 et " + largeurDonjon + ") : ");
                 }
-                longeur = scanner.nextInt();
-                if (longeur < 0 || longeur > donjonLongueur) {
+                ligne = scanner.nextInt();
+                if (ligne < 1 || ligne > largeurDonjon) {
                     System.out.println("Saisie incorrecte. Réessayez.");
                 }
-            } while (longeur < 0|| longeur > donjonLongueur);
+            } while ((ligne < 1 || ligne > largeurDonjon)&&(ligne < 1 || ligne > largeurDonjon));
 
-            // Demande de la largeur (colonne) sous forme de lettre
-            char maxLettre = (char) ('A' + largeurDonjon - 1);
+
+            // Demande de la colonne sous forme de lettre
+            char maxLettre = (char) ('A' + longeurDonjon - 1);
             char lettreColonne;
             while (true) {
                 System.out.print("Veuillez entrer la colonne (lettre entre A et " + maxLettre + ") : ");
-                String saisie = scanner.next().toUpperCase();
-                saisie.trim();
+                String saisie = scanner.next().toUpperCase().trim();
                 if (saisie.length() == 1) {
                     lettreColonne = saisie.charAt(0);
                     if (lettreColonne >= 'A' && lettreColonne <= maxLettre)
@@ -479,8 +480,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             }
 
             int colonne = lettreColonne - 'A' + 1;
-
-            Position pos = new Position( colonne,longeur);
+            Position pos = new Position(colonne-1, ligne-1);
 
             if (PJ.containsJouable(pos)) {
                 System.out.println("Cette position est déjà occupée par un Personnage.");
@@ -492,8 +492,8 @@ public class AffichageDonjon implements AffichageDonjonInterface {
                 return pos;  // Position libre
             }
         }
-
     }
+
 }
 
 

@@ -27,6 +27,7 @@ public class Partie {
             Donjon donj =new Donjon(listperso);
             explorerDonjon(donj,i+1);
         }
+        gagnee();
     }
     public static void explorerDonjon(Donjon donj,int nbDonjon)
     {
@@ -38,14 +39,57 @@ public class Partie {
             donjonFini =tour.commencerTour();
         }while (donjonFini==false);
     }
-    public static void partieperdue()
+    public static void partieperdue(Personnage p)
     {
-        afficherPerdue();
+        afficherPerdue(p);
+        afficherGenerique();
         System.exit(0);
-    }public void gagnee()
+    }public static void gagnee()
     {
         afficherGagneé();
+        afficherGenerique();
         System.exit(0);
     }
+    public static void afficherGenerique() {
+        String[][] generique = {
+                {"1", "Donjons & Dragons"},
+                {"1", "Directeur : Max"},
+                {"2", "Fin"},
+                {"2", "Scénariste : Etienne Lequentreque"},
+                {"3", "Chefs effets spéciaux : Maxime Malys"},
+                {"4", "Opérateur image : Maxence Flieller"},
+                {"5", "Merci d'avoir joué !"}
+        };
+
+        for (String[] ligne : generique) {
+            int tempo = Integer.parseInt(ligne[0]);
+            String texte = ligne[1];
+
+            // Effet de scroll (moins brutal)
+            for (int i = 0; i < 5; i++) System.out.println();
+
+            // Affichage lettre par lettre
+            for (char c : texte.toCharArray()) {
+                System.out.print(c);
+                System.out.flush();
+                try {
+                    Thread.sleep(40); // vitesse d'apparition des lettres (40 ms = fluide)
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+            }
+            System.out.println();
+
+            // Pause entre les lignes
+            try {
+                Thread.sleep(tempo * 500); // chaque tempo = 0.5 seconde ici (plus fluide)
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+        }
+    }
+
 
 }
