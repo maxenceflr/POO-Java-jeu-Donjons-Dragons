@@ -22,16 +22,15 @@ public class Tour {
     private int m_numeroDeDonjon;
     private List<Jouable> m_listeJouable;
     private int m_actionRestante;
-    public Tour(Donjon donj,int numTour,int numDonjon)
+
+    public Tour(Donjon donj, int numTour, int numDonjon)
     {
-        m_donjon=donj;
-        m_numeroDeTour=numTour;
-        m_numeroDeDonjon=numDonjon;
+        m_donjon = donj;
+        m_numeroDeTour = numTour;
+        m_numeroDeDonjon = numDonjon;
+        m_actionRestante = 0;
         m_listeJouable = m_donjon.getPositionsJouables().getListeJouables();
         m_listeJouable.sort(Comparator.comparing(Jouable::getInitiative).reversed());
-        m_actionRestante=0;
-
-
     }
 
     public boolean commencerTour()
@@ -40,19 +39,19 @@ public class Tour {
 
         for (int i =0;i<taille;i++)
         {
-            Jouable j= m_listeJouable.get(i);
-            boolean sucee=this.jouer(j);
+            Jouable j = m_listeJouable.get(i);
+            boolean sucee = this.jouer(j);
             if(sucee)
             {
                 return true;
             }
-
-
         }
         return false;
     }
-    public boolean jouer(Jouable j) {
-        m_actionRestante=3;
+
+    public boolean jouer(Jouable j)
+    {
+        m_actionRestante = 3;
         for (int i = 0; i < 3; i++) {//3 action par joueur
             boolean valide = false;
 

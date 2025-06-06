@@ -444,24 +444,24 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
     public Position demanderPositionPersonnage(Donjon donjon, PositionsJouables PJ) {
         int largeurDonjon = donjon.getLargeur();
-        int longeurDonjon = donjon.getLongueur();
+        int donjonLongueur    = donjon.getLongueur();
 
 
         while (true) {
             // Demande de la longeur (ligne)
             int longeur;
             do {
-                System.out.print("Veuillez entrer la ligne sur laquelle sera placer le Personnage(entre 0 et " + (longeurDonjon - 1) + ") : ");
+                System.out.print("Veuillez entrer la ligne sur laquelle sera placer le Personnage(entre 0 et " + donjonLongueur + ") : ");
                 while (!scanner.hasNextInt()) {
                     System.out.println("Saisie incorrecte. Réessayez.");
                     scanner.next(); // Consommer l'entrée invalide
-                    System.out.print("Veuillez entrer la ligne (entre 1 et " + longeurDonjon + ") : ");
+                    System.out.print("Veuillez entrer la ligne (entre 1 et " + donjonLongueur + ") : ");
                 }
                 longeur = scanner.nextInt();
-                if (longeur < 0 || longeur > longeurDonjon) {
+                if (longeur < 0 || longeur > donjonLongueur) {
                     System.out.println("Saisie incorrecte. Réessayez.");
                 }
-            } while (longeur < 0|| longeur > longeurDonjon);
+            } while (longeur < 0|| longeur > donjonLongueur);
 
             // Demande de la largeur (colonne) sous forme de lettre
             char maxLettre = (char) ('A' + largeurDonjon - 1);
