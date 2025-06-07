@@ -70,7 +70,7 @@ public abstract class Jouable
 
     public void setVitesse(int vit)
     {
-        m_caracteristiques.setInitiative(vit);
+        m_caracteristiques.setVitesse(vit);
     }
 
     public void setForce(int force)
