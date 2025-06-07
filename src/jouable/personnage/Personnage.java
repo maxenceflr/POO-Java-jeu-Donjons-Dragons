@@ -58,46 +58,7 @@ public class Personnage extends Jouable {
         af.afficherCaracteristique(this);
     }
 
-    /*public AttackResult attaquer(Position other, Donjon donjon)
-    {
-        De deAttaque = new De(1, 20);
-        Jouable otherJouable = donjon.getJouableFromPosition(other);
 
-        if (this.m_arme.isPresent())
-        {
-            if (Donjon.getDistance(donjon.getPositionFromJouable(this), other) <= m_arme.get().getPortee())
-            {
-                int somme_attaque = deAttaque.jeter() + m_arme.get().getBonusAttaque();
-
-                if(m_arme.get().getPortee() < 2)
-                {
-                    somme_attaque += this.m_caracteristiques.getForce();
-                }
-                else
-                {
-                    somme_attaque += this.m_caracteristiques.getDexterite();
-                }
-
-                if (somme_attaque > otherJouable.getClasseArmure())
-                {
-                    int degats_arme = this.m_arme.get().getDeDegats().jeter() + m_arme.get().getBonusAttaque();
-                    otherJouable.setCurrentPv(otherJouable.getCurrentPv() - degats_arme);
-
-                    return  new AttackResult(SUCCESS, somme_attaque, degats_arme);
-                }
-                else
-                {
-                    return new AttackResult(FAILURE, somme_attaque, -1);
-                }
-            }
-            else
-            {
-                return new AttackResult(OUT_OF_REACH, -1, -1);
-            }
-        }
-
-        return new AttackResult(NO_WEAPON, -1, -1);
-    }*/
     public AttackResult attaquer(Position other, Donjon donjon)
     {
         De deAttaque = new De(1, 20);
@@ -215,7 +176,7 @@ public class Personnage extends Jouable {
     }
     public String getStringArmure()/*Renvoie les infos sur l'armure que porte le personnage sous forme de string*/
     {
-        if (m_arme.isPresent())
+        if (m_armure.isPresent())
         {
             return m_armure.toString();
 

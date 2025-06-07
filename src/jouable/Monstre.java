@@ -60,17 +60,17 @@ public class Monstre extends Jouable {
 
     public static Monstre creerDragon()
     {
-        return new Monstre(new De(1,12), 4, "Dragon", "}X{",new CaracteristiquesBase(12,12,12,12,12,30));
+        return new Monstre(new De(1,15), 4, "Dragon", "}X{",new CaracteristiquesBase(12,12,12,12,12,30));
     }
 
     public static Monstre creerDemogorgon()
     {
-        return new Monstre(new De(1,6), 1, "Démogorgon", "~X~",new CaracteristiquesBase(12,12,12,12,12,12));
+        return new Monstre(new De(1,10), 1, "Démogorgon", "~X~",new CaracteristiquesBase(12,12,12,12,12,12));
     }
 
     public static Monstre creerGobelin()
     {
-        return new Monstre(new De(1,2), 1, "Gobelin", "-X-",new CaracteristiquesBase(12,12,12,12,12,12));
+        return new Monstre(new De(1,7), 1, "Gobelin", "-X-",new CaracteristiquesBase(12,12,12,12,12,12));
     }
 
     public AttackResult attaquer(Position other, Donjon donjon)
