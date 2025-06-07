@@ -32,8 +32,13 @@ public class Position {
 
     public static Position getPositionFromCode(String code)
     {
+
+
         int x = (int)(code.charAt(0) % 65);
-        int y = code.charAt(1) - '0';
+
+        String numberPart = code.substring(1);
+        int y = Integer.parseInt(numberPart);
+
         return new Position(x, y);
     }
 

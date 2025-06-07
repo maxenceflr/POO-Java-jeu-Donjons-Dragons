@@ -87,13 +87,48 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
         System.out.println(res);
     }
-    public void commencerCreation()
+    public int commencerCreation() {
+        System.out.println("\nCréation d'un nouveau donjon");
+        System.out.println("-1 Créer un Donjon personnalisé");
+        System.out.println("-2 Utiliser un donjon préfait");
+
+        Scanner scanner = new Scanner(System.in);
+        int choix = -1;
+
+        while (choix != 1 && choix != 2) {
+            if (scanner.hasNextInt()) {
+                choix = scanner.nextInt();
+            } else {
+                scanner.next(); // consomme l'entrée invalide
+            }
+        }
+
+        return choix;
+    }
+    public int demanderChoixDonjon()
     {
-        System.out.println("Creation d'un nouveu donjon");
+        System.out.println("\nQuel donjon souhaité vous créer");
+        System.out.println("-1 Donjon des richesse");
+        System.out.println("-2 Le Labyrinthe");
+        System.out.println("-3 Le Donjon des Gobelin");
+
+        Scanner scanner = new Scanner(System.in);
+        int choix = -1;
+
+        while (choix != 1 && choix != 2&& choix != 3) {
+            if (scanner.hasNextInt()) {
+                choix = scanner.nextInt();
+            } else {
+                scanner.next(); // consomme l'entrée invalide
+            }
+        }
+
+        return choix;
+
     }
     public String demanderNomDonjon()
     {
-        System.out.println("Quel est le nom de ce donjon?( ex: Donjon du l'aube");
+        System.out.println("Quel est le nom de ce donjon?( ex: Donjon du l'aube)");
         String nom = scanner.nextLine();
         return nom;
     }
@@ -419,11 +454,11 @@ public class AffichageDonjon implements AffichageDonjonInterface {
 
             PJ.ajouterJouable(momo, pos);
 
-            System.out.println("Voulez-vous ajouter un autre Monstre ? (oui/non)");
+            System.out.println("Voulez-vous ajouter un autre Monstre ? (0ui o/Non n)");
             scanner.nextLine(); // vide le buffer avant de lire la vraie réponse
             String reponse = scanner.nextLine().trim().toLowerCase();
 
-            if (!reponse.equals("oui") && !reponse.equals("o")) {
+            if (!reponse.equals("oui") && !reponse.equals("o")&& !reponse.equals("ou")) {
                 break;
             }
 
@@ -456,7 +491,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
                 while (!scanner.hasNextInt()) {
                     System.out.println("Saisie incorrecte. Réessayez.");
                     scanner.next(); // Consommer l'entrée invalide
-                    System.out.print("Veuillez entrer la ligne (entre 1 et " + largeurDonjon + ") : ");
+                    System.out.print("Veuillez entrer la ligne sur laquelle il sera placer (entre 1 et " + largeurDonjon + ") : ");
                 }
                 ligne = scanner.nextInt();
                 if (ligne < 1 || ligne > largeurDonjon) {
