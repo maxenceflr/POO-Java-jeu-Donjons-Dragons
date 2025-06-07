@@ -13,7 +13,6 @@ public class PositionsObstacle
 
     public void ajouterObstacle(Position position)
     {
-
         System.out.println("L'obstacle a ete ajouter au "+ position.toString());
         m_positionsObstacle.add(position);
     }

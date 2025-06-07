@@ -2,14 +2,11 @@ package affichage;
 
 import donjon.Donjon;
 import donjon.Position;
+import jouable.AttackResult;
 import jouable.Jouable;
 import jouable.Monstre;
 import jouable.personnage.Inventaire;
 import jouable.personnage.Personnage;
-import jouable.personnage.race.Elfe;
-import jouable.personnage.race.Halfelin;
-import jouable.personnage.race.Humain;
-import jouable.personnage.race.Nain;
 import objet.Equipement;
 import partie.Tour;
 
@@ -17,6 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static affichage.AffichageDonjon.afficherDonjon;
+import static jouable.ActionResult.*;
 
 public class AffichageTour {
 
@@ -82,7 +80,7 @@ public class AffichageTour {
     {
         System.out.println(m.getNom());
         System.out.println("\tVie: "+m.getCurrentPv()+"/"+m.getPvMax());
-        System.out.println("\tArmure: "+m.getStringArmure());
+        System.out.println("\t"+m.getStringArmure());
         System.out.println("\tForce:"+m.getForce());
         System.out.println("\tDexterité: "+m.getDexterite());
         System.out.println("\tVitesse: "+m.getVitesse());
@@ -95,10 +93,10 @@ public class AffichageTour {
             System.out.println("\nIl vous reste "+actionRestante+" action restante:");
             System.out.println("- laisser le maître du jeu commenter l'action précédente (mj <texte>)");
             System.out.println("- commenter action précédente (com <texte>)");
-            System.out.println("- attaquer (att <Case>)");
-            System.out.println("- se déplacer (dep <Case>)");
+            System.out.println("- attaquer (att <Case>)(ex: att D14)");
+            System.out.println("- se déplacer (dep <Case>)(ex: dep B47");
             System.out.println("- s'équiper (equ <numero equipement>)");
-            System.out.println("- ramasser equipement(ram)");
+            System.out.println("- ramasser équipement(ram)");
 
             String input = scanner.nextLine().trim();
             if (input.isEmpty()) continue;
@@ -119,14 +117,26 @@ public class AffichageTour {
                     break;
 
                 case "att":
-                    // Ici tu devras parser une case (ex: "B3") et appeler une méthode comme p.attaquer(case)
-
                     System.out.println(p.getNom() + " attaque la case " + argument);
                     Position position_attaque = Position.getPositionFromCode(argument);
-                    p.attaquer(position_attaque, donj);
-                    // Exemple : p.attaquer(parseCase(argument));
-                    break;
+                    AttackResult result = p.attaquer(position_attaque, donj); // ← Récupère le résultat
 
+                    System.out.println("Jet d'attaque : " + result.getJetAttaque());
+
+                    switch (result.getStatus()) {
+                        case SUCCESS :
+                        {
+                            System.out.println("Attaque réussie !");
+                            System.out.println("Dégâts infligés : " + result.getDegats());
+                        }
+                        case FAILURE :
+                            System.out.println("L'attaque a échoué, l'adversaire a esquivé ou l'armure a tout bloqué.");
+                        case NO_WEAPON :
+                            System.out.println("Tu n'as pas d'arme équipée !");
+                        case OUT_OF_REACH :
+                            System.out.println("La cible est hors de portée !");
+                    }
+                    break;
                 case "dep":
                     System.out.println(p.getNom() + " se déplace vers la case " + argument);
                     Position position_deplacement = Position.getPositionFromCode(argument);
@@ -190,8 +200,8 @@ public class AffichageTour {
         while (true) {
             System.out.println("\nIl vous reste "+actionRestante+" action restante:");
             System.out.println("- le maître du jeu commente l'action précédente (mj <texte>)");
-            System.out.println("- attaquer (att <Case>)");
-            System.out.println("- se déplacer (dep <Case>)");
+            System.out.println("- attaquer (att <Case>)(ex: att D14)");
+            System.out.println("- se déplacer (dep <Case>)(ex: dep B47)");
 
             String input = scanner.nextLine().trim();
             if (input.isEmpty()) continue;
@@ -251,10 +261,10 @@ public class AffichageTour {
 
         System.out.println(ANSI_RED + asciiArt + ANSI_RESET);
     }
-    public static void afficherGagneé()
+    public static void afficherGagnee()
     {
-        final String ANSI_BLUE = "\u001B[34m";
-        final String ANSI_RESET = "\u001B[0m";
+
+
         String asciiArt =
                 "                                                                                                    \n" +
                         "                                                                                                    \n" +

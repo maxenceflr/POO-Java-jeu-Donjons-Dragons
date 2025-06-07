@@ -10,7 +10,7 @@ import java.util.List;
 
 import static affichage.AffichageInitPartie.affichageEntreeDonjon;
 import static affichage.AffichageInitPartie.demanderNbJoueur;
-import static affichage.AffichageTour.afficherGagneé;
+import static affichage.AffichageTour.afficherGagnee;
 import static affichage.AffichageTour.afficherPerdue;
 
 public class Partie {
@@ -52,7 +52,7 @@ public class Partie {
         System.exit(0);
     }public static void gagnee()
     {
-        afficherGagneé();
+        afficherGagnee();
         afficherGenerique();
         System.exit(0);
     }
