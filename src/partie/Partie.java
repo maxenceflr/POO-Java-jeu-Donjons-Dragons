@@ -34,11 +34,11 @@ public class Partie {
     {
         affichageEntreeDonjon(donj.getNom(),nbDonjon);
         int nbTour=1;
-        boolean donjonFini=false;
+        boolean donjonFini;
         do {
             Tour tour=new Tour(donj,nbTour,nbDonjon);
             donjonFini =tour.commencerTour();
-        }while (donjonFini==false);
+        }while (!donjonFini);
     }
     public static void partieperdue(Personnage p)
     {

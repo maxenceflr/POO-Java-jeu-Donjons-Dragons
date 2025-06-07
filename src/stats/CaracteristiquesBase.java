@@ -33,6 +33,16 @@ public class CaracteristiquesBase
         m_pvMax = 0;/*sera initialiser par la classe*/
         m_armure = 0;
     }
+    public CaracteristiquesBase(CaracteristiquesBase CA)/*constructeur pour faire une copie*/
+    {
+        m_force = CA.getForce();
+        m_vitesse = CA.getVitesse();
+        m_initiative = CA.getInitiative();
+        m_dexterite = CA.getDexterite();
+        m_currentPv = CA.getCurrentPv();
+        m_pvMax = CA.getPvMax();
+        m_armure = CA.getArmure();
+    }
 
 
     /*public CaracteristiquesBase()
