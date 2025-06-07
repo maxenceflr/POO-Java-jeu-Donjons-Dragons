@@ -43,7 +43,8 @@ public class Personnage extends Jouable {
 
 
     public Personnage() {
-        AffichagePersonnage af =new AffichagePersonnage();
+
+        AffichagePersonnage af = new AffichagePersonnage();
         CaracteristiquesBase CA = new CaracteristiquesBase();
         m_nom = af.choisirNom();
 
