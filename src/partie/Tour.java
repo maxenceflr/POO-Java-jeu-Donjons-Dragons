@@ -55,7 +55,7 @@ public class Tour {
             boolean commandevalide = false;
 
             if (j instanceof Personnage) {
-                Personnage p= (Personnage) j;
+                Personnage p = (Personnage) j;
                 while (!commandevalide) {
                     commandevalide = afficherTourPersonage(m_donjon, m_numeroDeDonjon, this, p, m_listeJouable);
                     if(this.tousLesMonstresMorts())

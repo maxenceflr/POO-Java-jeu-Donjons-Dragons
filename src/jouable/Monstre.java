@@ -47,6 +47,7 @@ public class Monstre extends Jouable {
             m_caracteristiques = af.choisirCaracteristiques();
             m_portee = af.choisirPorterAttaque();
         }
+
         af.afficherCaracteristiaque(this);
     }
 
@@ -110,6 +111,7 @@ public class Monstre extends Jouable {
     {
         return m_symbole;
     }
+
     public String getNomArmure()
     {
         switch (this.m_caracteristiques.getArmure()) {

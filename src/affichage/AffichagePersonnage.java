@@ -11,12 +11,12 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
     private Scanner scanner = new Scanner(System.in);
     public Classe choisirClasse() {
         while (true) {
-            System.out.println("Choisissez une classe :");
+            System.out.println("\nChoisissez une classe :");
             System.out.println("1 - Clerc");
             System.out.println("2 - Guerrier");
             System.out.println("3 - Magicien");
             System.out.println("4 - Roublard");
-            System.out.print("Votre choix : ");
+            System.out.print("\nVotre choix : ");
 
             int choix;
 
@@ -40,12 +40,12 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
     public Race choisirRace(Personnage perso) {
 
         while (true) {
-            System.out.println("Choisissez une race :");
+            System.out.println("\nChoisissez une race :");
             System.out.println("1 - Humain");
             System.out.println("2 - Nain");
             System.out.println("3 - Elfe");
             System.out.println("4 - Halfelin");
-            System.out.print("Votre choix : ");
+            System.out.print("\nVotre choix : ");
 
             int choix;
 
@@ -84,7 +84,7 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
     public String choisirNom() {
 
         while (true) {
-            System.out.print("Entrez le nom de votre personnage (lettres uniquement) : ");
+            System.out.print("\nEntrez le nom de votre personnage (lettres uniquement) : ");
             String nom = scanner.nextLine().trim();
 
             if (nom.isEmpty()) {
@@ -100,18 +100,14 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
 
 
     public void afficherCaracteristique(Personnage perso) {
-        System.out.println("\n\n\n\n"+perso.getNom()+" :");
-        System.out.println("Race :"+perso.getRace().toString()+" Classe :"+perso.getClasse().toString());
-        System.out.println("\n- Current Pv : " + perso.getCurrentPv());
-        System.out.println("- Pv Max : " +perso.getPvMax());
+        System.out.println("\n\nNom : "+perso.getNom());
+        System.out.println("Race : "+perso.getRace().toString()+"\nClasse : "+perso.getClasse().toString());
+        System.out.println("Statistiques :");
+        System.out.println("- Pv : " + perso.getPvMax());
         System.out.println("- Dextérité : " + perso.getDexterite());
         System.out.println("- Force : " + perso.getForce());
         System.out.println("- Vitesse : " + perso.getVitesse());
-        System.out.println("- Initiative : " + perso.getInitiative());
-        System.out.println(perso.getInventaire().toString()+"\n");
-        System.out.println("Arme Portée: "+perso.getStringArme());
-        System.out.println("Armure Portée: "+perso.getStringArmure()+"\n\n");
-
+        System.out.println("- Initiative : " + perso.getInitiative() +"\n");
     }
 
 
