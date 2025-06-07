@@ -2,6 +2,7 @@ package affichage;
 
 import donjon.Donjon;
 import donjon.Position;
+import donjon.PositionsJouables;
 import jouable.ActionResult;
 import jouable.AttackResult;
 import jouable.Jouable;
@@ -9,6 +10,7 @@ import jouable.Monstre;
 import jouable.personnage.Inventaire;
 import jouable.personnage.Personnage;
 import objet.Equipement;
+import partie.De;
 import partie.Tour;
 
 import java.util.List;
@@ -145,6 +147,10 @@ public class AffichageTour {
                     }
                     break;
                 case "dep" :
+                    while (!argument.matches("^[A-Z][0-9]+$")) {
+                        System.out.println("Format invalide. Veuillez entrer une case au format Lettre+Chiffre (ex: D12) :");
+                        argument = scanner.nextLine().trim().toUpperCase();
+                    }
 
                     System.out.println(p.getNom() + " tente de se déplacer vers la case " + argument);
                     Position position_deplacement = Position.getPositionFromCode(argument);
@@ -259,6 +265,10 @@ public class AffichageTour {
                     break;
 
                 case "dep" :
+                    while (!argument.matches("^[A-Z][0-9]+$")) {
+                        System.out.println("Format invalide. Veuillez entrer une case au format Lettre+Chiffre (ex: D12) :");
+                        argument = scanner.nextLine().trim().toUpperCase();
+                    }
 
                     System.out.println(m.getNom() + " tente de se déplacer vers la case " + argument);
                     Position position_deplacement = Position.getPositionFromCode(argument);
@@ -288,6 +298,130 @@ public class AffichageTour {
             return commandeValide;
         }
 
+    }
+    public static int choixActionMj()
+    {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("\nQue souhaitez-vous faire ?");
+            System.out.println("1. Déplacer un monstre ou un personnage");
+            System.out.println("2. Faire un jet de dés pour infliger des dégâts");
+            System.out.println("3. Ajouter un obstacle dans le donjon");
+            System.out.println("4. Ne rien faire");
+
+
+            int choix = Integer.parseInt(scanner.nextLine());
+
+            if(choix==1||choix==2||choix==3||choix==4) {
+                return choix;
+            }
+        }
+    }
+    public static void choixCaseDeplacementMj(Donjon donj)
+    {
+        Scanner scanner = new Scanner(System.in);
+        Jouable j = null;
+        Position position_depart = null;
+
+        while (j == null) {
+            System.out.println("Entrez la case du jouable que vous souhaitez déplacer (ex: D12) :");
+            String argument = scanner.nextLine().trim().toUpperCase();
+
+            // Vérifie le format
+            if (!argument.matches("^[A-Z][0-9]+$")) {
+                System.out.println("Format invalide. Veuillez entrer une case au format Lettre+Chiffre (ex: D12).");
+                continue;
+            }
+            else {
+
+                // Récupère la position
+                position_depart = Position.getPositionFromCode(argument);
+
+                // Vérifie qu’un jouable est bien présent
+                j = donj.getJouableFromPosition(position_depart);
+                if (j == null) {
+                    System.out.println("Aucun joueur ni monstre à cette position. Veuillez en saisir une autre.");
+                }
+            }
+        }
+
+        System.out.println("Entrez la case sur laquelle vous souhaitez déplacer le jouable (ex: D12) :");
+        String argument2 = scanner.nextLine().trim().toUpperCase();
+        while (!argument2.matches("^[A-Z][0-9]+$")) {
+            System.out.println("Format invalide. Veuillez entrer une case au format Lettre+Chiffre (ex: D12) :");
+            argument2 = scanner.nextLine().trim().toUpperCase();
+        }
+        Position position_arrivee = Position.getPositionFromCode(argument2);
+
+        donj.getPositionsJouables().deplacementMj(j,position_arrivee,donj);
+
+    }
+    public static void choixAttaqueDuMj(Donjon donj)
+    {
+        Scanner scanner = new Scanner(System.in);
+        Jouable j = null;
+        Position position = null;
+
+        while (j == null) {
+            System.out.println("Entrez la case du jouable que vous souhaitez attaquer (ex: D12) :");
+            String argument = scanner.nextLine().trim().toUpperCase();
+
+
+            if (!argument.matches("^[A-Z][0-9]+$")) {
+                System.out.println("Format invalide. Veuillez entrer une case au format Lettre+Chiffre (ex: D12).");
+
+            }
+            else {
+
+                // Récupère la position
+                position= Position.getPositionFromCode(argument);
+
+                // Vérifie qu’un jouable est bien présent
+                j = donj.getJouableFromPosition(position);
+                if (j == null) {
+                    System.out.println("Aucun joueur ni monstre à cette position. Veuillez en saisir une autre.");
+                }
+            }
+        }
+        int nombreDes = 0;
+        int nombreFaces = 0;
+
+
+        while (true) {
+            System.out.print("Entrez le nombre de dés à lancer : ");
+            String input = scanner.nextLine().trim();
+            try {
+                nombreDes = Integer.parseInt(input);
+                if (nombreDes <= 0) {
+                    System.out.println("Veuillez entrer un entier positif.");
+                    continue;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Ce n'est pas un nombre entier valide.");
+            }
+        }
+
+
+        while (true) {
+            System.out.print("Entrez le nombre de faces de chaque dé : ");
+            String input = scanner.nextLine().trim();
+            try {
+                nombreFaces = Integer.parseInt(input);
+                if (nombreFaces <= 0) {
+                    System.out.println("Veuillez entrer un entier positif.");
+                    continue;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Ce n'est pas un nombre entier valide.");
+            }
+        }
+        De de =new De(nombreDes,nombreFaces);
+
+        System.out.println("Lancement de " + nombreDes + " dé(s) à " + nombreFaces + " faces chacun.");
+        int degat=donj.getPositionsJouables().attaqueDuMj(j,de);
+        System.out.println(/*j.getNom()+*/" subit "+degat+" dégat");//creer un get nom de jouable
     }
     public static void afficherPerdue(Personnage p)
     {

@@ -45,6 +45,29 @@ public class Tour {
             {
                 return true;
             }
+            switch (choixActionMj()) {
+                case 1:
+                    choixCaseDeplacementMj(m_donjon);
+                    break;
+                case 2:
+                    choixAttaqueDuMj(m_donjon);
+                    break;
+                case 3:
+
+                    break;
+                default:
+                    break;
+            }
+            Personnage mort = this.getPersonnageMort();
+            if (mort != null) {
+
+                partieperdue(mort);
+            }
+            if(this.tousLesMonstresMorts())
+            {
+                return true;
+            }
+
 
 
         }
