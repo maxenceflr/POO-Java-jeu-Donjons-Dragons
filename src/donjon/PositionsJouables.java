@@ -2,6 +2,7 @@ package donjon;
 import jouable.ActionResult;
 import jouable.Jouable;
 import objet.Equipement;
+import partie.De;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +38,14 @@ public class PositionsJouables
 
         return new Position(-1, -1);
     }
+    public int attaqueDuMj(Jouable j, De de)
+    {
+        int pv=j.getCurrentPv();
+        int somme =de.jeter();
+        System.out.println(j.toString());
+        j.setCurrentPv(pv-somme);
+        return somme;
+    }
 
 
     public Jouable getJouableFromPosition(Position position)
@@ -65,6 +74,12 @@ public class PositionsJouables
                 return SUCCESS;
             }
     }
+    public void deplacementMj(Jouable jouable,Position position, Donjon donjon)
+    {
+        Position positionJouable = new Position(this.getPositionJouable(jouable));
+        this.m_positionsJouable.remove(positionJouable);
+        this.ajouterJouable(jouable, position);
+    }
 
 
     public boolean containsJouable(Position position)
@@ -87,6 +102,7 @@ public class PositionsJouables
         }
         return null; // ou tu peux lancer une exception si tu préfères
     }
+
 
     public int size() {
         return this.m_positionsJouable.size();
