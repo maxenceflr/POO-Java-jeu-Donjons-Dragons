@@ -224,6 +224,7 @@ package stats
         + setForce()
         + setArmure()
         + equals(other: CaracteristiquesBase): Boolean
+        + toString(): String
     }
 
     Jouable "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
@@ -235,54 +236,77 @@ package objet
     abstract class Equipement <<abstract>>
     {
         + getSymbole(): String
+        + {abstract} equiper(perso: Personnage)
+        + {abstract} ajouterBonus(bonus: Integer)
+        + {abstract} getNomEquipement(): String
+        + {abstract} equals(): Boolean
     }
+
+    Equipement .> Personnage : <<use>>
 
     package armure
     {
         abstract class Armure <<abstract>> implements objet.Equipement
         {
-            - m_classeArmure: Integer
+            # m_classeArmure: Integer
             + <<create>> Armure(classeArmure: Integer)
+            + <<create>> Armure()
+            + equiper(perso: Personnage)
+            + equiper(perso: Personnage)
             + getClasseArmure(): Integer
             + toString(): String
+            + equals(other: Object): Boolean
         }
 
         abstract class ArmureLourde <<abstract>> extends Armure
         {
             - m_vitesse: Integer
-            + <<create>> ArmureLourde(classeArmure: Integer, vitesse: Integer)
+            + <<create>> ArmureLourde(classeArmure: Integer)
+            + <<create>> ArmureLourde()
+            + equiper(perso: Personnage)
             + toString(): String
             + getVitesse(): Integer
+            + equals(other: Object): Boolean
         }
 
         abstract class ArmureLegere <<abstract>> extends Armure
         {
             + <<create>> ArmureLegere()
+            + <<create>> ArmureLegere(armure: Integer)
             + toString(): String
+            + equals(other: Object): Boolean
         }
 
         class ArmureEcailles extends ArmureLegere
         {
             + <<create>> ArmureEcailles()
             + toString(): String
+            + getNomEquipement(): String
+            + equals(other: Object): Boolean
         }
 
         class DemiPlate extends ArmureLegere
         {
             + <<create>> DemiPlate()
+            + getNomEquipement(): String
             + toString(): String
+            + equals(other: Object): Boolean
         }
 
         class CoteMailles extends ArmureLourde
         {
             + <<create>> CoteMailles()
+            + getNomEquipement(): String
             + toString(): String
+            + equals(other: Object): Boolean
         }
 
         class Harnois extends ArmureLourde
         {
             + <<create>> Harnois()
+            + getNomEquipement(): String
             + toString(): String
+            + equals(other: Object): Boolean
         }
     }
 
@@ -291,85 +315,142 @@ package objet
 
         abstract class Arme <<abstract>> implements objet.Equipement
         {
-            - m_degats: Integer
-            - m_portee: Integer
+            # m_degats: De
+            # m_portee: Integer
+            # m_bonusAttaque: Integer
             + <<create>> Arme(degats: Integer, portee: Integer)
-            + getDegats(): Integer
+            + <<create>> Arme()
+            + ajouterBonus(bonus: Integer)
+            + getDeDegats(): De
             + getPortee(): Integer
-            + setDegats(degats: Integer): Void
-            + setPortee(portee: Integer): Void
+            + getBonusAttaque(): Integer
+            + setDeDegats(degats: De)
+            + setPortee(portee: Integer)
+            + setBonusAttaque(bonus: Integer)
             + toString(): String
+            + equals(other: Object): Boolean
         }
 
-        abstract class ArmeCourante <<abstract>> extends Arme
+
+        package armedeguerre
         {
-            + <<create>> ArmeCourante()
-            + toString(): String
+
+            abstract class ArmeDeGuerre <<abstract>> extends objet.arme.Arme
+            {
+                # m_vitesse: Integer
+                # m_force: Integer
+                + <<create>> ArmeDeGuerre(degats: De, portee: Integer, vitesse: Integer, force: Integer)
+                + <<create>> ArmeDeGuerre()
+                + equiper(perso: Personnage)
+                + toString(): String
+                + getVitesse(): Integer
+                + setVitesse(vitesse: Integer)
+                + getForce(): Integer
+                + setForce(force: Integer)
+                + equals(other: Object): Boolean
+            }
+
+            class EpeeLongue extends ArmeDeGuerre
+            {
+                + <<create>> EpeeLongue()
+                + toString(): String
+                + getNomEquipement(): String
+                + equals(other: Object): Boolean
+            }
+
+            class Rapiere extends ArmeDeGuerre
+            {
+                + <<create>> Rapiere()
+                + toString(): String
+                + getNomEquipement(): String
+                + equals(other: Object): Boolean
+            }
+
+            class EpeeDeuxMains extends ArmeDeGuerre
+            {
+                + <<create>> EpeeDeuxMains()
+                + toString(): String
+                + getNomEquipement(): String
+                + equals(other: Object): Boolean
+            }
+
         }
 
-        abstract class ArmeDeGuerre <<abstract>> extends Arme
+        package armedistance
         {
-            - m_vitesse: Integer
-            - m_force: Integer
-            + <<create>> ArmeDeGuerre(vitesse: Integer, force: Integer)
-            + toString(): String
-            + getVitesse(): Integer
-            + getForce(): Integer
+
+            abstract class ArmeDistance <<abstract>> extends objet.arme.Arme
+            {
+                + <<create>> ArmeDistance()
+                + <<create>> ArmeDistance(degats: De, portee: Integer)
+                + equiper(perso: Personnage)
+                + toString(): String
+            }
+
+            class ArbaleteLegere extends ArmeDistance
+            {
+                + <<create>> ArbaleteLegere()
+                + toString(): String
+                + equals(other: Object): Boolean
+                + getNomEquipement(): String
+            }
+
+            class Fronde extends ArmeDistance
+            {
+                + <<create>> Fronde()
+                + toString(): String
+                + getNomEquipement(): String
+                + equals(other: Object): Boolean
+            }
+
         }
 
-        abstract class ArmeDistance <<abstract>> extends Arme
+        package armecourante
         {
-            + <<create>> ArmeDistance()
-            + toString(): String
+
+            abstract class ArmeCourante <<abstract>> extends objet.arme.Arme
+            {
+                + <<create>> ArmeCourante()
+                + <<create>> ArmeCourante(degats: De, portee: Integer)
+                + toString(): String
+                + equiper(perso: Personnage)
+                + equals(other: Object): Boolean
+            }
+
+            class Baton extends ArmeCourante
+            {
+                + <<create>> Baton()
+                + getNomEquipement(): String
+                + toString(): String
+                + equals(other: Object): Boolean
+            }
+
+            class MasseDarme extends ArmeCourante
+            {
+                + <<create>> MasseDarme()
+                 + getNomEquipement(): String
+                + toString(): String
+                + equals(other: Object): Boolean
+            }
+
+            class ArcCourt extends ArmeDistance
+            {
+                + <<create>> ArcCourt()
+                + equals(other: Object): Boolean
+                + toString(): String
+                + getNomEquipement(): String
+            }
+
         }
 
-        class Baton extends ArmeCourante
-        {
-            + <<create>> Baton()
-            + toString(): String
-        }
 
-        class MasseDarme extends ArmeCourante
-        {
-            + <<create>> MasseDarme()
-            + toString(): String
-        }
 
-        class EpeeLongue extends ArmeDeGuerre
-        {
-            + <<create>> EpeeLongue()
-            + toString(): String
-        }
 
-        class Rapiere extends ArmeDeGuerre
-        {
-            + <<create>> Rapiere()
-            + toString(): String
-        }
 
-        class EpeeDeuxMains extends ArmeDeGuerre
-        {
-            + <<create>> EpeeDeuxMains()
-            + toString(): String
-        }
 
-        class ArbaleteLegere extends ArmeDistance
-        {
-            + <<create>> ArbaleteLegere()
-            + toString(): String
-        }
 
-        class Fronde extends ArmeDistance
-        {
-            + <<create>> Fronde()
-            + toString(): String
-        }
 
-        class ArcCourt extends ArmeDistance
-        {
-            + <<create>> ArcCourt()
-            + toString(): String
-        }
+
     }
 }
 
