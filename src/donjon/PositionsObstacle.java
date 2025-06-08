@@ -17,10 +17,7 @@ public class PositionsObstacle
         m_positionsObstacle.add(position);
     }
 
-    public void retirerObstacle(Position position)
-    {
-        m_positionsObstacle.remove(position);
-    }
+
 
     public ArrayList<Position> getPosition()
     {
