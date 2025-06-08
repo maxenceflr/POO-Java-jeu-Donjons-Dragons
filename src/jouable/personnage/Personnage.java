@@ -2,6 +2,7 @@ package jouable.personnage;
 
 import donjon.Donjon;
 import donjon.Position;
+import donjon.PositionsJouables;
 import jouable.ActionResult;
 import jouable.AttackResult;
 import jouable.Jouable;
@@ -43,7 +44,8 @@ public class Personnage extends Jouable {
 
 
     public Personnage() {
-        AffichagePersonnage af =new AffichagePersonnage();
+
+        AffichagePersonnage af = new AffichagePersonnage();
         CaracteristiquesBase CA = new CaracteristiquesBase();
         CaracteristiquesBase LancerDeAvantBonus= new CaracteristiquesBase(CA);
 
@@ -98,6 +100,21 @@ public class Personnage extends Jouable {
         } else {
             return new AttackResult(FAILURE, somme_attaque, -1);
         }
+    }
+
+    @Override
+    public void ajouterJouable(Position position, PositionsJouables listeJouables) {
+        listeJouables.getPositions().put(position, this);
+    }
+
+    @Override
+    public void setId(Integer id) {
+        // méthode inutile
+    }
+
+    @Override
+    public void setSymbole(String symbole) {
+        //méthode inutile
     }
 
 
@@ -209,10 +226,10 @@ public class Personnage extends Jouable {
             return false;
         } else {
             Personnage conversion = (Personnage) other;
-            return m_nom.equals(conversion.m_nom);
+            return m_nom.equals(conversion.m_nom) && m_armure.equals(conversion.m_armure) &&
+                    m_classe.equals(conversion.m_classe) && m_caracteristiques.equals(conversion.m_caracteristiques);
         }
     }
-
 
 }
 

@@ -24,7 +24,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
                 'U', 'V', 'W', 'X', 'Y', 'Z'
         };
 
-        String result = "      ";
+        String result = "\n\n      ";
 
         for (int i = 0; i < donjon.getLongueur(); i++) {
             result += alphabetMajuscule[i] + "  ";
@@ -83,7 +83,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             res += "---";
         }
 
-        res += "*\n    * Equipement  |  [ ] Obstacle  |";
+        res += "*\n    * Equipement  |  [ ] Obstacle  |\n\n";
 
         System.out.println(res);
     }

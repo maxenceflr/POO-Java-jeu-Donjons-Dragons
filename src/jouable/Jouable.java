@@ -3,6 +3,7 @@ package jouable;
 
 import donjon.Donjon;
 import donjon.Position;
+import donjon.PositionsJouables;
 import objet.armure.*;
 import stats.CaracteristiquesBase;
 
@@ -13,6 +14,12 @@ public abstract class Jouable
     protected CaracteristiquesBase m_caracteristiques;
 
     public abstract AttackResult attaquer(Position position, Donjon donjon);
+
+    public abstract void ajouterJouable(Position position, PositionsJouables listeJouables);
+
+    public abstract void setId(Integer id);
+
+    public abstract void setSymbole(String symbole);
 
     public abstract String getSymbole();
 

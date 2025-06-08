@@ -1,5 +1,6 @@
 package jouable.personnage.sorts;
 
+import jouable.ActionResult;
 import jouable.Jouable;
 import jouable.personnage.Personnage;
 import partie.De;
@@ -12,12 +13,9 @@ public class Guerison implements Sorts{
         return "Guérison";
     }
 
-    public void lancer(Personnage lanceur, Personnage cible) {
-
-        De de = new De(1, 10);
-
-        int pvSoigne = de.jeter();
-
+    public ActionResult lancer(Personnage lanceur, Personnage cible, int pvSoigne)
+    {
         cible.setCurrentPv(Math.min(cible.getCurrentPv() + pvSoigne, cible.getPvMax()));
+        return ActionResult.SUCCESS;
     }
 }

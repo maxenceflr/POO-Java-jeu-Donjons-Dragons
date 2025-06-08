@@ -55,7 +55,7 @@ public class AffichageInitPartie {
         int nbjoueur = 0;
 
         while (true) {
-            System.out.println("Combien de joueurs êtes-vous ? (hors maître du jeu)");
+            System.out.print("Combien de joueurs êtes-vous ? (hors maître du jeu) ");
 
             if (scanner.hasNextInt()) {
                 nbjoueur = scanner.nextInt();
@@ -68,10 +68,11 @@ public class AffichageInitPartie {
                 System.out.println("Veuillez entrer un nombre valide.");
                 scanner.next(); // Consomme la mauvaise entrée
             }
-
         }
+
         return nbjoueur;
     }
+
     public static void affichageEntreeDonjon(String nomDonjon,int numDonjon)
     {
         System.out.println("\n\nVous entrez dans le "+nomDonjon);
