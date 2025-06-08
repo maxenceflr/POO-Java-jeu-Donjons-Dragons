@@ -40,10 +40,20 @@ public class Inventaire {
     {
         return m_inventaire.get(m_inventaire.indexOf(item));
     }
+    public Equipement getEquipement(int index) {
+        if (index >= 0 && index < m_inventaire.size()) {
+            return m_inventaire.get(index);
+        } else {
+            throw new IndexOutOfBoundsException("Indice d'équipement invalide : " + index);
+        }
+    }
 
     public void setInventaire(List<Equipement> equipements)
     {
         m_inventaire = equipements;
+    }
+    public int getNbEquipement() {
+        return m_inventaire.size();
     }
 
     @Override

@@ -6,6 +6,7 @@ import objet.Equipement;
 import stats.CaracteristiquesBase;
 
 
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -46,6 +47,13 @@ public abstract class  Classe {
     }
 
     public abstract String toString();
+    public List<Sorts> getSort() {
+        if (m_sorts.isPresent()) {
+            return m_sorts.get();
+        } else {
+            return Collections.emptyList();  // import java.util.Collections;
+        }
+    }
 
     @Override
     public boolean equals(Object other) {

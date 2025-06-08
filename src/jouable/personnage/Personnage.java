@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static affichage.AffichageTour.afficherDe;
 import static jouable.ActionResult.*;
 
 public class Personnage extends Jouable {
@@ -83,8 +84,8 @@ public class Personnage extends Jouable {
             // Pas d'adversaire à la position ciblée
             return new AttackResult(OUT_OF_REACH, -1, -1);
         }
-
-        int somme_attaque = deAttaque.jeter() + m_arme.get().getBonusAttaque();
+        int sommeDe =deAttaque.jeter();
+        int somme_attaque =  sommeDe+ m_arme.get().getBonusAttaque();
 
         if (m_arme.get().getPortee() < 2) {
             somme_attaque += this.m_caracteristiques.getForce();
@@ -154,6 +155,9 @@ public class Personnage extends Jouable {
     }
     public Optional<Arme> getArme() {
         return m_arme;
+    }
+    public boolean aUneArme() {
+        return m_arme.isPresent();
     }
 
 

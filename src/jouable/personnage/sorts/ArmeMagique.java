@@ -16,7 +16,7 @@ public class ArmeMagique implements Sorts
         return "Arme magique";
     }
 
-    public ActionResult lancer(Personnage lanceur, Personnage cible, Arme arme_cible)
+    public ActionResult lancerSort( Personnage cible, Arme arme_cible)
     {
         if(cible.getArme().isPresent() && cible.getArme().get().equals(arme_cible))
         {

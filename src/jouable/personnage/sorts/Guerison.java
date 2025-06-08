@@ -9,11 +9,12 @@ import java.util.List;
 
 public class Guerison implements Sorts{
 
+    @Override
     public String toString(){
         return "Guérison";
     }
 
-    public ActionResult lancer(Personnage lanceur, Personnage cible, int pvSoigne)
+    public ActionResult lancerSort(Personnage cible, int pvSoigne)
     {
         cible.setCurrentPv(Math.min(cible.getCurrentPv() + pvSoigne, cible.getPvMax()));
         return ActionResult.SUCCESS;

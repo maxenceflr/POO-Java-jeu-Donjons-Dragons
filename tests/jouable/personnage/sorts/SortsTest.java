@@ -42,7 +42,7 @@ class SortsTest {
     void BoogieWoogieTest()
     {
         BoogieWoogie testSort = new BoogieWoogie();
-        testSort.utiliser(personnage1, personnage2, donjonTest);
+        testSort.lancerSort(personnage1, personnage2, donjonTest);
 
         assertEquals(position2, donjonTest.getPositionFromJouable(personnage1));
         assertEquals(position1, donjonTest.getPositionFromJouable(personnage2));
