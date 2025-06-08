@@ -27,10 +27,6 @@ public abstract class Armure extends Equipement
     {
         this.m_classeArmure += bonus;
     }
-    public String getNomEquipement()
-    {
-        return "";
-    }
 
     @Override
     public String toString()
