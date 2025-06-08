@@ -21,41 +21,65 @@ public class Tour {
     private int m_numeroDeDonjon;
     private List<Jouable> m_listeJouable;
     private int m_actionRestante;
-
-    public Tour(Donjon donj, int numTour, int numDonjon)
+    public Tour(Donjon donj,int numTour,int numDonjon)
     {
-        m_donjon = donj;
-        m_numeroDeTour = numTour;
-        m_numeroDeDonjon = numDonjon;
-        m_actionRestante = 0;
+        m_donjon=donj;
+        m_numeroDeTour=numTour;
+        m_numeroDeDonjon=numDonjon;
         m_listeJouable = m_donjon.getPositionsJouables().getListeJouables();
         m_listeJouable.sort(Comparator.comparing(Jouable::getInitiative).reversed());
+        m_actionRestante=0;
+
+
     }
 
     public boolean commencerTour()
     {
         int nbJouable = m_donjon.getPositionsJouables().size();
 
-        for (int i = 0; i < nbJouable; i++)
+        for (int i =0;i<nbJouable;i++)
         {
-            Jouable j = m_listeJouable.get(i);
-            boolean sucee = this.jouer(j);
+            Jouable j= m_listeJouable.get(i);
+            boolean sucee=this.jouer(j);
             if(sucee)
             {
                 return true;
             }
+            switch (choixActionMj()) {
+                case 1:
+                    choixCaseDeplacementMj(m_donjon);
+                    break;
+                case 2:
+                    choixAttaqueDuMj(m_donjon);
+                    break;
+                case 3:
+
+                    break;
+                default:
+                    break;
+            }
+            Personnage mort = this.getPersonnageMort();
+            if (mort != null) {
+
+                partieperdue(mort);
+            }
+            if(this.tousLesMonstresMorts())
+            {
+                return true;
+            }
+
+
+
         }
         return false;
     }
-
-    public boolean jouer(Jouable j)
-    {
-        m_actionRestante = 3;
+    public boolean jouer(Jouable j) {
+        m_actionRestante=3;
         for (int i = 0; i < 3; i++) {//3 action par joueur
             boolean commandevalide = false;
 
             if (j instanceof Personnage) {
-                Personnage p = (Personnage) j;
+                Personnage p= (Personnage) j;
                 while (!commandevalide) {
                     commandevalide = afficherTourPersonage(m_donjon, m_numeroDeDonjon, this, p, m_listeJouable);
                     if(this.tousLesMonstresMorts())
