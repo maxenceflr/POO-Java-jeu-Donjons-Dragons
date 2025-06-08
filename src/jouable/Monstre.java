@@ -54,7 +54,7 @@ public class Monstre extends Jouable {
             m_portee = af.choisirPorterAttaque();
         }
 
-        af.afficherCaracteristiaque(this);
+        af.afficherCaracteristique(this);
     }
 
     private void copierDepuis(Monstre autre) {
