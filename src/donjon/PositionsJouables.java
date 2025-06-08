@@ -74,11 +74,30 @@ public class PositionsJouables
                 return SUCCESS;
             }
     }
-    public void deplacementMj(Jouable jouable,Position position, Donjon donjon)
-    {
-        Position positionJouable = new Position(this.getPositionJouable(jouable));
-        this.m_positionsJouable.remove(positionJouable);
-        this.ajouterJouable(jouable, position);
+
+    public ActionResult deplacementMj(Jouable jouable, Position futurPosition, Donjon donjon) {
+        PositionsJouables positionsJouables = donjon.getPositionsJouables();
+        PositionsEquipement positionsEquipement = donjon.getPositionsEquipement();
+        PositionsObstacle positionsObstacle = donjon.getPositionsObstacle();
+
+        if (positionsJouables.containsJouable(futurPosition)) {
+            return ActionResult.OCCUPIED_POSITION;
+        }
+
+        if (positionsEquipement.containsEquipement(futurPosition)) {
+            return ActionResult.ITEM;
+        }
+
+        if (positionsObstacle.containsObstacle(futurPosition)) {
+            return ActionResult.OBSTACLE;
+        }
+
+
+        Position posActuel =this.getPositionJouable(jouable);
+        this.m_positionsJouable.remove(posActuel);
+        positionsJouables.ajouterJouable(jouable, futurPosition);
+
+        return ActionResult.SUCCESS;
     }
 
 
