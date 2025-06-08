@@ -257,10 +257,10 @@ public class Donjon
     public ActionResult ajoutObstacleMj(Position pos)
     {
         PositionsJouables positionJ =this.getPositionsJouables();
-        if(positionJ.containsJouable(pos))
+        if(!positionJ.containsJouable(pos))
         {
             PositionsEquipement positionE =this.getPositionsEquipement();
-            if(positionE.containsEquipement(pos))
+            if(!positionE.containsEquipement(pos))
             {
                 PositionsObstacle positionsO = this.getPositionsObstacle();
                 if(positionsO.containsObstacle(pos))

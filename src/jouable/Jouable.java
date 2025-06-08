@@ -17,6 +17,7 @@ public abstract class Jouable
     public abstract String getSymbole();
 
     public abstract String toString();
+    public abstract String getNom();
 
     public int getPvMax()
     {
