@@ -462,59 +462,104 @@ Classe "1..*" *--> "1..* \nm_listeEquipement" objet.Equipement : détient
 
 package donjon
 {
-
     class Donjon
     {
-        - m_longueur: Integer
-        - m_largeur: Integer
-        + <<create>> Donjon(longueur: Integer, largeur: Integer)
-        + verifCasePrise(Position): Boolean
-        + getLargeur(): Integer
-        + getLongueur(): Integer
-        + afficher(): String
+        - m_longueur: int
+        - m_largeur: int
+        - m_nom: String
+        + <<create>> Donjon(listePersonnages: List<Personnage>)
+        + <<create>> Donjon(longueur: int, largeur: int)
+        + <<create>> Donjon(longueur: int, largeur: int,jouable: PositionsJouables, equipement: PositionsEquipement,obstacle: PositionsObstacle)
+        + getNom(): String
+        + getLargeur(): int
+        + getLongueur(): int
+        + getPositionsJouables(): PositionsJouables
+        + getPositionsEquipement(): PositionsEquipement
+        + getPositionsObstacle(): PositionsObstacle
+        + positionInDonjon(position: Position): boolean
+        + estPrise(position: Position): boolean
+        + {static} creerDonjonRichesse(Personnage[*]: listePersonnages):Donjon
+        + {static} creerLabyrinthe(Personnage[*]: listePersonnages):Donjon
+        + {static} creerDonjonDesGobelins(Personnage[*]: listePersonnages):Donjon
+        + getPositionFromJouable(jouable: Jouable): Position
+        + getJouableFromPosition(position: Position): Jouable
+        + getEquipementFromPosition(position: Position): Equipement
+        + {static} getDistance(p1: Position, p2: Position): double
+        + ajoutObstacleMj(pos: Position): ActionResult
         + toString(): String
     }
-
+    interface AffichageDonjonInterface <<interface>>
+    {
+        + {abstract} demanderLargeur() : int
+        + {abstract} demanderLongeur() : int
+        + {abstract} demanderPositionObstacle(donjon: Donjon, PO: PositionsObstacle) : Position
+        + {abstract} PlacerObstacles(donjon: Donjon) : PositionsObstacle
+        + {abstract} demanderPositionEquipement(donjon: Donjon, PE: PositionsEquipement) : Position
+        + {abstract} placerEquipement(donjon: Donjon) : PositionsEquipement
+        + {abstract} PlacerPersonnages(perso: List<Personnage>, donjon: Donjon) : PositionsJouables
+    }
     class Position
     {
-        - m_x: Integer
-        - m_y: Integer
-        + <<create>> Position(x: Integer, y: Integer)
-        + toString(): String
+        - m_x : int
+        - m_y : int
+        + <<create>> Position(x: int, y: int)
+        + <<create>> Position()
+        + <<create>> Position(other: Position)
+        + getX() : int
+        + getY() : int
+        + setX(m_x: int)
+        + setY(m_y: int
+        + equals(other: Object) : boolean
+        + hashCode() : int
+        + toString() : String
+        + getPositionFromCode(code: String) : Position {static}
     }
 
     class PositionsDesObstacles
     {
-       + <<create>> PositionsDesObstacles()
-       + ajouterObstacle()
-       + toString(): String
-       + {static} deplacerObstacle(Position)
+        + <<create>>PositionsObstacle()
+        + ajouterObstacle(position: Position)
+        + getPosition() :Position[*]
+        + containsObstacle(position: Position)
+        + toString() : String
     }
 
     class PositionsDesEquipements
     {
-       + <<create>> PositionsDesEquipements()
-       + ajouterEquipement(Position, Equipement)
-       + toString(): String
-       + {static} deplacerEquipement(Position)
+       + <<create>> PositionsEquipement()
+       + ajouterEquipement(equipement: Equipement, position: Position) : void
+       + getEquipementFromPosition(position: Position) : Equipement
+       + retirerEquipement(position: Position) : void
+       + containsEquipement(position: Position) : boolean
+       + getCasesOccupees() : Set<Position>
+       + toString() : String
     }
 
     class PositionsDesJouables
     {
-        + <<create>> PositionsDesJouables()
-        + ajouterJouable(Position, Jouable)
-        + toString(): String
-        + {static} deplacerJouable(Position)
+        + <<create>>PositionsJouables()
+        + ajouterJouable(jouable: Jouable, position: Position)
+        + getPositionJouable(jouable: Jouable) : Position
+        + attaqueDuMj(j: Jouable, de: De) : int
+        + getJouableFromPosition(position: Position) : Jouable
+        + deplacerJouable(jouable: Jouable, position: Position, donjon: Donjon) : ActionResult
+        + deplacementMj(jouable: Jouable, futurPosition: Position, donjon: Donjon) : ActionResult
+        + containsJouable(position: Position) : boolean
+        + getPositions() : HashMap<Position, Jouable>
+        + size() : int
+        + getListeJouables() : List<Jouable>
+        + toString() : String
     }
-
 }
-Donjon "1" *--> "1 \nm_dicoItems" PositionsDesEquipements : détient
-Donjon "1" *--> "1 \nm_dicoJouable" PositionsDesJouables : détient
-Donjon "1" *--> "1 \nm_dicoObstacle" PositionsDesObstacles : détient
+Donjon "1" *--> "1 \nm_positionsEquipement" PositionsDesEquipements : détient
+Donjon "1" *--> "1 \nm_positionsJouable" PositionsDesJouables : détient
+Donjon "1" *--> "1 \nm_positionsObstacle" PositionsDesObstacles : détient
 
-PositionsDesEquipements "1..*" o--> "1..* \nm_positionEquipement" Equipement : détient
-PositionsDesJouables "1..*" o--> "1..* \nm_positionJouable" Jouable : détient
-PositionsDesObstacles "1..*" o--> "1..* \nm_positionObstacle" Position : détient
+PositionsDesEquipements "1..*" o--> "1..* \nm_positionEquipement.value" Equipement : détient
+PositionsDesEquipements "1..*" o--> "1..* \nm_positionEquipement.key" Position : détient
+PositionsDesJouables "1..*" o--> "1..* \nm_positionJouable.value" Jouable : détient
+PositionsDesJouables "1..*" o--> "1..* \nm_positionJouable.key" Position : détient
+PositionsDesObstacles "1..*" o--> "1..* \nm_positionObstacle[*]" Position : détient
 
 
 package partie

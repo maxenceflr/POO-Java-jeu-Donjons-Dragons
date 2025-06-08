@@ -66,6 +66,10 @@ public class Donjon
         }
 
     }
+    public Donjon(int longueur, int largeur)
+    {
+        this(longueur, largeur, new PositionsJouables(), new PositionsEquipement(), new PositionsObstacle());
+    }
 
     public Donjon(int longueur, int largeur, PositionsJouables jouable, PositionsEquipement equipement, PositionsObstacle obstacle)
     {
@@ -107,7 +111,7 @@ public class Donjon
         return 0 <= position.getX() && position.getX() < this.getLongueur() && 0 <= position.getY() && position.getY() < this.getLargeur();
     }
 
-    public Donjon creerLabyrinthe(List<Personnage> listePersonnages)
+    public static Donjon creerLabyrinthe(List<Personnage> listePersonnages)
     {
         {
             int largeur = 21;
@@ -193,17 +197,7 @@ public class Donjon
     }
 
 
-    public Donjon(int longueur, int largeur)
-    {
-        this(longueur, largeur, new PositionsJouables(), new PositionsEquipement(), new PositionsObstacle());
-    }
 
-
-
-    public Donjon()
-    {
-        this(25,25);
-    }
     public String getNom()
     {
         return m_nom;
@@ -271,7 +265,7 @@ public class Donjon
             if(!positionE.containsEquipement(pos))
             {
                 PositionsObstacle positionsO = this.getPositionsObstacle();
-                if(positionsO.containsObstacle(pos))
+                if(!positionsO.containsObstacle(pos))
                 {
                     positionsO.ajouterObstacle(pos);
                     return SUCCESS;
