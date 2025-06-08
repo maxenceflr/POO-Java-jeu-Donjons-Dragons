@@ -5,13 +5,13 @@ import partie.De;
 
 public class CaracteristiquesBase
 {
-    protected int m_force;
-    protected int m_vitesse;
-    protected int m_initiative;
-    protected int m_dexterite;
-    protected int m_currentPv;
-    protected int m_pvMax;
-    protected int m_armure;
+    private int m_force;
+    private int m_vitesse;
+    private int m_initiative;
+    private int m_dexterite;
+    private int m_currentPv;
+    private int m_pvMax;
+    private int m_armure;
 
     public CaracteristiquesBase(int force, int vitesse, int init, int dex, int pv, int armure)/*constructeur pour monstre (on choisit les stat*/
     {

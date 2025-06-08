@@ -43,4 +43,21 @@ class PositionsJouablesTest {
         AffichageDonjon.afficherDonjon(donjonTest);
     }
 
+    @Test
+    void DeplacementHorsMap()
+    {
+        CaracteristiquesBase stats = new CaracteristiquesBase(10, 10, 10, 10, 10, 10);
+        Personnage personnageTest= new Personnage("Maxence", new Humain(), new Guerrier(), stats);
+        Position position1 = new Position(10,10);
+
+        Donjon donjonTest= new Donjon();
+        AffichageDonjon.afficherDonjon(donjonTest);
+
+        Position positionTest = Position.getPositionFromCode("Y24");
+
+        assertTrue(donjonTest.positionInDonjon(positionTest));
+
+        //assertEquals(true, donjonTest.positionInDonjon(new Position()));
+    }
+
 }
