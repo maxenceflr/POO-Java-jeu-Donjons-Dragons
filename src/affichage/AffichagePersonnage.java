@@ -8,7 +8,7 @@ import stats.CaracteristiquesBase;
 import jouable.personnage.classe.*;
 public class AffichagePersonnage implements AffichagePersonnageInterface {
 
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner m_scanner = new Scanner(System.in);
     public Classe choisirClasse() {
         while (true) {
             System.out.println("\nChoisissez une classe :");
@@ -21,7 +21,7 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
             int choix;
 
             try {
-                choix = Integer.parseInt(scanner.nextLine());
+                choix = Integer.parseInt(m_scanner.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Entrée invalide. Veuillez entrer un nombre.\n");
                 continue;
@@ -50,7 +50,7 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
             int choix;
 
             try {
-                choix = Integer.parseInt(scanner.nextLine());
+                choix = Integer.parseInt(m_scanner.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Entrée invalide. Veuillez entrer un nombre.\n");
                 continue;
@@ -82,7 +82,7 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
     public void AffichageLancerDe(CaracteristiquesBase Ca)
     {
         System.out.println("Appuyez sur Entrée pour lancer les dés...");
-        scanner.nextLine();
+        m_scanner.nextLine();
         System.out.println("\nRésultat de vos dés");
 
 
@@ -106,7 +106,7 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
 
         while (true) {
             System.out.print("\nEntrez le nom de votre personnage (lettres uniquement) : ");
-            String nom = scanner.nextLine().trim();
+            String nom = m_scanner.nextLine().trim();
 
             if (nom.isEmpty()) {
                 System.out.println("Le nom ne peut pas être vide. Veuillez réessayer.");

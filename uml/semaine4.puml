@@ -10,22 +10,23 @@ hide empty members
 package jouable
 {
 
-    abstract class Jouable <<abstract>>
-    {
-        + <<create>> Jouable()
-        + {abstract} attaquer(other: Jouable)
-        + {abstract} toString(): String
-        + {abstract} getRepresentation(): String
-        + getCurrentPv(): Integer
-        + getPvMax(): Integer
-        + getDexterite(): Integer
-        + getVitesse(): Integer
-        + getInit(): Integer
-        + getForce(): Integer
-    }
+
 
     package personnage
     {
+         abstract class Jouable <<abstract>>
+            {
+                + <<create>> Jouable()
+                + {abstract} attaquer(other: Jouable)
+                + {abstract} toString(): String
+                + {abstract} getRepresentation(): String
+                + getCurrentPv(): Integer
+                + getPvMax(): Integer
+                + getDexterite(): Integer
+                + getVitesse(): Integer
+                + getInit(): Integer
+                + getForce(): Integer
+            }
         class Personnage extends jouable.Jouable
         {
             - m_nom: String
@@ -228,24 +229,7 @@ package stats
     Jouable "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
     Humain "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
 }
-package affichage
-{
-    class affichagePersonnage implements AffichagePersonnage
-    {
-        + choisirClasse() :String
-        + choisirRace() :String
-        + choisirNom() :String
-        + afficherCaracteristiaque(CurrentPv: Integer, PvMax: Integer, Dexteriter: Integer, Force: Integer, Vitesse: Integer, Initiative: Integer) :String
-    }
-    class AffichageMonstre implements AffichageMonstreInterface
-    {
-        + choisirEspece() : String
-        + choisirRepresentation() : String
-        + choisirDegatAttaque() : String
-        + choisirPorterAttaquechoisirPorterAttaque() : String
-        + afficherCaracteristiaque(CurrentPv: Integer, PvMax: Integer, Dexteriter: Integer, Force: Integer, Vitesse: Integer, Initiative: Integer, Integer ClassArmure) : String
-    }
-}
+
 package objet
 {
     abstract class Equipement <<abstract>>
@@ -570,6 +554,70 @@ package partie {
 
     GestionTour "1..*" o--> "1..* \nm_ordreJouable" Jouable : gère
     ExplorationDonjon "1..*" o--> "1..* " Jouable : m_listeJouable
+}
+package affichage{
+    class AffichageDonjon implements AffichageDonjonInterface
+    {
+        - m_scaner : Scanner
+        + {static} afficherDonjon(donjon: Donjon): void
+        + commencerCreation(): int
+        + demanderChoixDonjon(): int
+        + demanderNomDonjon(): String
+        + demanderLargeur(): int
+        + demanderLongeur(): int
+        + PlacerObstacles(donjon: Donjon): PositionsObstacle
+        + demanderPositionObstacle(donjon: Donjon, PO: PositionsObstacle): Position
+        + placerEquipement(donjon: Donjon): PositionsEquipement
+        + demanderPositionEquipement(donjon: Donjon, PE: PositionsEquipement): Position
+    }
+    class affichagePersonnage implements AffichagePersonnageInterface
+    {
+        - m_scanner : Scanner
+        + choisirClasse() : Classe
+        + choisirRace(perso : Personnage) : Race
+        + AffichageLancerDe(Ca : CaracteristiquesBase)
+        + choisirNom() : String
+        + afficherCaracteristique(perso : Personnage)
+    }
+    class AffichageMonstre
+    {
+        + {static} choisirCaracteristiques() : CaracteristiquesBase
+        + {static} choisirEspece() : int
+        + {static} choisirEspecePersonaliser() : String
+        + {static} choisirRepresentation() : String
+        + {static} choisirDegatAttaque() : De
+        + {static} choisirPorterAttaque() : int
+        + {static} choisirArmure() : int
+        + {static} afficherCaracteristique(monstr : Monstre)
+        + {static} demanderEntier(scanner : Scanner, nomChamp : String) : int
+    }
+    class AffichageInitPartie
+    {
+        + {static} demanderNbJoueur() : int
+        + {static} affichageEntreeDonjon(nomDonjon : String, numDonjon : int)
+    }
+    class AffichageTour {
+          + {static} afficherTourMonstre(donj: Donjon, numDonjon: int, t: Tour, m: Monstre, lj: List<Jouable>): boolean
+          + {static} afficherTourPersonage(donj: Donjon, numDonjon: int, t: Tour, p: Personnage, lj: List<Jouable>): boolean
+          + {static} afficherEnteteDonjon(numDonjon: int, numTour: int, j: Jouable)
+          + {static} afficherLesJouable(listeJouables: List<Jouable>, j: Jouable)
+          + {static} afficherRecapPersonnage(p: Personnage)
+          + {static} afficherRecapMonstre(m: Monstre)
+          + {static} afficherActionsPersonnage(p: Personnage, donj: Donjon, actionRestante: int): boolean
+          + {static} boolean afficherActionsMonstre(Monstre m, Donjon donj, int actionRestante)
+          + {static} afficherSorts(Personnage p, Donjon donj)
+          + {static} affichageBoogieWoogie(Donjon donj)
+          + {static} affichageArmeMagique(donj : Donjon)
+          + {static} affichageGuerison(donj : Donjon)
+          + {static} choixActionMj() : int
+          + {static} choixCaseDeplacementMj(donj : Donjon)
+          + {static} choixAttaqueDuMj(donj : Donjon)
+          + {static} ajouterObstacleMj(donj : Donjon)
+          + {static} afficherDe(somme : int)
+          + {static} afficherPerdue(p : Personnage)
+          + {static} afficherGagnee()
+    }
+
 }
 
 class main
