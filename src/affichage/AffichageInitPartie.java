@@ -78,13 +78,13 @@ public class AffichageInitPartie {
         System.out.println("\n\nVous entrez dans le "+nomDonjon);
         switch (numDonjon) {
             case 1:
-                System.out.println("Votre groupe fraichement formé entre dans son premier donjon\n\n");
+                System.out.println("Vous entrez dans votre premier donjon\n\n");
                 break;
             case 2:
-                System.out.println("Votre groupe est fatigué et a peur le "+nomDonjon+" est terrifiant, une atmosphere de mort y règne\n\n");
+                System.out.println("Votre groupe est fatigué et craintif. Le donjon est terrifiant, une atmosphère de mort y règne.\n\n");
                 break;
             case 3:
-                System.out.println("Votre groupe n'a jamais été aussi soudé que maintenant, \nAu bout du "+nomDonjon+" Vous attend la gloire et la liberté\n\n");
+                System.out.println("Au bout du "+nomDonjon+", la gloire et la liberté vous attendent.\n\n");
                 break;
 
         }
