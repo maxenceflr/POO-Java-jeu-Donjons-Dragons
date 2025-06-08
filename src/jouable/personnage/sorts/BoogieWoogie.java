@@ -12,8 +12,12 @@ import static jouable.ActionResult.SUCCESS;
 
 public class BoogieWoogie implements Sorts
 {
+    @Override
+    public String toString(){
+        return "Boogie Woogie";
+    }
 
-    public ActionResult utiliser(Jouable cible1, Jouable cible2, Donjon donjon)
+    public ActionResult lancerSort(Jouable cible1, Jouable cible2, Donjon donjon)
     {
         Position pos_cible1 = new Position(donjon.getPositionFromJouable(cible1));
         Position pos_cible2 = new Position(donjon.getPositionFromJouable(cible2));

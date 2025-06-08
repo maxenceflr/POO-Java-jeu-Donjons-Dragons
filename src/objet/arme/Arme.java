@@ -61,12 +61,13 @@ public abstract class Arme extends Equipement
     {
         m_portee = portee;
     }
+    public abstract String getNomEquipement();
 
     @Override
     public String toString()
     {
-        return  "\nDégâts : " + m_degats.toString() +
-                ", Portée : " + Integer.toString(m_portee);
+        return  "(Dégâts :" + m_degats.toString() +
+                ", Portée :" + Integer.toString(m_portee)+")";
     }
 
     @Override

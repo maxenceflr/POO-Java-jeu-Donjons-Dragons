@@ -9,7 +9,13 @@ import jouable.Jouable;
 import jouable.Monstre;
 import jouable.personnage.Inventaire;
 import jouable.personnage.Personnage;
+import jouable.personnage.classe.Classe;
+import jouable.personnage.sorts.ArmeMagique;
+import jouable.personnage.sorts.BoogieWoogie;
+import jouable.personnage.sorts.Guerison;
+import jouable.personnage.sorts.Sorts;
 import objet.Equipement;
+import objet.arme.Arme;
 import partie.De;
 import partie.Tour;
 
@@ -50,15 +56,23 @@ public class AffichageTour {
     }
     public static void afficherLesJouable(List<Jouable> listeJouables, Jouable j) {
         for (Jouable jo : listeJouables) {
-            String prefixe = (jo.equals(j)) ? "-> " : "   ";
+            String prefixe;
+            if(j==jo)
+            {
+                prefixe=" ->";
+            }
+            else
+            {
+                prefixe="   ";
+            }
             String statut;
 
             if (jo instanceof Personnage) {
                 Personnage p=(Personnage) jo;
-                statut = String.format("%s (%s %s, %d/%d)", p.getNom(), p.getRace(), p.getClasse(), p.getCurrentPv(), p.getPvMax());
+                statut = String.format("%s %s (%s %s, %d/%d)",p.getSymbole(), p.getNom(), p.getRace(), p.getClasse(), p.getCurrentPv(), p.getPvMax());
             } else if (jo instanceof Monstre) {
                 Monstre m=(Monstre) jo;
-                statut = String.format("%s (%d/%d)", m.getNom(), m.getCurrentPv(), m.getPvMax());
+                statut = String.format("%s %s (%d/%d)", m.getSymbole(),m.getNom(), m.getCurrentPv(), m.getPvMax());
             } else {
                 statut = jo.toString(); // fallback si ce n’est ni un personnage ni un monstre
             }
@@ -99,6 +113,9 @@ public class AffichageTour {
             System.out.println("- attaquer (att <Case>)(ex: att D14)");
             System.out.println("- se déplacer (dep <Case>)(ex: dep B47");
             System.out.println("- s'équiper (equ <numero equipement>)");
+            if(!p.getClasse().getSort().isEmpty()) {
+                System.out.println("- lancer un sort(sor)");
+            }
             System.out.println("- ramasser équipement(ram)");
 
             String input = scanner.nextLine().trim();
@@ -216,8 +233,11 @@ public class AffichageTour {
                     }
                     break;
 
-
-
+                case "sor":
+                {
+                    afficherSorts(p,donj);
+                    break;
+                }
 
                 case "ram":
                     Position position_joueur = donj.getPositionFromJouable(p);
@@ -328,21 +348,275 @@ public class AffichageTour {
         }
 
     }
-    public static int choixActionMj()
+    public static void afficherSorts(Personnage p,Donjon donj)
+    {
+        Classe classe = p.getClasse();
+        List<Sorts> listeSorts=classe.getSort();
+        if(listeSorts.size()==1)
+        {
+            affichageGuerison(donj);
+        }
+        else {
+            System.out.println("\nLequel de ces sort voulez-vous lancer?");
+            for (int i = 0; i < listeSorts.size(); i++) {
+                System.out.println("-" + (i + 1) + " Lancer " + listeSorts.get(i).toString());
+            }
+            Scanner scanner = new Scanner(System.in);
+            int choix = -1;
+
+            while (choix < 1 || choix > listeSorts.size()) {
+                System.out.print("Entrez un nombre entre 1 et " + listeSorts.size() + " : ");
+                if (scanner.hasNextInt()) {
+                    choix = scanner.nextInt();
+                } else {
+                    scanner.next(); // consomme l'entrée invalide
+                    System.out.println("Veuillez entrer un nombre valide !");
+                }
+            }
+            switch (choix) {
+                case 1:
+                    affichageGuerison(donj);
+                    break;
+                case 2:
+                    affichageArmeMagique(donj);
+                    break;
+                case 3:
+                    affichageBoogieWoogie(donj);
+                    break;
+            }
+        }
+
+    }
+    public static void affichageBoogieWoogie(Donjon donj)
+    {
+        Jouable j1 = null;
+        Jouable j2 = null;
+        Position pos1 = null;
+        Position pos2 = null;
+        Scanner scanner = new Scanner(System.in);
+
+        while (j1 == null) {
+            System.out.println("Entrez la case de l'un des jouable que vous souhaitez téléporter (ex: D12) :");
+            String argument = scanner.nextLine().trim().toUpperCase();
+
+            // Vérifie le format
+            if (!argument.matches("^[A-Z][0-9]+$")) {
+                System.out.println("Format invalide. Veuillez entrer une case au format Lettre+Chiffre (ex: D12).");
+                continue;
+            }
+
+            pos1 = Position.getPositionFromCode(argument);
+            j1 = donj.getJouableFromPosition(pos1);
+
+            if (j1 == null) {
+                System.out.println("Aucun jouable à cette position. Veuillez en saisir une autre.");
+            }
+
+        }
+        while (j2 == null) {
+            System.out.println("Entrez la case de l'un des jouable que vous souhaitez téléporter (ex: D12) :");
+            String argument = scanner.nextLine().trim().toUpperCase();
+
+            // Vérifie le format
+            if (!argument.matches("^[A-Z][0-9]+$")) {
+                System.out.println("Format invalide. Veuillez entrer une case au format Lettre+Chiffre (ex: D12).");
+                continue;
+            }
+
+            pos1 = Position.getPositionFromCode(argument);
+            j2 = donj.getJouableFromPosition(pos1);
+
+            if (j2 == null) {
+                System.out.println("Aucun jouable à cette position. Veuillez en saisir une autre.");
+            }
+
+        }
+        BoogieWoogie BW = new BoogieWoogie();
+        BW.lancerSort(j1,j2,donj);
+        System.out.println("\nBoogieWoogie\n");
+    }
+    public static void affichageArmeMagique(Donjon donj)
     {
         Scanner scanner = new Scanner(System.in);
+        boolean sortLance = false;
+
+        while (!sortLance) {
+            Jouable j = null;
+            Position pos = null;
+
+            while (j == null) {
+                System.out.println("Entrez la case du personnage auquel vous souhaitez améliorer une arme (ex: D12) :");
+                String argument = scanner.nextLine().trim().toUpperCase();
+
+                // Vérifie le format
+                if (!argument.matches("^[A-Z][0-9]+$")) {
+                    System.out.println("Format invalide. Veuillez entrer une case au format Lettre+Chiffre (ex: D12).");
+                    continue;
+                }
+
+                pos = Position.getPositionFromCode(argument);
+                j = donj.getJouableFromPosition(pos);
+
+                if (j == null) {
+                    System.out.println("Aucun joueur à cette position. Veuillez en saisir une autre.");
+                } else if (!(j instanceof Personnage)) {
+                    System.out.println("Ce n’est pas un personnage. Veuillez sélectionner un personnage.");
+                    j = null; // recommence
+                }
+            }
+
+            // Si on est ici, on a un personnage valide
+            Personnage p = (Personnage) j;
+            Inventaire inventairePerso = p.getInventaire();
+
+            System.out.println("Vous avez sélectionné " + p.getNom());
+            if(p.aUneArme())//on verifier si il a une arme ou non car une fois l'arme porté elle disparait de l'inventaire
+            {
+                int indicemax = inventairePerso.getNbEquipement()+1;
+                System.out.println("Voici son inventaire :\n" + inventairePerso+"["+indicemax+"]"+p.getArme().get().getNomEquipement());
+                System.out.println("Veuillez saisir l'indice de l'arme que vous souhaitez améliorer :");
+
+                if (scanner.hasNextInt()) {
+                    int indice = scanner.nextInt();
+                    scanner.nextLine(); // consomme le retour à la ligne
+
+
+                    if (indice > 0 && indice <= indicemax-1) {
+                        Equipement e = inventairePerso.getEquipement(indice - 1); // -1 car affichage 1-based
+
+                        if (e instanceof Arme) {
+                            Arme arme = (Arme) e;
+                            ArmeMagique a = new ArmeMagique();
+                            if(a.lancerSort(p,arme)==SUCCESS) {
+                                sortLance = true; // sort lancé avec succès, on quitte la boucle
+                                System.out.println("\nL'arme"+arme.toString()+ " de "+p.getNom()+" à maintenant une benediction critique de niveau "+arme.getBonusAttaque()+"\n");
+                            }
+                        } else {
+                            System.out.println("L'équipement sélectionné n’est pas une arme.");
+                        }
+                    }
+                    else if(indice==indicemax)//si c'est l'arme qu'il est en train de porté
+                    {
+                        Arme arme = p.getArme().get();
+                        ArmeMagique a = new ArmeMagique();
+                        if(a.lancerSort(p,arme)==SUCCESS) {
+                            sortLance = true; // sort lancé avec succès, on quitte la boucle
+                            System.out.println("\nL'arme"+arme.toString()+ " de "+p.getNom()+" à maintenant une benediction critique de niveau "+arme.getBonusAttaque()+"\n");
+                        }
+
+                    }
+                    else {
+                        System.out.println("Indice invalide. Entrez un nombre entre 1 et " + indicemax + ".");
+                    }
+                } else {
+                    System.out.println("Entrée invalide. Veuillez entrer un nombre entier.");
+                    scanner.nextLine(); // consomme l'entrée incorrecte
+                }
+            }
+            else {//dans le cas ou il ne porte pas d'arme
+                int indicemax = inventairePerso.getNbEquipement();
+                System.out.println("Voici son inventaire :\n" + inventairePerso);
+
+                System.out.println("Veuillez saisir l'indice de l'arme que vous souhaitez améliorer :");
+
+                if (scanner.hasNextInt()) {
+                    int indice = scanner.nextInt();
+                    scanner.nextLine(); // consomme le retour à la ligne
+
+
+                    if (indice > 0 && indice <= indicemax) {
+                        Equipement e = inventairePerso.getEquipement(indice - 1); // -1 car affichage 1-based
+
+                        if (e instanceof Arme) {
+                            Arme arme = (Arme) e;
+                            ArmeMagique a = new ArmeMagique();
+                            if(a.lancerSort(p,arme)==SUCCESS) {
+                                sortLance = true; // sort lancé avec succès, on quitte la boucle
+                                System.out.println("\nL'arme"+arme.toString()+ " de "+p.getNom()+" à maintenant une benediction critique de niveau "+arme.getBonusAttaque()+"\n");
+                            }
+                        } else {
+                            System.out.println("L'équipement sélectionné n’est pas une arme.");
+                        }
+                    } else {
+                        System.out.println("Indice invalide. Entrez un nombre entre 1 et " + indicemax + ".");
+                    }
+                } else {
+                    System.out.println("Entrée invalide. Veuillez entrer un nombre entier.");
+                    scanner.nextLine(); // consomme l'entrée incorrecte
+                }
+            }
+        }
+
+    }
+    public static void affichageGuerison(Donjon donj)
+    {
+        Scanner scanner = new Scanner(System.in);
+        Jouable j = null;
+        Position positionASoigner = null;
+
+
+        while (j == null) {
+            System.out.println("Entrez la case du personnage que vous souhaitez soigner (ex: D12) :");
+            String argument = scanner.nextLine().trim().toUpperCase();
+
+            // Vérifie le format
+            if (!argument.matches("^[A-Z][0-9]+$")) {
+                System.out.println("Format invalide. Veuillez entrer une case au format Lettre+Chiffre (ex: D12).");
+                continue;
+            }
+
+
+            positionASoigner = Position.getPositionFromCode(argument);
+            j = donj.getJouableFromPosition(positionASoigner);
+            if (j == null) {
+                System.out.println("Aucun joueur à cette position. Veuillez en saisir une autre.");
+            }
+            else {
+                if (j instanceof Personnage)
+                {
+                    Personnage personnageASoigner =(Personnage) j;
+                    System.out.println("Vous avez sélectionner "+personnageASoigner.getNom());
+                    De de =new De(1,10);
+                    int pvSoigne=de.jeter();
+                    afficherDe(pvSoigne);
+                    Guerison g =new Guerison();
+                    g.lancerSort(personnageASoigner,pvSoigne);
+                    System.out.println("\n"+personnageASoigner.getNom()+ " à récuperer "+pvSoigne+" PV \n");
+
+                }
+                else {
+                    System.out.println("Vous avez sélectionner un monstre");
+
+                }
+            }
+
+        }
+
+    }
+    public static int choixActionMj()
+    {
+
+        Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("\nQu'est ce que le Maitre du jeu souhaite faire ?");
+            System.out.println("\nQu'est-ce que le Maître du jeu souhaite faire ?");
             System.out.println("1. Déplacer un monstre ou un personnage");
             System.out.println("2. Faire un jet de dés pour infliger des dégâts");
             System.out.println("3. Ajouter un obstacle dans le donjon");
             System.out.println("4. Ne rien faire");
 
+            String input = scanner.nextLine().trim();
 
-            int choix = Integer.parseInt(scanner.nextLine());
+            try {
+                int choix = Integer.parseInt(input);
 
-            if(choix==1||choix==2||choix==3||choix==4) {
-                return choix;
+                if (choix >= 1 && choix <= 4) {
+                    return choix;
+                } else {
+                    System.out.println("Veuillez entrer un chiffre entre 1 et 4.");
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Erreur : vous devez entrer un chiffre.");
             }
         }
     }
@@ -505,6 +779,15 @@ public class AffichageTour {
                     System.out.println("probleme ajout obstacle MJ");
             }
         }
+    }
+    public static void afficherDe(int somme)
+    {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Apuyer sur entrer pour lancer les dés");
+        scanner.nextLine();
+        scanner.nextLine();
+        System.out.println("Résultat du lancer est de " + somme);
+
     }
     public static void afficherPerdue(Personnage p)
     {
