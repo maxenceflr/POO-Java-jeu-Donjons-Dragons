@@ -2,20 +2,19 @@ package affichage;
 import donjon.*;
 import jouable.Monstre;
 import jouable.personnage.Personnage;
-import objet.arme.*;
 import objet.arme.armecourante.*;
 import objet.arme.armedeguerre.*;
 import objet.arme.armedistance.*;
 import objet.armure.armurelegere.*;
 import objet.armure.armurelourde.*;
-import java.util.Set;
+
 import java.util.Scanner;
 import java.util.List;
-import java.util.ArrayList;
+
 public class AffichageDonjon implements AffichageDonjonInterface {
 
 
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner m_scanner = new Scanner(System.in);
 
     public static void afficherDonjon(Donjon donjon) {
         char[] alphabetMajuscule = {
@@ -129,7 +128,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
     public String demanderNomDonjon()
     {
         System.out.println("Quel est le nom de ce donjon?( ex: Donjon du l'aube)");
-        String nom = scanner.nextLine();
+        String nom = m_scanner.nextLine();
         return nom;
     }
 
@@ -137,7 +136,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
         int largeur;
         do {
             System.out.print("Veuillez entrer une largeur entre 15 et 25 : ");
-            largeur = scanner.nextInt();
+            largeur = m_scanner.nextInt();
         } while (largeur < 15 || largeur > 25);
         return largeur;
     }
@@ -147,7 +146,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
         int longeur;
         do {
             System.out.print("Veuillez entrer une longueur entre 15 et 25 : ");
-            longeur = scanner.nextInt();
+            longeur = m_scanner.nextInt();
         } while (longeur < 15 || longeur > 25);
         return longeur;
     }
@@ -192,7 +191,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
         }
     }
 
-    public PositionsObstacle PlacerObstacle(Donjon donjon) {
+    public PositionsObstacle PlacerObstacles(Donjon donjon) {
         PositionsObstacle PO = new PositionsObstacle();
         boolean continuer = true;
         Scanner scanner = new Scanner(System.in);
@@ -232,7 +231,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             int ligne;
             do {
                 System.out.print("Veuillez entrer la ligne (entre 1 et " + largeurDonjon + ") : ");
-                ligne = scanner.nextInt();
+                ligne = m_scanner.nextInt();
             } while (ligne < 1 || ligne > largeurDonjon);
 
             // Demande de la colonne sous forme de lettre
@@ -240,7 +239,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             char lettreColonne;
             while (true) {
                 System.out.print("Veuillez entrer la colonne (lettre entre A et " + maxLettre + ") : ");
-                String saisie = scanner.next().toUpperCase();
+                String saisie = m_scanner.next().toUpperCase();
                 if (saisie.length() == 1) {
                     lettreColonne = saisie.charAt(0);
                     if (lettreColonne >= 'A' && lettreColonne <= maxLettre)
@@ -274,7 +273,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             System.out.println("2 - Ajouter une armure");
             System.out.println("3 - Terminer");
 
-            int choix = scanner.nextInt();
+            int choix = m_scanner.nextInt();
 
             switch (choix) {
                 case 1:
@@ -283,13 +282,13 @@ public class AffichageDonjon implements AffichageDonjonInterface {
                     System.out.println("2 - Arme de Guerre");
                     System.out.println("3 - Arme à Distance");
 
-                    int choix2 = scanner.nextInt();
+                    int choix2 = m_scanner.nextInt();
                     switch (choix2) {
                         case 1: // Arme courante
                             System.out.println("Laquelle de ces armes souhaitez-vous ?");
                             System.out.println("1 - Baton");
                             System.out.println("2 - Masse d'Arme");
-                            int choix3 = scanner.nextInt();
+                            int choix3 = m_scanner.nextInt();
                             switch (choix3) {
                                 case 1: {
                                     Baton arme = new Baton();
@@ -313,7 +312,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
                             System.out.println("Laquelle de ces armes souhaitez-vous ?");
                             System.out.println("1 - Rapière");
                             System.out.println("2 - Epée Longue");
-                            choix3 = scanner.nextInt();
+                            choix3 = m_scanner.nextInt();
                             switch (choix3) {
                                 case 1: {
                                     Rapiere arme = new Rapiere();
@@ -339,7 +338,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
                             System.out.println("1 - Arc Court");
                             System.out.println("2 - Fronde");
                             System.out.println("3 - Arbalète Légère");
-                            choix3 = scanner.nextInt();
+                            choix3 = m_scanner.nextInt();
                             switch (choix3) {
                                 case 1: {
                                     ArcCourt arme = new ArcCourt();
@@ -376,13 +375,13 @@ public class AffichageDonjon implements AffichageDonjonInterface {
                     System.out.println("1 - Armure légère");
                     System.out.println("2 - Armure lourde");
 
-                    int choixArmure = scanner.nextInt();
+                    int choixArmure = m_scanner.nextInt();
                     switch (choixArmure) {
                         case 1:
                             System.out.println("Choisissez l'armure légère :");
                             System.out.println("1 - Armure d'écailles");
                             System.out.println("2 - Demi-plate");
-                            int choixArmureLegere = scanner.nextInt();
+                            int choixArmureLegere = m_scanner.nextInt();
                             switch (choixArmureLegere) {
                                 case 1: {
                                     ArmureEcailles armure = new ArmureEcailles();
@@ -406,7 +405,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
                             System.out.println("Choisissez l'armure lourde :");
                             System.out.println("1 - Cotte de mailles");
                             System.out.println("2 - Harnois");
-                            int choixArmureLourde = scanner.nextInt();
+                            int choixArmureLourde = m_scanner.nextInt();
                             switch (choixArmureLourde) {
                                 case 1: {
                                     CoteMailles armure = new CoteMailles();
@@ -455,8 +454,8 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             PJ.ajouterJouable(momo, pos);
 
             System.out.println("Voulez-vous ajouter un autre Monstre ? (0ui o/Non n)");
-            scanner.nextLine(); // vide le buffer avant de lire la vraie réponse
-            String reponse = scanner.nextLine().trim().toLowerCase();
+            m_scanner.nextLine(); // vide le buffer avant de lire la vraie réponse
+            String reponse = m_scanner.nextLine().trim().toLowerCase();
 
             if (!reponse.equals("oui") && !reponse.equals("o")&& !reponse.equals("ou")) {
                 break;
@@ -488,12 +487,12 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             do {
 
                 System.out.print("Veuillez entrer la ligne sur laquelle il sera placer (entre 1 et " + largeurDonjon + ") : ");
-                while (!scanner.hasNextInt()) {
+                while (!m_scanner.hasNextInt()) {
                     System.out.println("Saisie incorrecte. Réessayez.");
-                    scanner.next(); // Consommer l'entrée invalide
+                    m_scanner.next(); // Consommer l'entrée invalide
                     System.out.print("Veuillez entrer la ligne sur laquelle il sera placer (entre 1 et " + largeurDonjon + ") : ");
                 }
-                ligne = scanner.nextInt();
+                ligne = m_scanner.nextInt();
                 if (ligne < 1 || ligne > largeurDonjon) {
                     System.out.println("Saisie incorrecte. Réessayez.");
                 }
@@ -505,7 +504,7 @@ public class AffichageDonjon implements AffichageDonjonInterface {
             char lettreColonne;
             while (true) {
                 System.out.print("Veuillez entrer la colonne (lettre entre A et " + maxLettre + ") : ");
-                String saisie = scanner.next().toUpperCase().trim();
+                String saisie = m_scanner.next().toUpperCase().trim();
                 if (saisie.length() == 1) {
                     lettreColonne = saisie.charAt(0);
                     if (lettreColonne >= 'A' && lettreColonne <= maxLettre)

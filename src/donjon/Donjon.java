@@ -33,7 +33,7 @@ public class Donjon
             m_nom = af.demanderNomDonjon();
             m_longueur = af.demanderLongeur();
             m_largeur = af.demanderLargeur();
-            m_positionsObstacle = af.PlacerObstacle(this);
+            m_positionsObstacle = af.PlacerObstacles(this);
             m_positionsEquipement = af.placerEquipement(this);
             m_positionsJouable = af.PlacerPersonnages(listePersonnages, this);
             System.out.println(m_positionsEquipement.toString());

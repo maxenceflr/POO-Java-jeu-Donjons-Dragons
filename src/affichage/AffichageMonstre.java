@@ -11,7 +11,7 @@ public class AffichageMonstre{
 
     public static int choisirEspece()
     {
-        Scanner scanner = new Scanner(System.in);
+        Scanner m_scanner = new Scanner(System.in);
 
         while (true) {
             System.out.println("=== Choisissez l'espèce du monstre ===");
@@ -21,7 +21,7 @@ public class AffichageMonstre{
             System.out.println("4 - Monstre personnalisé");
             System.out.print("Votre choix : ");
 
-            String saisie = scanner.nextLine().trim();
+            String saisie = m_scanner.nextLine().trim();
             try {
                 int choix = Integer.parseInt(saisie);
                 if (choix >= 1 && choix <= 4) {
@@ -160,7 +160,7 @@ public class AffichageMonstre{
         }
     }
 
-    private static int demanderEntier(Scanner scanner, String nomChamp) {
+    public static int demanderEntier(Scanner scanner, String nomChamp) {
         while (true) {
             System.out.print(nomChamp + " : ");
             String saisie = scanner.nextLine().trim();
@@ -177,7 +177,7 @@ public class AffichageMonstre{
         }
     }
 
-    public static void afficherCaracteristiaque(Monstre monstr) {
+    public static void afficherCaracteristique(Monstre monstr) {
         System.out.println("Les caracteristiques du monstre sont :");
         System.out.println("- CurrentPv : " + monstr.getCurrentPv());
         System.out.println("- PvMax : " + monstr.getPvMax());
