@@ -3,6 +3,7 @@ package donjon;
 import java.util.List;
 
 import affichage.AffichageDonjon;
+import jouable.ActionResult;
 import jouable.Jouable;
 import jouable.Monstre;
 import jouable.personnage.Personnage;
@@ -12,6 +13,7 @@ import objet.arme.armedeguerre.Rapiere;
 import objet.armure.armurelegere.ArmureEcailles;
 import objet.armure.armurelegere.DemiPlate;
 
+import static jouable.ActionResult.*;
 import static jouable.Monstre.creerGobelin;
 
 public class Donjon
@@ -259,6 +261,28 @@ public class Donjon
             int y2 = p2.getY();
 
             return Math.sqrt( ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)) );
+    }
+    public ActionResult ajoutObstacleMj(Position pos)
+    {
+        PositionsJouables positionJ =this.getPositionsJouables();
+        if(positionJ.containsJouable(pos))
+        {
+            PositionsEquipement positionE =this.getPositionsEquipement();
+            if(positionE.containsEquipement(pos))
+            {
+                PositionsObstacle positionsO = this.getPositionsObstacle();
+                if(positionsO.containsObstacle(pos))
+                {
+                    positionsO.ajouterObstacle(pos);
+                    return SUCCESS;
+                }
+                return OBSTACLE;
+            }
+            return ITEM;
+
+        }
+        return OCCUPIED_POSITION;
+
     }
 
     public String toString()

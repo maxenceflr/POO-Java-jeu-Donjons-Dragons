@@ -303,7 +303,7 @@ public class AffichageTour {
     {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("\nQue souhaitez-vous faire ?");
+            System.out.println("\nQu'est ce que le Maitre du jeu souhaite faire ?");
             System.out.println("1. Déplacer un monstre ou un personnage");
             System.out.println("2. Faire un jet de dés pour infliger des dégâts");
             System.out.println("3. Ajouter un obstacle dans le donjon");
@@ -422,6 +422,36 @@ public class AffichageTour {
         System.out.println("Lancement de " + nombreDes + " dé(s) à " + nombreFaces + " faces chacun.");
         int degat=donj.getPositionsJouables().attaqueDuMj(j,de);
         System.out.println(/*j.getNom()+*/" subit "+degat+" dégat");//creer un get nom de jouable
+    }
+    public static void ajouterObstacleMj(Donjon donj)
+    {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Entrez la case surlaquelle vous souhaité posé un obstacle (ex: D12) :");
+        String argument = scanner.nextLine().trim().toUpperCase();
+
+
+        if (!argument.matches("^[A-Z][0-9]+$")) {
+            System.out.println("Format invalide. Veuillez entrer une case au format Lettre+Chiffre (ex: D12).");
+
+        }
+        else {
+            Position position= Position.getPositionFromCode(argument);
+            switch (donj.ajoutObstacleMj(position))
+            {
+                case OCCUPIED_POSITION:
+                    System.out.println("il y a une erreur, cette case est occupée par un jouable");
+                    break;
+                case ITEM:
+                    System.out.println("il y a une erreur, cette case est occupée par un item");
+                    break;
+                case OBSTACLE:
+                    System.out.println("il y a une erreur, cette case est deja un obstacle");
+                    break;
+                case SUCCESS:
+                    System.out.println("Obstacle ajouter a la position "+argument);
+                    break;
+            }
+        }
     }
     public static void afficherPerdue(Personnage p)
     {
