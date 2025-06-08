@@ -9,36 +9,105 @@ hide empty members
 
 package jouable
 {
+    abstract class Jouable <<abstract>>
+    {
+        # m_caracteristiques: CaracteristiquesBase
+        + <<create>> Jouable()
+        + {abstract} attaquer(other: Jouable): AttackResult
+        + {abstract} ajouterJouable(position: Position, listeJouables: PositionJouables)
+        + {abstract} setId(id: Integer)
+        + {abstract} toString(): String
+        + {abstract} getSymbole(): String
+        + {abstract} getNom(): String
+        + {abstract} setSymbole(symbole: String)
+        + getCurrentPv(): Integer
+        + getPvMax(): Integer
+        + getDexterite(): Integer
+        + getVitesse(): Integer
+        + getInit(): Integer
+        + getForce(): Integer
+        + getClasseArmure(): Integer
+        + setPv()
+        + setDexterite()
+        + setVitesse()
+        + setInit(
+        + setForce()
+        + setClasseArmure()
+    }
 
+    jouable.Jouable .> donjon.Donjon
 
+    enum ActionResult <<enumerate>>
+    {
+        SUCCESS
+        OBSTACLE
+        OUT_OF_REACH
+        FAILURE
+        NO_ITEM
+        NO_WEAPON
+        ITEM
+        OCCUPIED_POSITION
+        OUT_OF_BONDS
+    }
+
+    class AttackResult
+    {
+        - m_status: ActionResult
+        - m_jetAttaque: Integer
+        - m_degats: Integer
+        + <<create>> AttackResult(status: ActionResult, jetAttaque: Integer, degats: Integer)
+        + getStatus(): AttackResult
+        + getJetAttaque(): Integer
+        + getDeDegats(): Integer
+    }
+
+    AttackResult .> ActionResult : <<use>>
 
     package personnage
     {
-         abstract class Jouable <<abstract>>
-            {
-                + <<create>> Jouable()
-                + {abstract} attaquer(other: Jouable)
-                + {abstract} toString(): String
-                + {abstract} getRepresentation(): String
-                + getCurrentPv(): Integer
-                + getPvMax(): Integer
-                + getDexterite(): Integer
-                + getVitesse(): Integer
-                + getInit(): Integer
-                + getForce(): Integer
-            }
+
         class Personnage extends jouable.Jouable
         {
             - m_nom: String
             - m_listeSorts: Sorts[*]
             + <<create>> Personnage (nom: String, race: Race, classe: Classe, stats: CaracteristiquesBase)
-            + equiperArme(Armure: armure)
-            + equiperArmure(Arme: arme)
-            + ramasser()
+            + <<create>> Personnage ()
+            + attaquer(other: Position, Donjon donjon): AttackResult
+            + equiper(item: Equipement)
+            + ramasser(pos: Position, Donjon donjon)
+            + ajouterJouable(position: Position, listeJouables: PositionJouables)
+            + setId(id: Integer)
             + getNom(): String
+            + getSymbole(): String
+            + setSymbole(symbole: String)
+            + setArmure(armure: Armure)
+            + setArme(arme: Arme)
+            + getArmure(): Armure
+            + getArme(): Arme
+            + getClasse(): Classe
+            + getInventaire: Inventaire
+            + getStringArmure: String
+            + getStringArme: String
             + toString(): String
             + getRepresentation(): String
+            + equals(other: Object): boolean
         }
+
+        class Inventaire
+        {
+            - m_inventaire: Equipement[*]
+            + <<create>> Inventaire ()
+            + <<create>> Inventaire (listequipement: Equipement[*])
+            + ajouterEquipement(item: Equipement)
+            + retirerEquipement(item: Equipement)
+            + getEquipement(item: Equipement): Equipement
+            + getEquipement(index: Integer): Equipement
+            + setInventaire(listequipement: Equipement[*])
+            + getNbEquipement(): Integer
+            + toString(): String
+        }
+
+
         interface AffichagePersonnageInterface <<interface>>
         {
             + choisirClasse() : String
@@ -56,35 +125,30 @@ package jouable
             interface Race <<interface>>
             {
                 + toString(): String
+                + ajouterInitRacePerso(perso: Personnage)
             }
 
             class Humain implements Race
             {
-                + <<create>> Humain(stats: Caracteristiques)
                 + <<create>> Humain()
-                + getPv(): Integer
-                + getCurrentPv(): Integer
-                + getDexterite(): Integer
-                + getVitesse(): Integer
-                + getInit(): Integer
-                + getForce(): Integer
+                + ajouterInitRacePerso(perso: Personnage)
                 + toString(): String
             }
 
             class Nain implements Race
             {
                 - m_force: Integer
-                + <<create>> Nain(stats: Caracteristiques)
                 + <<create>> Nain()
                 + getForce(): Integer
                 + toString(): String
+                + ajouterInitRacePerso(perso: Personnage)
             }
 
             class Elfe implements Race
             {
                 - m_dexterite: Integer
-                + <<create>> Elfe(stats: Caracteristiques)
                 + <<create>> Elfe()
+                + ajouterInitRacePerso(perso: Personnage)
                 + getDexterite(): Integer
                 + toString(): String
             }
@@ -93,11 +157,11 @@ package jouable
             {
                 - m_dexterite: Integer
                 - m_vitesse: Integer
-                + <<create>> Halfelin(stats: Caracteristiques)
                 + <<create>> Halfelin()
                 + getDexterite(): Integer
                 + getVitesse(): Integer
                 + toString(): String
+                + ajouterInitRacePerso(perso: Personnage)
             }
         }
 
@@ -106,25 +170,24 @@ package jouable
             interface Sorts <<interface>>
             {
                 + toString()
-                + utiliser(lanceur: Personnage, Cibles: Jouable[*])
             }
 
             class Guerison implements Sorts
             {
                 + toString()
-                + utiliser(lanceur: Personnage, Object... cibles)
+                + lancerSort(cible: Personnage, pvSoigne: Integer): ActionResult
             }
 
             class BoogieWoogie implements Sorts
             {
                 + toString()
-                + utiliser(lanceur: Personnage, Object... cibles)
+                + lancerSort(cible1: Personnage, cible2: Personnage, donjon: Donjon): ActionResult
             }
 
             class ArmeMagique implements Sorts
             {
                 + toString()
-                + utiliser(lanceur: Personnage, Object... cibles)
+                + lancerSort(cible: Personnage, arme_cible: Arme): ActionResult
             }
 
         }
@@ -134,35 +197,47 @@ package jouable
         {
             abstract class Classe <<abstract>>
             {
-                - m_pv: Integer
-                + toString(): String
+                # m_pv: Integer
+                # m_sorts: Sorts[*]
+                # m_equipement: Equipement[*]
                 + <<create>> Classe(pv: Integer)
+                + <<create>> Classe(pv: Integer, equipement: Equipement[*])
+                + <<create>> Classe(pv: Integer, equipement: Equipement[*], sorts: Sorts[*])
+                + toString(): String
+                + getPvClasse(): Integer
+                + {abstract} ajouterClasseInitPerso()
                 + getPv(): Integer
+                + getListeEquipement(): Equipement[*]
                 + getSorts(): Sorts[*]
+                + equals(other: Object): Boolean
             }
 
             class Guerrier extends Classe
             {
                 + <<create>> Guerrier()
                 + toString(): String
+                + ajouterClasseInitPerso()
             }
 
             class Clerc extends Classe
             {
                 + <<create>> Clerc()
                 + toString(): String
+                + ajouterClasseInitPerso()
             }
 
             class Magicien extends Classe
             {
                 + <<create>> Magicien()
                 + toString(): String
+                + ajouterClasseInitPerso()
             }
 
             class Roublard extends Classe
             {
                 + <<create>> Roublard()
                 + toString(): String
+                + ajouterClasseInitPerso()
             }
         }
     }
@@ -171,17 +246,32 @@ package jouable
     {
         class Monstre extends jouable.Jouable
         {
-            - m_numero: Integer
+            - m_id: Integer
             - m_portee: Integer
-            - m_degats: Integer
+            - m_degats: De
+            - m_espece: String
             - m_classeArmure: Integer
+            - m_symbole: String
             - m_race: String
-            + <<create>> Monstre(portee: Integer, degats: Integer, espece: String)
-            + <<create>> Monstre(portee: Integer, degats: Integer, espece: String, numero: Integer)
+            + <<create>> Monstre(portee: Integer, degats: De, espece: String, symbole: String)
+            + <<create>> Monstre()
+            + CopierDepuis(autre: Monstre)
+            + {static} creerDragon(): Monstre
+            + {static} creerGobelin(): Monstre
+            + {static} creercreerDemogorgon(): Monstre
+            + attaquer(other: Position, donjon: (Donjon)
+            + ajouterJouable(position: Position, listeJouables: PositionsDesJouables)
             + getClasseArmure(): Integer
+            + getSymbole(): String
+            + setSymbole(symbole: String)
             + getRepresentation(): String
             + toString(): String
+            + getNomArmure: String
+            + getStringArmure: String
+            + getNom(): String
+            + equals(other: Object): String
         }
+
         interface AffichageMonstreInterface <<interface>>
         {
             + choisirEspece() : String
