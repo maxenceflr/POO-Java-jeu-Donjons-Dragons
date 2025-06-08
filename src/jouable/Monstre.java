@@ -3,14 +3,19 @@ package jouable;
 import affichage.AffichageMonstre;
 import donjon.Donjon;
 import donjon.Position;
+import donjon.PositionsJouables;
+import jouable.personnage.Personnage;
 import partie.De;
 import stats.CaracteristiquesBase;
+
+import java.util.Optional;
 
 import static jouable.ActionResult.*;
 
 
 public class Monstre extends Jouable {
 
+    private Optional<Integer> m_id;
     private De m_degats;
     private int m_portee;
     private String m_espece;
@@ -18,6 +23,7 @@ public class Monstre extends Jouable {
 
     public Monstre(De deDegats, int portee, String espece, String symbole, CaracteristiquesBase cara)
     {
+        m_id = Optional.empty();
         m_degats = deDegats;
         m_portee = portee;
         m_espece = espece;
@@ -106,10 +112,55 @@ public class Monstre extends Jouable {
         return new AttackResult(OUT_OF_REACH, -1, -1);
     }
 
+    @Override
+    public void ajouterJouable(Position position, PositionsJouables listeJouables) {
+
+        int id = 0, nb_monstre = 0;
+
+
+        for (Jouable monster : listeJouables.getPositions().values()) {
+            if(this.equals(monster))
+            {
+                nb_monstre ++;
+                id++;
+
+                if (nb_monstre == 1)
+                {
+                    monster.setId(id);
+                    monster.setSymbole(monster.getSymbole().substring(0,2) + id);
+                }
+            }
+        }
+
+        if (id !=  0)
+        {
+        this.setId(id + 1);
+        this.setSymbole(this.getSymbole().substring(0,2) + (id + 1));
+        }
+
+        listeJouables.getPositions().put(position, this);
+    }
+
 
     public String getSymbole()
     {
         return m_symbole;
+    }
+
+    public void setSymbole(String symbole)
+    {
+        m_symbole = symbole;
+    }
+
+    @Override
+    public void setId(Integer id)
+    {
+        m_id = Optional.of(id);
+    }
+
+    public Integer getId()
+    {
+        return m_id.orElse(-1);
     }
 
     public String getNomArmure()
@@ -133,7 +184,7 @@ public class Monstre extends Jouable {
     }
     public String getNom()
     {
-        return m_espece;
+        return m_id.map(integer -> m_espece + " [" + integer + "] ").orElseGet(() -> m_espece);
     }
 
     public String toString()
@@ -141,6 +192,20 @@ public class Monstre extends Jouable {
         return "Espèce: " + this.m_espece + "\nDégâts: " + this.m_degats.toString() +
                 "\nPortée: " + Integer.toString(m_portee) + "\nSymbole: " + this.m_symbole +
                 "\nStatistiques:\n" + this.m_caracteristiques.toString();
+    }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        //Run Time Type Information!
+        if (other == null || other.getClass() != getClass()) {
+            return false;
+        } else {
+            Monstre conversion = (Monstre) other;
+            return  m_espece.equals(conversion.m_espece)
+                    && m_degats.equals(conversion.m_degats)
+                    && m_caracteristiques.equals(conversion.m_caracteristiques);
+        }
     }
 
 }

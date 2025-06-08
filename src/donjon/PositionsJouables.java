@@ -23,7 +23,8 @@ public class PositionsJouables
 
     public void ajouterJouable(Jouable jouable, Position position)
     {
-        m_positionsJouable.put(position, jouable);
+        jouable.ajouterJouable(position, this);
+        //m_positionsJouable.put(position, jouable);
     }
 
     public Position getPositionJouable(Jouable jouable)
@@ -57,7 +58,11 @@ public class PositionsJouables
     {
             Position positionJouable = new Position(this.getPositionJouable(jouable));
 
-            if (Donjon.getDistance(positionJouable, position) > (double)jouable.getVitesse() / 3) {
+            if (!donjon.positionInDonjon(position))
+            {
+                return OUT_OF_BONDS;
+            }
+            else if (Donjon.getDistance(positionJouable, position) > (double)jouable.getVitesse() / 3) {
                 return OUT_OF_REACH;
             }
             else if (donjon.getPositionsObstacle().containsObstacle(position))
@@ -74,6 +79,7 @@ public class PositionsJouables
                 return SUCCESS;
             }
     }
+
     public void deplacementMj(Jouable jouable,Position position, Donjon donjon)
     {
         Position positionJouable = new Position(this.getPositionJouable(jouable));

@@ -21,6 +21,7 @@ public class Tour {
     private int m_numeroDeDonjon;
     private List<Jouable> m_listeJouable;
     private int m_actionRestante;
+
     public Tour(Donjon donj,int numTour,int numDonjon)
     {
         m_donjon=donj;
@@ -103,6 +104,7 @@ public class Tour {
         }
         return false;
     }
+
     public Personnage getPersonnageMort() {
         for (Jouable j : m_listeJouable) {
             if (j instanceof Personnage) {

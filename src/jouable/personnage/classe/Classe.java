@@ -47,4 +47,17 @@ public abstract class  Classe {
 
     public abstract String toString();
 
+    @Override
+    public boolean equals(Object other) {
+        //Run Time Type Information!
+        if (other == null || other.getClass() != getClass()) {
+            return false;
+        } else {
+            Classe conversion = (Classe) other;
+            return m_pv.equals(conversion.m_pv) && m_listEquipement.equals(conversion.m_listEquipement)
+                    && m_sorts.equals(conversion.m_sorts);
+        }
+    }
+
+
 }

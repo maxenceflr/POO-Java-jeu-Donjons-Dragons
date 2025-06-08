@@ -1,5 +1,6 @@
 package stats;
 
+import jouable.Monstre;
 import partie.De;
 
 public class CaracteristiquesBase
@@ -129,6 +130,19 @@ public class CaracteristiquesBase
                 "\nDextérité : " + Integer.toString(m_dexterite) +
                 "\nInitiative : " + Integer.toString(m_initiative) +
                 "\nArmure : " + Integer.toString(m_armure) + "\n";
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        //Run Time Type Information!
+        if (other == null || other.getClass() != getClass()) {
+            return false;
+        } else {
+            CaracteristiquesBase conversion = (CaracteristiquesBase) other;
+            return m_pvMax == conversion.m_pvMax && m_dexterite == conversion.m_pvMax
+                    && m_force == conversion.m_force && m_initiative == conversion.m_initiative
+                    && m_armure == conversion.m_armure;
+        }
     }
 }
 
