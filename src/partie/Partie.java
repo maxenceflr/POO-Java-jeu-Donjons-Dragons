@@ -14,22 +14,27 @@ import static affichage.AffichageTour.afficherGagnee;
 import static affichage.AffichageTour.afficherPerdue;
 
 public class Partie {
+
     public static void DebuterPartie()
     {
         int nbjoueur= demanderNbJoueur();
         List<Personnage> listperso = new ArrayList<>();
+
         for (int i = 0; i < nbjoueur; i++) {
-            System.out.println("Création du personnage " + (i + 1) + " :");
+            System.out.println("\nCréation du personnage " + (i + 1) + " :");
             Personnage perso = new Personnage();
             listperso.add(perso);
         }
+
         for (int i=0;i<3;i++)
         {
             Donjon donj =new Donjon(listperso);
             explorerDonjon(donj,i+1);
         }
+
         gagnee();
     }
+
     public static void explorerDonjon(Donjon donj,int nbDonjon)
     {
         affichageEntreeDonjon(donj.getNom(),nbDonjon);

@@ -8,6 +8,7 @@ import partie.*;
 import stats.CaracteristiquesBase;
 
 public class AffichageMonstre{
+
     public static int choisirEspece()
     {
         Scanner scanner = new Scanner(System.in);
@@ -102,6 +103,7 @@ public class AffichageMonstre{
             }
         }
     }
+
     public static CaracteristiquesBase choisirCaracteristiques() {
         Scanner scanner = new Scanner(System.in);
         int force, vitesse, initiative, dexterite, pv, armure;

@@ -101,6 +101,12 @@ public class Donjon
         donjon.getPositionsJouables().ajouterJouable(gobelin,posMonstre);
         return donjon;
     }
+
+    public boolean positionInDonjon(Position position)
+    {
+        return 0 <= position.getX() && position.getX() < this.getLongueur() && 0 <= position.getY() && position.getY() < this.getLargeur();
+    }
+
     public Donjon creerLabyrinthe(List<Personnage> listePersonnages)
     {
         {
@@ -243,6 +249,8 @@ public class Donjon
     {
         return this.getPositionsEquipement().getEquipementFromPosition(position);
     }
+
+
 
     public static double getDistance(Position p1, Position p2)
     {

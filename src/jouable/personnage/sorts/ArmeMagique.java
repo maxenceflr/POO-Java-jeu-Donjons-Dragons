@@ -1,10 +1,13 @@
 package jouable.personnage.sorts;
 
+import jouable.ActionResult;
 import jouable.Jouable;
 import jouable.personnage.Personnage;
 import objet.arme.Arme;
 
 import java.util.List;
+
+import static jouable.ActionResult.*;
 
 public class ArmeMagique implements Sorts
 {
@@ -13,15 +16,18 @@ public class ArmeMagique implements Sorts
         return "Arme magique";
     }
 
-    public void lancer(Personnage lanceur, Personnage cible, Arme arme_cible)
+    public ActionResult lancer(Personnage lanceur, Personnage cible, Arme arme_cible)
     {
         if(cible.getArme().isPresent() && cible.getArme().get().equals(arme_cible))
         {
             cible.getArme().get().ajouterBonus(1);
+            return SUCCESS;
         }
-        else
+        else if(cible.getInventaire().getInventaire().contains(arme_cible))
         {
             cible.getInventaire().getEquipement(arme_cible).ajouterBonus(1);
+            return SUCCESS;
         }
+        return NO_ITEM;
     }
 }

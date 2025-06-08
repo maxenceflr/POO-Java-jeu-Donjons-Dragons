@@ -193,7 +193,7 @@ public class AffichageTour {
                                         switch (p.equiper(o)) {
                                             case SUCCESS:
                                                 System.out.println(p.getNom() + " équipe " + o.getNomEquipement() + " depuis l'inventaire");
-                                                break; 
+                                                break;
                                             case NO_ITEM:
                                                 System.out.println("Impossible d'équiper cet objet.");
                                                 break;
