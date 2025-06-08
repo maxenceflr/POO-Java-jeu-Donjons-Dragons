@@ -54,6 +54,7 @@ public class Tour {
                     choixAttaqueDuMj(m_donjon);
                     break;
                 case 3:
+                    ajouterObstacleMj(m_donjon);
 
                     break;
                 default:
