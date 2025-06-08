@@ -33,7 +33,6 @@ public class Position {
     public static Position getPositionFromCode(String code)
     {
 
-
         int x = (int)(code.charAt(0) % 65);
 
         String numberPart = code.substring(1);

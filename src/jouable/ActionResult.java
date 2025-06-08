@@ -11,6 +11,6 @@ public enum ActionResult {
     FAILURE,
     NO_ITEM,
     NO_WEAPON,
-    OCCUPIED_POSITION;
-
+    OCCUPIED_POSITION,
+    OUT_OF_BONDS;
 }
