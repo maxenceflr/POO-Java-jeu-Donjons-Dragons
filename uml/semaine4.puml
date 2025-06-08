@@ -203,13 +203,26 @@ package stats
         - m_dexterite: Integer
         - m_vitesse: Integer
         - m_initiative: Integer
-        + <<create>> CaracteristiquesBase(pv: Integer, force: Integer, dexterite: Integer, vitesse: Integer, initiative: Integer)
-        + toString(): String
+        - m_armure: Integer
+        + <<create>> CaracteristiquesBase(pv: Integer, force: Integer, dexterite: Integer, vitesse: Integer, initiative: Integer , armure: Integer)
+        + <<create>> CaracteristiquesBase(CA: CaracteristiquesBase)
+        + <<create>> CaracteristiquesBase()
+        + ajouterClasseBonus(Integer: pv)
         + getPv(): Integer
         + getDexterite(): Integer
         + getVitesse(): Integer
         + getInit(): Integer
         + getForce(): Integer
+        + getArmure(): Integer
+        + toString(): String
+        + setPv()
+        + setDexterite()
+        + setVitesse()
+        + setInit(
+        + setForce()
+        + setArmure()
+        + toString(): String
+        + equals(other: CaracteristiquesBase): Boolean
     }
 
     Jouable "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
