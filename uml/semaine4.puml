@@ -209,7 +209,8 @@ package stats
         + <<create>> CaracteristiquesBase(CA: CaracteristiquesBase)
         + <<create>> CaracteristiquesBase()
         + ajouterClasseBonus(Integer: pv)
-        + getPv(): Integer
+        + getPvMax(): Integer
+        + getCurrentPv(): Integer
         + getDexterite(): Integer
         + getVitesse(): Integer
         + getInit(): Integer
@@ -222,7 +223,6 @@ package stats
         + setInit(
         + setForce()
         + setArmure()
-        + toString(): String
         + equals(other: CaracteristiquesBase): Boolean
     }
 
@@ -436,50 +436,49 @@ PositionsDesJouables "1..*" o--> "1..* \nm_positionJouable" Jouable : détient
 PositionsDesObstacles "1..*" o--> "1..* \nm_positionObstacle" Position : détient
 
 
-package partie {
-
-    class partie{
-        - m_donjon(Donjon)
-        - m_tour(int)
-        + commencerPartie()
-        + changerDonjon(): Donjon
-        + finirPartie()
-        + tour(int nbTour,)
-
-
-
-    class InitialiseurPartie {
-        + creerPersonnages(): Personnage[*]
-        + creerDonjon(): Donjon
-        + creerMonstres(): Monstre[*]
-    }
-
-    class ExplorationDonjon {
-        + jouerTour(Jouable)
-        + deplacer(Jouable)
-        + attaquer(Jouable)
-        + ramasser(Jouable)
-    }
-
-    class De {
-        - m_nbDes: Integer
-        - m_nbFaces: Integer
-        + jeter(): Integer
+package partie
+{
+    class De
+    {
+        - m_nbDes: final int
+        - m_nbFaces: final int
+        + <<create>> De(nbDes: int, nbFaces: int)
+        + <<create>> De()
+        + jeter(): int
         + toString(): String
+        + equals(other: Object): boolean
     }
+     class Partie
+        {
+            + {static} DebuterPartie()
+            + {static} explorerDonjon(donj: Donjon, nbDonjon: int)
+            + {static} partieperdue(p: Personnage)
+            + {static} gagnee()
+            + {static} afficherGenerique()
+        }
+     class Tour
+         {
+             - m_numeroDeTour : int
+             - m_numeroDeDonjon : int
+             - m_actionRestante : int
 
-    MaitreDuJeu "1" o--> "1 \nm_initPartie" InitialiseurPartie : utilise
-    MaitreDuJeu "1" o--> "1 \nm_gestionTour" GestionTour : utilise
-    MaitreDuJeu "1" o--> "1 \nm_dungeonExplorer" ExplorationDonjon : utilise
-
-    GestionTour "1..*" o--> "1..* \nm_ordreJouable" Jouable : gère
-    ExplorationDonjon "1..*" o--> "1..* " Jouable : m_listeJouable
+             + Tour(donj : Donjon, numTour : int, numDonjon : int)
+             + commencerTour() : boolean
+             + jouer(j : Jouable) : boolean
+             + getPersonnageMort() : Personnage
+             + tousLesMonstresMorts() : boolean
+             + getNumTour() : int
+             + getActionRestante() : int
+             + {static} partieperdue(p : Personnage)
+         }
+     Tour "1" o-- "1" Donjon : m_donjon
+     Tour "1" o--> "1..*" jouable.Jouable : m_listeJouable[*]
 }
 package affichage{
     class AffichageDonjon implements AffichageDonjonInterface
     {
         - m_scaner : Scanner
-        + {static} afficherDonjon(donjon: Donjon): void
+        + {static} afficherDonjon(donjon: Donjon)
         + commencerCreation(): int
         + demanderChoixDonjon(): int
         + demanderNomDonjon(): String
