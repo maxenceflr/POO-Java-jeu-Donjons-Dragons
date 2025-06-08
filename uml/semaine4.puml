@@ -647,7 +647,7 @@ Donjon "1" *--> "1 \nm_positionsObstacle" PositionsDesObstacles : détient
 
 PositionsDesEquipements "1..*" o--> "1..* \nm_positionEquipement.value" Equipement : détient
 PositionsDesEquipements "1..*" o--> "1..* \nm_positionEquipement.key" Position : détient
-PositionsDesJouables "1..*" o--> "1..* \nm_positionJouable.value" Jouable : détient
+PositionsDesJouables "1..*" o--> "1..* \nm_positionJouable.value" jouable.personnage.Jouable : détient
 PositionsDesJouables "1..*" o--> "1..* \nm_positionJouable.key" Position : détient
 PositionsDesObstacles "1..*" o--> "1..* \nm_positionObstacle[*]" Position : détient
 
