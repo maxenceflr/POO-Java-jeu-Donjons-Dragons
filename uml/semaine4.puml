@@ -69,7 +69,6 @@ package jouable
         class Personnage extends jouable.Jouable
         {
             - m_nom: String
-            - m_listeSorts: Sorts[*]
             + <<create>> Personnage (nom: String, race: Race, classe: Classe, stats: CaracteristiquesBase)
             + <<create>> Personnage ()
             + attaquer(other: Position, Donjon donjon): AttackResult
@@ -85,9 +84,9 @@ package jouable
             + getArmure(): Armure
             + getArme(): Arme
             + getClasse(): Classe
-            + getInventaire: Inventaire
-            + getStringArmure: String
-            + getStringArme: String
+            + getInventaire(): Inventaire
+            + getStringArmure(): String
+            + getStringArme(): String
             + toString(): String
             + getRepresentation(): String
             + equals(other: Object): boolean
@@ -95,7 +94,6 @@ package jouable
 
         class Inventaire
         {
-            - m_inventaire: Equipement[*]
             + <<create>> Inventaire ()
             + <<create>> Inventaire (listequipement: Equipement[*])
             + ajouterEquipement(item: Equipement)
@@ -107,6 +105,8 @@ package jouable
             + toString(): String
         }
 
+        Personnage "1" *--> "1..* \nm_inventaire" Inventaire: a >
+        Inventaire "1" *--> "1..* \nm_inventaire" objet.Equipement: a >
 
         interface AffichagePersonnageInterface <<interface>>
         {
@@ -764,12 +764,6 @@ objet.arme.Arme "1" *--> "1 \nm_deDegats" partie.De : utilise
 InitialiseurPartie .> Donjon : <<instantiate>>
 
 Classe "0..*" o--> "0..* \nm_listeSorts" jouable.personnage.sorts.Sorts : a des
-
-main .> MaitreDuJeu : <<instantiate>>
-main .> Donjon : <<instantiate>>
-main .> De : <<instantiate>>
-
-MaitreDuJeu "1" o--> "1 \nm_donjon" Donjon : gère
 
 @enduml
 
