@@ -20,18 +20,7 @@ public class PositionsEquipement
         m_positionsEquipement.put(position, equipement);
     }
 
-    public boolean deplacerEquipement(Equipement equipement, Position position)
-    {
-        if (!m_positionsEquipement.containsKey(position))
-        {
-            this.ajouterEquipement(equipement, position);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+
 
     public Equipement getEquipementFromPosition(Position position)
     {
@@ -43,10 +32,6 @@ public class PositionsEquipement
         m_positionsEquipement.remove(position);
     }
 
-    public HashMap<Position, Equipement> getPositionsEquipement()
-    {
-        return m_positionsEquipement;
-    }
 
     public boolean containsEquipement(Position position)
     {
