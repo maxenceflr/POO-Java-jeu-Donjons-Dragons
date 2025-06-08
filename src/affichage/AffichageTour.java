@@ -2,12 +2,15 @@ package affichage;
 
 import donjon.Donjon;
 import donjon.Position;
+import donjon.PositionsJouables;
+import jouable.ActionResult;
 import jouable.AttackResult;
 import jouable.Jouable;
 import jouable.Monstre;
 import jouable.personnage.Inventaire;
 import jouable.personnage.Personnage;
 import objet.Equipement;
+import partie.De;
 import partie.Tour;
 
 import java.util.List;
@@ -118,6 +121,8 @@ public class AffichageTour {
 
                 case "att":
                     System.out.println(p.getNom() + " attaque la case " + argument);
+                    System.out.println("Appuyez sur Entrée pour lancer les dés d'attaques");
+                    scanner.nextLine();
                     Position position_attaque = Position.getPositionFromCode(argument);
                     AttackResult result = p.attaquer(position_attaque, donj); // ← Récupère le résultat
 
@@ -128,61 +133,79 @@ public class AffichageTour {
                         {
                             System.out.println("Attaque réussie !");
                             System.out.println("Dégâts infligés : " + result.getDegats());
+                            break;
                         }
                         case FAILURE :
                             System.out.println("L'attaque a échoué, l'adversaire a esquivé ou l'armure a tout bloqué.");
+                            break;
                         case NO_WEAPON :
                             System.out.println("Tu n'as pas d'arme équipée !");
+                            break;
                         case OUT_OF_REACH :
                             System.out.println("La cible est hors de portée !");
+                            break;
                     }
                     break;
-                case "dep":
-                    System.out.println(p.getNom() + " se déplace vers la case " + argument);
+                case "dep" :
+                    while (!argument.matches("^[A-Z][0-9]+$")) {
+                        System.out.println("Format invalide. Veuillez entrer une case au format Lettre+Chiffre (ex: D12) :");
+                        argument = scanner.nextLine().trim().toUpperCase();
+                    }
+
+                    System.out.println(p.getNom() + " tente de se déplacer vers la case " + argument);
                     Position position_deplacement = Position.getPositionFromCode(argument);
-                    donj.getPositionsJouables().deplacerJouable(p, position_deplacement, donj);
+                    ActionResult resultdep = donj.getPositionsJouables().deplacerJouable(p, position_deplacement, donj);
+
+                    switch (resultdep) {
+                        case SUCCESS :
+                            System.out.println(p.getNom() + " s'est déplacé avec succès.");
+                            break;
+                        case OUT_OF_REACH :
+                            System.out.println("Case trop éloignée pour se déplacer.");
+                            break;
+                        case OBSTACLE :
+                            System.out.println("Impossible : il y a un obstacle.");
+                            break;
+                        case OCCUPIED_POSITION :
+                            System.out.println("Cette case est déjà occupée.");
+                            break;
+                    }
                     break;
+
 
                 case "equ":
-                    try {
-                        int numero = Integer.parseInt(argument) - 1;
-                        Inventaire inventairePerso = p.getInventaire();
+                    int numerot = Integer.parseInt(argument) - 1;
+                    Inventaire inventairePerso = p.getInventaire();
 
-                        if (inventairePerso != null && numero >= 0 && numero < inventairePerso.getInventaire().size()) {
-                            Equipement o = inventairePerso.getInventaire().get(numero);
-                            if (o != null)
-                            {
-                                p.equiper(o);
-                            } else {
-                                System.out.println("Aucun objet à cet emplacement.");
+                    if (inventairePerso != null && numerot >= 0 && numerot < inventairePerso.getInventaire().size()) {
+                        Equipement o = inventairePerso.getInventaire().get(numerot);
+                        if (o != null) {
+                            switch (p.equiper(o)) {
+                                case SUCCESS:
+                                    System.out.println(p.getNom() + " équipe " + o.getNomEquipement() + " depuis l'inventaire");
+                                    break;
+                                case NO_ITEM:
+                                    System.out.println("Aucun objet à cet emplacement.");
+                                    break;
+
+
                             }
                         }
-                        else
-                        {
-                            System.out.println("Indice d'inventaire invalide ou inventaire vide.");
-                        }
-                        break;
                     }
-                    catch (NumberFormatException e)
-                    {
-                        System.out.println("Numéro d'équipement invalide.");
-                    }
-                    System.out.println(p.getNom() + " équipe l'element numero " + argument + "de l'inventaire");
                     break;
 
                 case "ram":
                     Position position_joueur = donj.getPositionFromJouable(p);
 
-                    if(donj.getPositionsEquipement().containsEquipement(position_joueur))
+                    switch (p.ramasser(position_joueur, donj))
                     {
-                        p.ramasser(position_joueur, donj);
+                        case SUCCESS :
+                            System.out.println(p.getNom() + "Vous ramassez un objet");
+                            break;
+                        case NO_ITEM:
+                            System.out.println("Aucun équipement à ramasser !");
+                            break;
                     }
-                    else
-                    {
-                        System.out.println("Aucun équipement à ramasser !");
-                    }
-
-                    System.out.println(p.getNom() + "Vous ramassez un objet");
                     break;
 
 
@@ -217,26 +240,188 @@ public class AffichageTour {
 
 
                 case "att":
-                    // Ici tu devras parser une case (ex: "B3") et appeler une méthode comme p.attaquer(case)
                     System.out.println(m.getNom() + " attaque la case " + argument);
+                    System.out.println("Appuyez sur Entrée pour lancer les dés d'attaques");
+                    scanner.nextLine();
                     Position position_attaque = Position.getPositionFromCode(argument);
-                    m.attaquer(position_attaque, donj);
-                    // Exemple : p.attaquer(parseCase(argument));
+                    AttackResult result = m.attaquer(position_attaque, donj); // ← Récupère le résultat
+
+                    System.out.println("Jet d'attaque : " + result.getJetAttaque());
+
+                    switch (result.getStatus()) {
+                        case SUCCESS :
+                        {
+                            System.out.println("Attaque réussie !");
+                            System.out.println("Dégâts infligés : " + result.getDegats());
+                            break;
+                        }
+                        case FAILURE :
+                            System.out.println("L'attaque a échoué, l'adversaire a esquivé ou l'armure a tout bloqué.");
+                            break;
+                        case OUT_OF_REACH :
+                            System.out.println("La cible est hors de portée !");
+                            break;
+                    }
                     break;
 
-                case "dep":
-                    System.out.println(m.getNom() + " se déplace vers la case " + argument);
+                case "dep" :
+                    while (!argument.matches("^[A-Z][0-9]+$")) {
+                        System.out.println("Format invalide. Veuillez entrer une case au format Lettre+Chiffre (ex: D12) :");
+                        argument = scanner.nextLine().trim().toUpperCase();
+                    }
+
+                    System.out.println(m.getNom() + " tente de se déplacer vers la case " + argument);
                     Position position_deplacement = Position.getPositionFromCode(argument);
-                    donj.getPositionsJouables().deplacerJouable(m, position_deplacement, donj);
+                    ActionResult resultdep = donj.getPositionsJouables().deplacerJouable(m, position_deplacement, donj);
+
+                    switch (resultdep) {
+                        case SUCCESS :
+                            System.out.println(m.getNom() + " s'est déplacé avec succès.");
+                            break;
+                        case OUT_OF_REACH :
+                            System.out.println("Case trop éloignée pour se déplacer.");
+                            break;
+                        case OBSTACLE :
+                            System.out.println("Impossible : il y a un obstacle.");
+                            break;
+                        case OCCUPIED_POSITION :
+                            System.out.println("Cette case est déjà occupée.");
+                            break;
+                    }
                     break;
 
                 default:
                     System.out.println("Commande inconnue. Veuillez réessayer.");
                     commandeValide=false;
+                    break;
             }
             return commandeValide;
         }
 
+    }
+    public static int choixActionMj()
+    {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("\nQue souhaitez-vous faire ?");
+            System.out.println("1. Déplacer un monstre ou un personnage");
+            System.out.println("2. Faire un jet de dés pour infliger des dégâts");
+            System.out.println("3. Ajouter un obstacle dans le donjon");
+            System.out.println("4. Ne rien faire");
+
+
+            int choix = Integer.parseInt(scanner.nextLine());
+
+            if(choix==1||choix==2||choix==3||choix==4) {
+                return choix;
+            }
+        }
+    }
+    public static void choixCaseDeplacementMj(Donjon donj)
+    {
+        Scanner scanner = new Scanner(System.in);
+        Jouable j = null;
+        Position position_depart = null;
+
+        while (j == null) {
+            System.out.println("Entrez la case du jouable que vous souhaitez déplacer (ex: D12) :");
+            String argument = scanner.nextLine().trim().toUpperCase();
+
+            // Vérifie le format
+            if (!argument.matches("^[A-Z][0-9]+$")) {
+                System.out.println("Format invalide. Veuillez entrer une case au format Lettre+Chiffre (ex: D12).");
+                continue;
+            }
+            else {
+
+                // Récupère la position
+                position_depart = Position.getPositionFromCode(argument);
+
+                // Vérifie qu’un jouable est bien présent
+                j = donj.getJouableFromPosition(position_depart);
+                if (j == null) {
+                    System.out.println("Aucun joueur ni monstre à cette position. Veuillez en saisir une autre.");
+                }
+            }
+        }
+
+        System.out.println("Entrez la case sur laquelle vous souhaitez déplacer le jouable (ex: D12) :");
+        String argument2 = scanner.nextLine().trim().toUpperCase();
+        while (!argument2.matches("^[A-Z][0-9]+$")) {
+            System.out.println("Format invalide. Veuillez entrer une case au format Lettre+Chiffre (ex: D12) :");
+            argument2 = scanner.nextLine().trim().toUpperCase();
+        }
+        Position position_arrivee = Position.getPositionFromCode(argument2);
+
+        donj.getPositionsJouables().deplacementMj(j,position_arrivee,donj);
+
+    }
+    public static void choixAttaqueDuMj(Donjon donj)
+    {
+        Scanner scanner = new Scanner(System.in);
+        Jouable j = null;
+        Position position = null;
+
+        while (j == null) {
+            System.out.println("Entrez la case du jouable que vous souhaitez attaquer (ex: D12) :");
+            String argument = scanner.nextLine().trim().toUpperCase();
+
+
+            if (!argument.matches("^[A-Z][0-9]+$")) {
+                System.out.println("Format invalide. Veuillez entrer une case au format Lettre+Chiffre (ex: D12).");
+
+            }
+            else {
+
+                // Récupère la position
+                position= Position.getPositionFromCode(argument);
+
+                // Vérifie qu’un jouable est bien présent
+                j = donj.getJouableFromPosition(position);
+                if (j == null) {
+                    System.out.println("Aucun joueur ni monstre à cette position. Veuillez en saisir une autre.");
+                }
+            }
+        }
+        int nombreDes = 0;
+        int nombreFaces = 0;
+
+
+        while (true) {
+            System.out.print("Entrez le nombre de dés à lancer : ");
+            String input = scanner.nextLine().trim();
+            try {
+                nombreDes = Integer.parseInt(input);
+                if (nombreDes <= 0) {
+                    System.out.println("Veuillez entrer un entier positif.");
+                    continue;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Ce n'est pas un nombre entier valide.");
+            }
+        }
+
+
+        while (true) {
+            System.out.print("Entrez le nombre de faces de chaque dé : ");
+            String input = scanner.nextLine().trim();
+            try {
+                nombreFaces = Integer.parseInt(input);
+                if (nombreFaces <= 0) {
+                    System.out.println("Veuillez entrer un entier positif.");
+                    continue;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Ce n'est pas un nombre entier valide.");
+            }
+        }
+        De de =new De(nombreDes,nombreFaces);
+
+        System.out.println("Lancement de " + nombreDes + " dé(s) à " + nombreFaces + " faces chacun.");
+        int degat=donj.getPositionsJouables().attaqueDuMj(j,de);
+        System.out.println(/*j.getNom()+*/" subit "+degat+" dégat");//creer un get nom de jouable
     }
     public static void afficherPerdue(Personnage p)
     {

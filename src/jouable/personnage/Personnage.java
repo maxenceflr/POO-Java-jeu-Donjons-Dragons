@@ -46,6 +46,10 @@ public class Personnage extends Jouable {
 
         AffichagePersonnage af = new AffichagePersonnage();
         CaracteristiquesBase CA = new CaracteristiquesBase();
+        CaracteristiquesBase LancerDeAvantBonus= new CaracteristiquesBase(CA);
+
+
+
         m_nom = af.choisirNom();
 
         m_arme = Optional.empty();
@@ -54,6 +58,7 @@ public class Personnage extends Jouable {
         m_race= af.choisirRace(this);
         m_classe = af.choisirClasse();
         CA.ajouterClasseBonus(m_classe.getPvClasse());
+        af.AffichageLancerDe(LancerDeAvantBonus);
         m_inventaire = new Inventaire();
         m_inventaire.setInventaire(m_classe.getListeEquipement());
         af.afficherCaracteristique(this);
@@ -163,11 +168,11 @@ public class Personnage extends Jouable {
     {
         return this.m_inventaire;
     }
-    public String getStringArme()/*Renvoie les info sur l'arme que porte le personnage sous forme de string*/
+    public String getStringArme()/*Renvoie les infos sur l'arme que porte le personnage sous forme de string*/
     {
         if (m_arme.isPresent())
         {
-            return m_arme.toString();
+            return m_arme.get().toString();
 
         }
         else
@@ -175,15 +180,12 @@ public class Personnage extends Jouable {
             return "Ne porte pas d'arme pour le moment";
         }
     }
-    public String getStringArmure()/*Renvoie les infos sur l'armure que porte le personnage sous forme de string*/
-    {
-        if (m_armure.isPresent())
-        {
-            return m_armure.toString();
+    public String getStringArmure()/*Renvoie les infos sur l'armure que porte le personnage sous forme de string*/ {
+        if (m_armure.isPresent()) {
+            return m_armure.get().toString();
 
         }
-        else
-        {
+        else {
             return "Ne porte pas d'armure pour le moment";
         }
     }

@@ -79,6 +79,27 @@ public class AffichagePersonnage implements AffichagePersonnageInterface {
 
         }
     }
+    public void AffichageLancerDe(CaracteristiquesBase Ca)
+    {
+        System.out.println("Appuyez sur Entrée pour lancer les dés...");
+        scanner.nextLine();
+        System.out.println("\nRésultat de vos dés");
+
+
+        System.out.println("force:");
+        System.out.println(Ca.getForce());
+
+        System.out.println("vitesse:");
+
+        System.out.println(Ca.getVitesse());
+        System.out.println("Dextérité:");
+
+        System.out.println(Ca.getDexterite());
+        System.out.println("Initiative:");
+
+        System.out.println(Ca.getInitiative());
+
+    }
 
 
     public String choisirNom() {
