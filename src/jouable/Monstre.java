@@ -186,6 +186,10 @@ public class Monstre extends Jouable {
     {
         return m_id.map(integer -> m_espece + " [" + integer + "] ").orElseGet(() -> m_espece);
     }
+    public String getTypeClass()
+    {
+        return "m";
+    }
 
     public String toString()
     {

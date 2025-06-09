@@ -106,10 +106,10 @@ public class AffichageDonjon implements AffichageDonjonInterface {
     }
     public int demanderChoixDonjon()
     {
-        System.out.println("\nQuel donjon souhaité vous créer");
-        System.out.println("-1 Donjon des richesse");
+        System.out.println("\nQuel donjon souhaitez vous créer");
+        System.out.println("-1 Donjon des richesses");
         System.out.println("-2 Le Labyrinthe");
-        System.out.println("-3 Le Donjon des Gobelin");
+        System.out.println("-3 Le Donjon des Gobelins");
 
         Scanner scanner = new Scanner(System.in);
         int choix = -1;

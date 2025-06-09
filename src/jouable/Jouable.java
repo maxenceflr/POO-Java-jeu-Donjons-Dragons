@@ -25,6 +25,7 @@ public abstract class Jouable
 
     public abstract String toString();
     public abstract String getNom();
+    public abstract String getTypeClass();
 
     public int getPvMax()
     {
