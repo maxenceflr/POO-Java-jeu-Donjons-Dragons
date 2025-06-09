@@ -19,6 +19,7 @@ package jouable
         + {abstract} getSymbole(): String
         + {abstract} getNom(): String
         + {abstract} setSymbole(symbole: String)
+        + {abstract} getTypeClass():String
         + getCurrentPv(): Integer
         + getPvMax(): Integer
         + getDexterite(): Integer
@@ -73,6 +74,7 @@ package jouable
             + ajouterJouable(position: Position, listeJouables: PositionJouables)
             + setId(id: Integer)
             + getNom(): String
+            + getTypeClass():String
             + getSymbole(): String
             + setSymbole(symbole: String)
             + setArmure(armure: Armure)
@@ -118,7 +120,6 @@ package jouable
             {
                 + toString(): String
                 + ajouterInitRacePerso(perso: Personnage)
-                + {abstract} equals(other: Object): Boolean
             }
 
             class Humain implements Race
@@ -126,7 +127,6 @@ package jouable
                 + <<create>> Humain()
                 + ajouterInitRacePerso(perso: Personnage)
                 + toString(): String
-                + {abstract} equals(other: Object): Boolean
             }
 
             class Nain implements Race
@@ -136,7 +136,6 @@ package jouable
                 + getForce(): Integer
                 + toString(): String
                 + ajouterInitRacePerso(perso: Personnage)
-                + {abstract} equals(other: Object): Boolean
             }
 
             class Elfe implements Race
@@ -146,7 +145,6 @@ package jouable
                 + ajouterInitRacePerso(perso: Personnage)
                 + getDexterite(): Integer
                 + toString(): String
-                + {abstract} equals(other: Object): Boolean
             }
 
             class Halfelin implements Race
@@ -158,7 +156,6 @@ package jouable
                 + getVitesse(): Integer
                 + toString(): String
                 + ajouterInitRacePerso(perso: Personnage)
-                + {abstract} equals(other: Object): Boolean
             }
         }
 
@@ -255,6 +252,7 @@ package jouable
             + {static} creerGobelin(): Monstre
             + {static} creercreerDemogorgon(): Monstre
             + attaquer(other: Position, donjon: (Donjon)
+            + getTypeClass():String
             + ajouterJouable(position: Position, listeJouables: PositionsDesJouables)
             + getClasseArmure(): Integer
             + getSymbole(): String
@@ -310,6 +308,7 @@ package objet
         + getSymbole(): String
         + {abstract} equiper(perso: Personnage)
         + {abstract} ajouterBonus(bonus: Integer)
+        + {abstract} getTypeClass():String
         + {abstract} getNomEquipement(): String
         + {abstract} equals(): Boolean
     }
@@ -323,6 +322,7 @@ package objet
             + <<create>> Armure()
             + equiper(perso: Personnage)
             + equiper(perso: Personnage)
+            + getTypeClass():String
             + getClasseArmure(): Integer
             + toString(): String
             + equals(other: Object): Boolean
@@ -391,6 +391,7 @@ package objet
             + <<create>> Arme()
             + ajouterBonus(bonus: Integer)
             + getDeDegats(): De
+            + getTypeClass():String
             + getPortee(): Integer
             + getBonusAttaque(): Integer
             + setDeDegats(degats: De)
@@ -727,10 +728,13 @@ class main
 }
 
 /'
+ffichage.AffichagePersonnage .> jouable.personnage.Personnage: <<use>>
 affichage.AffichagePersonnage .> stats.CaracteristiquesBase: <<use>>
 
+affichage.AffichageMonstre .> jouable.monstre.Monstre: <<use>>
 
 affichage.AffichageTour .> donjon.Donjon: <<use>>
+affichage.AffichageTour .> partie.Tour: <<use>>
 affichage.AffichageTour .> jouable.monstre.Monstre: <<use>>
 affichage.AffichageTour .> jouable.personnage.Personnage: <<use>>
 
@@ -755,12 +759,6 @@ donjon.PositionsDesJouables .> jouable.ActionResult: <<use>>
 '/
 
 main .> partie.Partie: <<use>>
-
-affichage.AffichageTour .> partie.Tour: <<use>>
-
-affichage.AffichageMonstre .> jouable.monstre.Monstre: <<use>>
-
-affichage.AffichagePersonnage .> jouable.personnage.Personnage: <<use>>
 
 
 Tour "1" o-- "1" Donjon : m_donjon

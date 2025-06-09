@@ -159,6 +159,10 @@ public class Personnage extends Jouable {
     public boolean aUneArme() {
         return m_arme.isPresent();
     }
+    public String getTypeClass()
+    {
+        return "p";
+    }
 
 
     public String getSymbole() {
