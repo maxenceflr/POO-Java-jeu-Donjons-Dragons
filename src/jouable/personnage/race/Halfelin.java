@@ -27,4 +27,15 @@ public class Halfelin implements Race {
         return "Halfelin";
     }
 
+    @Override
+    public boolean equals(Object other) {
+        //Run Time Type Information!
+        if (other == null || other.getClass() != getClass()) {
+            return false;
+        } else {
+            Halfelin conversion = (Halfelin) other;
+            return  m_vitesse == conversion.m_vitesse && m_dexterite == conversion.m_dexterite;
+        }
+    }
+
 }

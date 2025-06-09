@@ -21,7 +21,7 @@ class PositionsJouablesTest {
         Position position1 = new Position(10,10);
         Position position2 = new Position(11, 11);
 
-        Donjon donjonTest= new Donjon();
+        Donjon donjonTest= new Donjon(25,25);
         donjonTest.getPositionsJouables().ajouterJouable(personnageTest, position1);
         donjonTest.getPositionsJouables().deplacerJouable(personnageTest, position2, donjonTest);
 
@@ -34,7 +34,7 @@ class PositionsJouablesTest {
     {
         CaracteristiquesBase stats = new CaracteristiquesBase(10, 10, 10, 10, 10, 10);
         Personnage personnageTest= new Personnage("Maxence", new Humain(), new Guerrier(), stats);
-        Donjon donjonTest= new Donjon();
+        Donjon donjonTest= new Donjon(25,25);
         String code = "A1";
 
         Position position1 = new Position(Position.getPositionFromCode(code));
@@ -50,7 +50,7 @@ class PositionsJouablesTest {
         Personnage personnageTest= new Personnage("Maxence", new Humain(), new Guerrier(), stats);
         Position position1 = new Position(10,10);
 
-        Donjon donjonTest= new Donjon();
+        Donjon donjonTest= new Donjon(25, 25);
         AffichageDonjon.afficherDonjon(donjonTest);
 
         Position positionTest = Position.getPositionFromCode("Y24");
