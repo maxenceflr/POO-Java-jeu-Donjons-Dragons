@@ -14,7 +14,7 @@ class AffichageDonjonTest
     @Test
     void DonjonTestVide()
     {
-        Donjon donjon_test = new Donjon();
+        Donjon donjon_test = new Donjon(25, 25);
         AffichageDonjon.afficherDonjon(donjon_test);
     }
 
@@ -30,7 +30,7 @@ class AffichageDonjonTest
         Position positionTest3 = new Position(15,7);
         Position positionTest4 = new Position(12,16);
 
-        Donjon donjon_test = new Donjon();
+        Donjon donjon_test = new Donjon(25, 25);
 
         donjon_test.getPositionsJouables().ajouterJouable(personnageTest, positionTest1);
         donjon_test.getPositionsObstacle().ajouterObstacle(positionTest2);

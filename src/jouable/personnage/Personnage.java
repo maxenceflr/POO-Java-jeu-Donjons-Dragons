@@ -231,7 +231,8 @@ public class Personnage extends Jouable {
         } else {
             Personnage conversion = (Personnage) other;
             return m_nom.equals(conversion.m_nom) && m_armure.equals(conversion.m_armure) &&
-                    m_classe.equals(conversion.m_classe) && m_caracteristiques.equals(conversion.m_caracteristiques);
+                    m_classe.equals(conversion.m_classe) && m_caracteristiques.equals(conversion.m_caracteristiques) &&
+                    m_race.equals(conversion.m_race);
         }
     }
 

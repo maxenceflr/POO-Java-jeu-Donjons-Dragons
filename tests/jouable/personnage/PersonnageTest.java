@@ -34,7 +34,7 @@ class PersonnageTest {
         CaracteristiquesBase stats = new CaracteristiquesBase(10, 10, 10, 10, 10, 0);
         perso = new Personnage("Maxence", new Humain(), new Guerrier(), stats);
         monstre = Monstre.creerDragon();
-        donjon = new Donjon();
+        donjon = new Donjon(25,25);
         position_monstre = new Position(5,5);
         position_perso = new Position(5,6);
         donjon.getPositionsJouables().ajouterJouable(perso, position_perso);
