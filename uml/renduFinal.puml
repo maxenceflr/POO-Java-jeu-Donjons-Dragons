@@ -760,6 +760,12 @@ donjon.PositionsDesJouables .> jouable.ActionResult: <<use>>
 
 main .> partie.Partie: <<use>>
 partie.Partie .> partie.Tour: <<use>>
+donjon.Donjon .> affichage.AffichageDonjon: <<use>>
+jouable.personnage.Personnage .> affichage.AffichagePersonnage: <<use>>
+jouable.monstre.Monstre .> affichage.AffichageMonstre: <<use>>
+
+partie.Partie .> affichage.AffichageInitPartie: <<use>>
+partie.Tour .> affichage.AffichageTour: <<use>>
 
 Tour "1" o-- "1" Donjon : m_donjon
 Tour "1" o--> "1..*" jouable.Jouable : m_listeJouable[*]
