@@ -1,6 +1,7 @@
 package jouable.personnage.race;
 
 import jouable.personnage.Personnage;
+import objet.arme.armedeguerre.EpeeLongue;
 import stats.CaracteristiquesBase;
 import stats.CaracteristiquesBase;
 
@@ -20,4 +21,16 @@ public class Elfe implements Race {
     public String toString(){
         return "Elfe";
     }
+
+    @Override
+    public boolean equals(Object other) {
+        //Run Time Type Information!
+        if (other == null || other.getClass() != getClass()) {
+            return false;
+        } else {
+            Elfe conversion = (Elfe) other;
+            return  m_dexterite == conversion.m_dexterite;
+        }
+    }
+
 }

@@ -26,4 +26,15 @@ public class Humain implements Race {
         return "Humain";
     }
 
+    @Override
+    public boolean equals(Object other) {
+        //Run Time Type Information!
+        if (other == null || other.getClass() != getClass()) {
+            return false;
+        } else {
+            Humain conversion = (Humain) other;
+            return  m_caracteristiques.equals(conversion.m_caracteristiques);
+        }
+    }
+
 }
