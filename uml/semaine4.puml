@@ -261,16 +261,6 @@ package jouable
             + getNom(): String
             + equals(other: Object): String
         }
-
-        interface AffichageMonstreInterface <<interface>>
-        {
-            + choisirEspece() : String
-            + choisirRepresentation() : String
-            + choisirDegatAttaque() : String
-            + choisirPorterAttaquechoisirPorterAttaque() : String
-            + afficherCaracteristiaque(CurrentPv: Integer, PvMax: Integer, Dexteriter: Integer, Force: Integer, Vitesse: Integer, Initiative: Integer, Integer ClassArmure) : String
-        }
-
     }
 }
 
@@ -662,7 +652,7 @@ package partie
          }
 }
 package affichage{
-    class AffichageDonjon implements AffichageDonjonInterface
+    class AffichageDonjon implements donjon.AffichageDonjonInterface
     {
         - m_scaner : Scanner
         + {static} afficherDonjon(donjon: Donjon)
@@ -676,7 +666,7 @@ package affichage{
         + placerEquipement(donjon: Donjon): PositionsEquipement
         + demanderPositionEquipement(donjon: Donjon, PE: PositionsEquipement): Position
     }
-    class affichagePersonnage implements AffichagePersonnageInterface
+    class AffichagePersonnage implements jouable.personnage.AffichagePersonnageInterface
     {
         - m_scanner : Scanner
         + choisirClasse() : Classe
@@ -731,10 +721,38 @@ class main
     + {static} main(args: String[])
 }
 
+/'
+ffichage.AffichagePersonnage .> jouable.personnage.Personnage: <<use>>
+affichage.AffichagePersonnage .> stats.CaracteristiquesBase: <<use>>
+
+affichage.AffichageMonstre .> jouable.monstre.Monstre: <<use>>
+
+affichage.AffichageTour .> donjon.Donjon: <<use>>
+affichage.AffichageTour .> partie.Tour: <<use>>
+affichage.AffichageTour .> jouable.monstre.Monstre: <<use>>
+affichage.AffichageTour .> jouable.personnage.Personnage: <<use>>
+
+partie.Partie .> donjon.Donjon: <<use>>
+partie.Partie .> jouable.personnage.Personnage: <<use>>
+
+partie.Tour .> jouable.Jouable: <<use>>
+partie.Tour .> donjon.Donjon: <<use>>
+partie.Tour .> jouable.personnage.Personnage: <<use>>
+
+
+
 jouable.Jouable .> donjon.Donjon: <<use>>
 jouable.Jouable .> donjon.Position: <<use>>
 jouable.Jouable .> jouable.ActionResult: <<use>>
 Equipement .> Personnage : <<use>>
+
+jouable.personnage.sorts.Guerison .> jouable.ActionResult: <<use>>
+jouable.personnage.sorts.ArmeMagique .> jouable.ActionResult: <<use>>
+jouable.personnage.sorts.Guerison .> jouable.ActionResult: <<use>>
+donjon.PositionsDesJouables .> jouable.ActionResult: <<use>>
+'/
+
+main .> partie.Partie: <<use>>
 
 
 Tour "1" o-- "1" Donjon : m_donjon
@@ -764,7 +782,6 @@ Humain "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
 jouable.Jouable "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
 
 objet.arme.Arme "1" *--> "1 \nm_deDegats" partie.De : utilise
-InitialiseurPartie .> Donjon : <<instantiate>>
 
 Classe "0..*" o--> "0..* \nm_listeSorts" jouable.personnage.sorts.Sorts : a des
 
