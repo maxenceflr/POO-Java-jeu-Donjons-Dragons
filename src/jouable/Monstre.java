@@ -85,7 +85,7 @@ public class Monstre extends Jouable {
         De deAttaque = new De(1, 20);
         Jouable otherJouable = donjon.getJouableFromPosition(other);
 
-        if (Donjon.getDistance(donjon.getPositionFromJouable(this), other) < this.m_portee)
+        if (Donjon.getDistance(donjon.getPositionFromJouable(this), other) <= this.m_portee)
         {
             int somme_attaque = m_degats.jeter();
 
