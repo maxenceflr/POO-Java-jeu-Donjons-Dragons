@@ -23,4 +23,15 @@ public class Nain implements Race {
         return "Nain";
     }
 
+    @Override
+    public boolean equals(Object other) {
+        //Run Time Type Information!
+        if (other == null || other.getClass() != getClass()) {
+            return false;
+        } else {
+            Nain conversion = (Nain) other;
+            return  m_force == conversion.m_force;
+        }
+    }
+
 }

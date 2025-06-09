@@ -22,8 +22,8 @@ public class BoogieWoogie implements Sorts
         Position pos_cible1 = new Position(donjon.getPositionFromJouable(cible1));
         Position pos_cible2 = new Position(donjon.getPositionFromJouable(cible2));
 
-        donjon.getPositionsJouables().ajouterJouable(cible1, pos_cible2);
-        donjon.getPositionsJouables().ajouterJouable(cible2, pos_cible1);
+        donjon.getPositionsJouables().getPositions().put(pos_cible1, cible2);
+        donjon.getPositionsJouables().getPositions().put(pos_cible2, cible1);
 
         return SUCCESS;
     }
