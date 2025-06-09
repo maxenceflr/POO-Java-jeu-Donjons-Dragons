@@ -11,7 +11,6 @@ package jouable
 {
     abstract class Jouable <<abstract>>
     {
-        # m_caracteristiques: CaracteristiquesBase
         + <<create>> Jouable()
         + {abstract} attaquer(other: Jouable): AttackResult
         + {abstract} ajouterJouable(position: Position, listeJouables: PositionJouables)
@@ -34,8 +33,6 @@ package jouable
         + setForce()
         + setClasseArmure()
     }
-
-    jouable.Jouable .> donjon.Donjon
 
     enum ActionResult <<enumerate>>
     {
@@ -61,7 +58,6 @@ package jouable
         + getDeDegats(): Integer
     }
 
-    AttackResult .> ActionResult : <<use>>
 
     package personnage
     {
@@ -69,7 +65,6 @@ package jouable
         class Personnage extends jouable.Jouable
         {
             - m_nom: String
-            - m_listeSorts: Sorts[*]
             + <<create>> Personnage (nom: String, race: Race, classe: Classe, stats: CaracteristiquesBase)
             + <<create>> Personnage ()
             + attaquer(other: Position, Donjon donjon): AttackResult
@@ -85,9 +80,9 @@ package jouable
             + getArmure(): Armure
             + getArme(): Arme
             + getClasse(): Classe
-            + getInventaire: Inventaire
-            + getStringArmure: String
-            + getStringArme: String
+            + getInventaire(): Inventaire
+            + getStringArmure(): String
+            + getStringArme(): String
             + toString(): String
             + getRepresentation(): String
             + equals(other: Object): boolean
@@ -95,7 +90,6 @@ package jouable
 
         class Inventaire
         {
-            - m_inventaire: Equipement[*]
             + <<create>> Inventaire ()
             + <<create>> Inventaire (listequipement: Equipement[*])
             + ajouterEquipement(item: Equipement)
@@ -108,6 +102,7 @@ package jouable
         }
 
 
+
         interface AffichagePersonnageInterface <<interface>>
         {
             + choisirClasse() : String
@@ -116,9 +111,6 @@ package jouable
             + afficherCaracteristiaque(CurrentPv: Integer, PvMax: Integer, Dexteriter: Integer, Force: Integer, Vitesse: Integer, Initiative: Integer) : String
         }
 
-
-        Personnage "1" *--> "1 \nm_race" race.Race : est
-        Personnage "1" *--> "1 \nm_classe" classe.Classe : possède
 
         package race
         {
@@ -248,9 +240,7 @@ package jouable
         {
             - m_id: Integer
             - m_portee: Integer
-            - m_degats: De
             - m_espece: String
-            - m_classeArmure: Integer
             - m_symbole: String
             - m_race: String
             + <<create>> Monstre(portee: Integer, degats: De, espece: String, symbole: String)
@@ -271,16 +261,6 @@ package jouable
             + getNom(): String
             + equals(other: Object): String
         }
-
-        interface AffichageMonstreInterface <<interface>>
-        {
-            + choisirEspece() : String
-            + choisirRepresentation() : String
-            + choisirDegatAttaque() : String
-            + choisirPorterAttaquechoisirPorterAttaque() : String
-            + afficherCaracteristiaque(CurrentPv: Integer, PvMax: Integer, Dexteriter: Integer, Force: Integer, Vitesse: Integer, Initiative: Integer, Integer ClassArmure) : String
-        }
-
     }
 }
 
@@ -316,9 +296,6 @@ package stats
         + equals(other: CaracteristiquesBase): Boolean
         + toString(): String
     }
-
-    Jouable "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
-    Humain "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
 }
 
 package objet
@@ -331,8 +308,6 @@ package objet
         + {abstract} getNomEquipement(): String
         + {abstract} equals(): Boolean
     }
-
-    Equipement .> Personnage : <<use>>
 
     package armure
     {
@@ -405,7 +380,6 @@ package objet
 
         abstract class Arme <<abstract>> implements objet.Equipement
         {
-            # m_degats: De
             # m_portee: Integer
             # m_bonusAttaque: Integer
             + <<create>> Arme(degats: Integer, portee: Integer)
@@ -493,6 +467,13 @@ package objet
                 + equals(other: Object): Boolean
             }
 
+            class ArcCourt extends ArmeDistance
+            {
+                + <<create>> ArcCourt()
+                + equals(other: Object): Boolean
+                + toString(): String
+                + getNomEquipement(): String
+            }
         }
 
         package armecourante
@@ -521,14 +502,6 @@ package objet
                  + getNomEquipement(): String
                 + toString(): String
                 + equals(other: Object): Boolean
-            }
-
-            class ArcCourt extends ArmeDistance
-            {
-                + <<create>> ArcCourt()
-                + equals(other: Object): Boolean
-                + toString(): String
-                + getNomEquipement(): String
             }
 
         }
@@ -641,16 +614,6 @@ package donjon
         + toString() : String
     }
 }
-Donjon "1" *--> "1 \nm_positionsEquipement" PositionsDesEquipements : détient
-Donjon "1" *--> "1 \nm_positionsJouable" PositionsDesJouables : détient
-Donjon "1" *--> "1 \nm_positionsObstacle" PositionsDesObstacles : détient
-
-PositionsDesEquipements "1..*" o--> "1..* \nm_positionEquipement.value" Equipement : détient
-PositionsDesEquipements "1..*" o--> "1..* \nm_positionEquipement.key" Position : détient
-PositionsDesJouables "1..*" o--> "1..* \nm_positionJouable.value" jouable.personnage.Jouable : détient
-PositionsDesJouables "1..*" o--> "1..* \nm_positionJouable.key" Position : détient
-PositionsDesObstacles "1..*" o--> "1..* \nm_positionObstacle[*]" Position : détient
-
 
 package partie
 {
@@ -687,11 +650,9 @@ package partie
              + getActionRestante() : int
              + {static} partieperdue(p : Personnage)
          }
-     Tour "1" o-- "1" Donjon : m_donjon
-     Tour "1" o--> "1..*" jouable.Jouable : m_listeJouable[*]
 }
 package affichage{
-    class AffichageDonjon implements AffichageDonjonInterface
+    class AffichageDonjon implements donjon.AffichageDonjonInterface
     {
         - m_scaner : Scanner
         + {static} afficherDonjon(donjon: Donjon)
@@ -705,7 +666,7 @@ package affichage{
         + placerEquipement(donjon: Donjon): PositionsEquipement
         + demanderPositionEquipement(donjon: Donjon, PE: PositionsEquipement): Position
     }
-    class affichagePersonnage implements AffichagePersonnageInterface
+    class AffichagePersonnage implements jouable.personnage.AffichagePersonnageInterface
     {
         - m_scanner : Scanner
         + choisirClasse() : Classe
@@ -760,16 +721,71 @@ class main
     + {static} main(args: String[])
 }
 
+/'
+ffichage.AffichagePersonnage .> jouable.personnage.Personnage: <<use>>
+affichage.AffichagePersonnage .> stats.CaracteristiquesBase: <<use>>
+
+affichage.AffichageMonstre .> jouable.monstre.Monstre: <<use>>
+
+affichage.AffichageTour .> donjon.Donjon: <<use>>
+affichage.AffichageTour .> partie.Tour: <<use>>
+affichage.AffichageTour .> jouable.monstre.Monstre: <<use>>
+affichage.AffichageTour .> jouable.personnage.Personnage: <<use>>
+
+partie.Partie .> donjon.Donjon: <<use>>
+partie.Partie .> jouable.personnage.Personnage: <<use>>
+
+partie.Tour .> jouable.Jouable: <<use>>
+partie.Tour .> donjon.Donjon: <<use>>
+partie.Tour .> jouable.personnage.Personnage: <<use>>
+
+
+
+jouable.Jouable .> donjon.Donjon: <<use>>
+jouable.Jouable .> donjon.Position: <<use>>
+jouable.Jouable .> jouable.ActionResult: <<use>>
+Equipement .> Personnage : <<use>>
+
+jouable.personnage.sorts.Guerison .> jouable.ActionResult: <<use>>
+jouable.personnage.sorts.ArmeMagique .> jouable.ActionResult: <<use>>
+jouable.personnage.sorts.Guerison .> jouable.ActionResult: <<use>>
+donjon.PositionsDesJouables .> jouable.ActionResult: <<use>>
+'/
+
+main .> partie.Partie: <<use>>
+
+
+Tour "1" o-- "1" Donjon : m_donjon
+Tour "1" o--> "1..*" jouable.Jouable : m_listeJouable[*]
+
+AttackResult .> ActionResult : <<use>>
+
+Personnage "1" *--> "1 \nm_race" jouable.personnage.race.Race : est
+Personnage "1" *--> "1 \nm_classe" jouable.personnage.classe.Classe : possède
+Personnage "1" *--> "1..* \nm_inventaire" Inventaire: détient
+
+jouable.monstre.Monstre "1" *--> "1 \nm_degats" partie.De : détient
+
+Inventaire "1" *--> "1..* \nm_inventaire" objet.Equipement: a >
+
+Donjon "1" *--> "1 \nm_positionsEquipement" PositionsDesEquipements : détient
+Donjon "1" *--> "1 \nm_positionsJouable" PositionsDesJouables : détient
+Donjon "1" *--> "1 \nm_positionsObstacle" PositionsDesObstacles : détient
+
+PositionsDesEquipements "1..*" o--> "1..* \nm_positionEquipement.value" Equipement : détient
+PositionsDesEquipements "1..*" o--> "1..* \nm_positionEquipement.key" Position : détient
+PositionsDesJouables "1..*" o--> "1..* \nm_positionJouable.value" jouable.Jouable : détient
+PositionsDesJouables "1..*" o--> "1..* \nm_positionJouable.key" Position : détient
+PositionsDesObstacles "1..*" o--> "1..* \nm_positionObstacle[*]" Position : détient
+
+Humain "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
+jouable.Jouable "1" *--> "1 \nm_caracteristiques" stats.CaracteristiquesBase : détient
+
 objet.arme.Arme "1" *--> "1 \nm_deDegats" partie.De : utilise
-InitialiseurPartie .> Donjon : <<instantiate>>
 
 Classe "0..*" o--> "0..* \nm_listeSorts" jouable.personnage.sorts.Sorts : a des
 
-main .> MaitreDuJeu : <<instantiate>>
-main .> Donjon : <<instantiate>>
-main .> De : <<instantiate>>
 
-MaitreDuJeu "1" o--> "1 \nm_donjon" Donjon : gère
 
 @enduml
 
