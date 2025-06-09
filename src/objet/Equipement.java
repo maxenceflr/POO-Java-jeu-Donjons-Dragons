@@ -14,6 +14,7 @@ public abstract class Equipement
     public abstract void equiper(Personnage perso);
     public abstract void ajouterBonus(int bonus);
     public abstract String getNomEquipement();
+    public abstract String getTypeClass();
 
     @Override
     public abstract boolean equals(Object other);

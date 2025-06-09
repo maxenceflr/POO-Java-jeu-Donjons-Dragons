@@ -19,6 +19,7 @@ package jouable
         + {abstract} getSymbole(): String
         + {abstract} getNom(): String
         + {abstract} setSymbole(symbole: String)
+        + {abstract} getTypeClass():String
         + getCurrentPv(): Integer
         + getPvMax(): Integer
         + getDexterite(): Integer
@@ -73,6 +74,7 @@ package jouable
             + ajouterJouable(position: Position, listeJouables: PositionJouables)
             + setId(id: Integer)
             + getNom(): String
+            + getTypeClass():String
             + getSymbole(): String
             + setSymbole(symbole: String)
             + setArmure(armure: Armure)
@@ -250,6 +252,7 @@ package jouable
             + {static} creerGobelin(): Monstre
             + {static} creercreerDemogorgon(): Monstre
             + attaquer(other: Position, donjon: (Donjon)
+            + getTypeClass():String
             + ajouterJouable(position: Position, listeJouables: PositionsDesJouables)
             + getClasseArmure(): Integer
             + getSymbole(): String
@@ -305,6 +308,7 @@ package objet
         + getSymbole(): String
         + {abstract} equiper(perso: Personnage)
         + {abstract} ajouterBonus(bonus: Integer)
+        + {abstract} getTypeClass():String
         + {abstract} getNomEquipement(): String
         + {abstract} equals(): Boolean
     }
@@ -318,6 +322,7 @@ package objet
             + <<create>> Armure()
             + equiper(perso: Personnage)
             + equiper(perso: Personnage)
+            + getTypeClass():String
             + getClasseArmure(): Integer
             + toString(): String
             + equals(other: Object): Boolean
@@ -386,6 +391,7 @@ package objet
             + <<create>> Arme()
             + ajouterBonus(bonus: Integer)
             + getDeDegats(): De
+            + getTypeClass():String
             + getPortee(): Integer
             + getBonusAttaque(): Integer
             + setDeDegats(degats: De)
@@ -753,7 +759,7 @@ donjon.PositionsDesJouables .> jouable.ActionResult: <<use>>
 '/
 
 main .> partie.Partie: <<use>>
-
+partie.Partie .> partie.Tour: <<use>>
 
 Tour "1" o-- "1" Donjon : m_donjon
 Tour "1" o--> "1..*" jouable.Jouable : m_listeJouable[*]

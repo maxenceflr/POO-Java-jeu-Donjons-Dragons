@@ -43,6 +43,7 @@ public class Partie {
         do {
             Tour tour=new Tour(donj,nbTour,nbDonjon);
             donjonFini =tour.commencerTour();
+            nbTour+=1;
         }while (!donjonFini);
     }
     public static void partieperdue(Personnage p)
