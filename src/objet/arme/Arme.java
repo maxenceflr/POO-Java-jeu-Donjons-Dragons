@@ -31,6 +31,10 @@ public abstract class Arme extends Equipement
     {
         this.m_bonusAttaque += bonus;
     }
+    public String getTypeClass()
+    {
+        return "a";
+    }
 
     public De getDeDegats()
     {

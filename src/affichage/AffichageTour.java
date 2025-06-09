@@ -67,10 +67,10 @@ public class AffichageTour {
             }
             String statut;
 
-            if (jo instanceof Personnage) {
+            if (jo.getTypeClass()=="p") {
                 Personnage p=(Personnage) jo;
                 statut = String.format("%s %s (%s %s, %d/%d)",p.getSymbole(), p.getNom(), p.getRace(), p.getClasse(), p.getCurrentPv(), p.getPvMax());
-            } else if (jo instanceof Monstre) {
+            } else if (jo.getTypeClass()=="m") {
                 Monstre m=(Monstre) jo;
                 statut = String.format("%s %s (%d/%d)", m.getSymbole(),m.getNom(), m.getCurrentPv(), m.getPvMax());
             } else {
@@ -459,7 +459,7 @@ public class AffichageTour {
 
                 if (j == null) {
                     System.out.println("Aucun joueur à cette position. Veuillez en saisir une autre.");
-                } else if (!(j instanceof Personnage)) {
+                } else if (!(j.getTypeClass()=="p")) {
                     System.out.println("Ce n’est pas un personnage. Veuillez sélectionner un personnage.");
                     j = null; // recommence
                 }
@@ -484,7 +484,7 @@ public class AffichageTour {
                     if (indice > 0 && indice <= indicemax-1) {
                         Equipement e = inventairePerso.getEquipement(indice - 1); // -1 car affichage 1-based
 
-                        if (e instanceof Arme) {
+                        if (e.getTypeClass()=="a") {
                             Arme arme = (Arme) e;
                             ArmeMagique a = new ArmeMagique();
                             if(a.lancerSort(p,arme)==SUCCESS) {
@@ -527,7 +527,7 @@ public class AffichageTour {
                     if (indice > 0 && indice <= indicemax) {
                         Equipement e = inventairePerso.getEquipement(indice - 1); // -1 car affichage 1-based
 
-                        if (e instanceof Arme) {
+                        if (e.getTypeClass()=="a") {
                             Arme arme = (Arme) e;
                             ArmeMagique a = new ArmeMagique();
                             if(a.lancerSort(p,arme)==SUCCESS) {
@@ -572,7 +572,7 @@ public class AffichageTour {
                 System.out.println("Aucun joueur à cette position. Veuillez en saisir une autre.");
             }
             else {
-                if (j instanceof Personnage)
+                if (j.getTypeClass()=="p")
                 {
                     Personnage personnageASoigner =(Personnage) j;
                     System.out.println("Vous avez sélectionner "+personnageASoigner.getNom());

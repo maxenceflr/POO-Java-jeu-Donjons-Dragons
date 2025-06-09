@@ -27,6 +27,10 @@ public abstract class Armure extends Equipement
     {
         this.m_classeArmure += bonus;
     }
+    public String getTypeClass()
+    {
+        return "p";//celui de Armure n'est jamais utilisé
+    }
 
     @Override
     public String toString()
