@@ -38,6 +38,27 @@ Gestion de l’inventaire et des équipements
 
 
 ## Structure du dépôt
+
+POO-Java-jeu-Donjons-Dragons/
+│
+├── README.md
+├── Phase_2.md
+├── src/
+│   ├── Main.java
+│   ├── affichage/
+│   ├── donjon/
+│   ├── jouable/
+│   ├── objet/
+│   ├── partie/
+│   └── stats/
+├── tests/
+│   ├── donjon/
+│   └── jouable/
+└── uml/
+    ├── semaine1.puml
+    ├── semaine2.puml
+    └── ...
+
 ---
 
 ## Création d'un personnage
@@ -57,7 +78,7 @@ Chaque personnage possède :
 * Les autres stats = `4d4 + 3 + bonus de race`
 
 
-## ⚔️ Les équipements
+## Les équipements
 
 ### Armures
 
