@@ -5,7 +5,7 @@ out/
 *.iml
 modules.xml
 *.ipr
-
+Phase_2.md
 ### Java ###
 doc/
 *.class
