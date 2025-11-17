@@ -38,7 +38,6 @@ Gestion de l’inventaire et des équipements
 
 
 ## Structure du dépôt
-
 POO-Java-jeu-Donjons-Dragons/
 │
 ├── README.md
@@ -58,6 +57,9 @@ POO-Java-jeu-Donjons-Dragons/
     ├── semaine1.puml
     ├── semaine2.puml
     └── ...
+
+Tous les fichiers Java se trouvent dans src/ et les diagrammes UML hebdomadaires dans uml/.
+
 
 ---
 
