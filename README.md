@@ -1,5 +1,5 @@
 
-### Projet DOOnjon & Dragon
+### Projet POO Donjon & Dragon
 
 Projet réalisé à l’IUT Robert Schuman – Université de Strasbourg, dans le cadre du Projet POO – Java : Développement d’un jeu Donjons & Dragons.
 
