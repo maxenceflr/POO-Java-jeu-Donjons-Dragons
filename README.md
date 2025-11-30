@@ -9,7 +9,11 @@ Objectif du projet
 
 Développer une application Java simulant une version simplifiée du jeu Donjons & Dragons :
 
-Jeu au tour par tour
+Jeu au tour par tour au format textuel tel que:
+</p>
+<img src="CaptureDND.png" alt="Capture DND" width="1550"/>
+
+</p>
 
 Plusieurs joueurs face à des monstres contrôlés par le Maître du Jeu
 
