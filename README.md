@@ -11,7 +11,7 @@ Développer une application Java simulant une version simplifiée du jeu Donjons
 
 Jeu au tour par tour au format textuel tel que:
 </p>
-<img src="CaptureDND.png" alt="Capture DND" width="500"/>
+<img src="CaptureDND.png" alt="Capture DND" width="1500"/>
 
 </p>
 
